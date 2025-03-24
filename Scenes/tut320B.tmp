@@ -1,0 +1,81 @@
+[gd_scene load_steps=11 format=3 uid="uid://1drujila14e4"]
+
+[ext_resource type="Texture2D" uid="uid://bqymlq1p00sg" path="res://Level/Campana.png" id="1_n47nc"]
+[ext_resource type="Texture2D" uid="uid://qgqyngmif4lx" path="res://Level/Cloud0.png" id="2_0d1ts"]
+[ext_resource type="PackedScene" uid="uid://cl61ishcdsny5" path="res://Scenes/tilemap.tscn" id="2_x08k0"]
+[ext_resource type="Texture2D" uid="uid://iqvbcec3g8b1" path="res://Level/Cloud1.png" id="3_5mwom"]
+[ext_resource type="Script" path="res://Scripts/cameras.gd" id="6_sjiiq"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="7_lnm46"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_8k44u"]
+
+[sub_resource type="Resource" id="Resource_btulh"]
+script = ExtResource("8_8k44u")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7kufw"]
+size = Vector2(250, 33)
+
+[sub_resource type="Resource" id="Resource_n4217"]
+script = ExtResource("8_8k44u")
+duration = 1.0
+transition = 0
+ease = 2
+
+[node name="tutorial" type="Node2D"]
+
+[node name="background" type="ParallaxBackground" parent="."]
+
+[node name="campana" type="ParallaxLayer" parent="background"]
+motion_scale = Vector2(0.05, 0.01)
+motion_mirroring = Vector2(960, 0)
+
+[node name="campana" type="Sprite2D" parent="background/campana"]
+texture = ExtResource("1_n47nc")
+centered = false
+
+[node name="cloud0" type="ParallaxLayer" parent="background"]
+motion_scale = Vector2(1, 0)
+motion_mirroring = Vector2(920, 0)
+
+[node name="cloud0" type="Sprite2D" parent="background/cloud0"]
+position = Vector2(436, 73)
+texture = ExtResource("2_0d1ts")
+
+[node name="cloud1" type="ParallaxLayer" parent="background"]
+motion_scale = Vector2(1, 0)
+motion_mirroring = Vector2(480, 0)
+
+[node name="cloud1" type="Sprite2D" parent="background/cloud1"]
+position = Vector2(146, 152)
+texture = ExtResource("3_5mwom")
+
+[node name="player_start_position" type="Node2D" parent="." groups=["player_start_position"]]
+position = Vector2(241, 123)
+
+[node name="tilemap" parent="." instance=ExtResource("2_x08k0")]
+position = Vector2(0, 0)
+layer_0/tile_data = PackedInt32Array(65535, 131077, 1, 131071, 131077, 1, 196607, 131077, 1, 0, 458757, 2, 65536, 458757, 2, 131072, 458757, 2, 19, 262149, 2, 65555, 262149, 2, 131091, 262149, 2, 262143, 131077, 1, 327679, 131077, 1, 393215, 131077, 1, 458751, 131077, 1, 524287, 131077, 1, 589823, 131077, 1, 655359, 131077, 1, 720895, 131077, 1, 786431, 131077, 1, 851967, 131077, 1, 917503, 131077, 1, 983039, 131077, 1, 196608, 458757, 2, 262144, 458757, 2, 327680, 458757, 2, 393216, 458757, 2, 458752, 458757, 2, 524288, 458757, 2, 589824, 458757, 2, 655360, 458757, 2, 720896, 458757, 2, 786432, 131077, 0, 851968, 589829, 2, 917504, 589829, 2, 589825, 65541, 3, 786433, 131077, 0, 851969, 589829, 2, 917505, 589829, 2, 589826, 131077, 3, 786434, 131077, 0, 851970, 589829, 2, 917506, 589829, 2, 589827, 196613, 3, 786435, 131077, 0, 851971, 589829, 2, 917507, 589829, 2, 786436, 131077, 0, 851972, 589829, 2, 917508, 589829, 2, 786437, 131077, 0, 851973, 589829, 2, 917509, 589829, 2, 262150, 65541, 3, 786438, 131077, 0, 851974, 589829, 2, 917510, 589829, 2, 262151, 131077, 3, 786439, 131077, 0, 851975, 589829, 2, 917511, 589829, 2, 262152, 196613, 3, 786440, 131077, 0, 851976, 589829, 2, 917512, 589829, 2, 786441, 131077, 0, 851977, 589829, 2, 917513, 589829, 2, 786442, 131077, 0, 851978, 589829, 2, 917514, 589829, 2, 786443, 131077, 0, 851979, 589829, 2, 917515, 589829, 2, 786444, 131077, 0, 851980, 589829, 2, 917516, 589829, 2, 786445, 131077, 0, 851981, 589829, 2, 917517, 589829, 2, 786446, 131077, 0, 851982, 589829, 2, 917518, 589829, 2, 786447, 131077, 0, 851983, 589829, 2, 917519, 589829, 2, 786448, 131077, 0, 851984, 589829, 2, 917520, 589829, 2, 786449, 131077, 0, 851985, 589829, 2, 917521, 589829, 2, 786450, 131077, 0, 851986, 589829, 2, 917522, 589829, 2, 196627, 262149, 2, 262163, 262149, 2, 327699, 262149, 2, 393235, 262149, 2, 458771, 262149, 2, 524307, 262149, 2, 589843, 262149, 2, 655379, 262149, 2, 720915, 262149, 2, 786451, 131077, 0, 851987, 589829, 2, 917523, 589829, 2, 524308, 65541, 3, 786452, 131077, 0, 851988, 589829, 2, 524309, 131077, 3, 589845, 327685, 0, 786453, 131077, 0, 851989, 589829, 2, 524310, 196613, 3, 589846, 327685, 0, 786454, 131077, 0, 851990, 589829, 2, 589847, 262149, 0, 786455, 131077, 0, 851991, 589829, 2, 589848, 262149, 0, 786456, 131077, 0, 851992, 589829, 2, 589849, 262149, 0, 786457, 131077, 0, 851993, 589829, 2, 786458, 131077, 0, 851994, 589829, 2, 655387, 131077, 3, 786459, 131077, 0, 851995, 589829, 2, 655388, 196613, 3, 786460, 131077, 0, 786461, 131077, 0, 786462, 131077, 0, 786463, 131077, 0, 524320, 65541, 3, 786464, 131077, 0, 524321, 131077, 3, 786465, 131077, 0, 524322, 196613, 3, 786466, 131077, 0, 786467, 131077, 0, 786468, 131077, 0, 786469, 131077, 0, 786470, 131077, 0, 786471, 131077, 0, 786472, 131077, 0, 786473, 131077, 0, 786474, 131077, 0, 786475, 131077, 0, 786476, 131077, 0, 786477, 131077, 0, 786478, 131077, 0, 786479, 131077, 0, 786480, 131077, 0, 786481, 131077, 0)
+
+[node name="Cameras" type="Node2D" parent="."]
+script = ExtResource("6_sjiiq")
+
+[node name="camera1" type="Node2D" parent="Cameras"]
+script = ExtResource("7_lnm46")
+zoom = Vector2(2, 2)
+tween_resource = SubResource("Resource_btulh")
+
+[node name="Area2D" type="Area2D" parent="Cameras/camera1"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cameras/camera1/Area2D"]
+position = Vector2(484, 365)
+shape = SubResource("RectangleShape2D_7kufw")
+
+[node name="camera 2" type="Node2D" parent="Cameras"]
+script = ExtResource("7_lnm46")
+tween_resource = SubResource("Resource_n4217")
+
+[connection signal="body_entered" from="Cameras/camera1/Area2D" to="Cameras" method="_on_area_2d_body_entered"]

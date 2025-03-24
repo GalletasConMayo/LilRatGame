@@ -1,0 +1,102 @@
+[gd_scene load_steps=13 format=3 uid="uid://dcv4xox7jxj11"]
+
+[ext_resource type="Script" path="res://Scripts/enemy_flea.gd" id="1_dx4tl"]
+[ext_resource type="Texture2D" uid="uid://i3xtaouavmbn" path="res://Images/Enemies/pulga-Sheet.png" id="2_v7m12"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2bha"]
+atlas = ExtResource("2_v7m12")
+region = Rect2(0, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcpky"]
+atlas = ExtResource("2_v7m12")
+region = Rect2(16, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bl1ua"]
+atlas = ExtResource("2_v7m12")
+region = Rect2(32, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xaxbn"]
+atlas = ExtResource("2_v7m12")
+region = Rect2(64, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5s4qa"]
+atlas = ExtResource("2_v7m12")
+region = Rect2(80, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrkdy"]
+atlas = ExtResource("2_v7m12")
+region = Rect2(96, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpe1c"]
+atlas = ExtResource("2_v7m12")
+region = Rect2(112, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o64ds"]
+atlas = ExtResource("2_v7m12")
+region = Rect2(144, 0, 16, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6vrre"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2bha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qcpky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bl1ua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xaxbn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5s4qa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrkdy")
+}],
+"loop": true,
+"name": &"flea_jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kpe1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o64ds")
+}],
+"loop": true,
+"name": &"flea_walk",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nbbqa"]
+size = Vector2(10, 10)
+
+[node name="enemy_flea" type="CharacterBody2D"]
+texture_filter = 1
+position = Vector2(82, 35)
+script = ExtResource("1_dx4tl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2, 1)
+sprite_frames = SubResource("SpriteFrames_6vrre")
+animation = &"flea_walk"
+frame_progress = 0.875696
+
+[node name="RayCastFront" type="RayCast2D" parent="."]
+position = Vector2(2, 1)
+rotation = -1.5708
+target_position = Vector2(-3.43323e-05, 10)
+
+[node name="RayCastDown" type="RayCast2D" parent="."]
+position = Vector2(2, 1)
+rotation = 3.14159
+target_position = Vector2(2.28882e-05, -10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_nbbqa")

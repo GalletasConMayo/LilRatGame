@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://thx5vvmxwldj"]
+
+[ext_resource type="PackedScene" uid="uid://ck4q38sqqwiyh" path="res://Scenes/pickables/pickables.tscn" id="1_a1tc0"]
+
+[node name="cheese" instance=ExtResource("1_a1tc0")]
+
+[node name="AnimatedSprite" parent="." index="1"]
+autoplay = "cheese"

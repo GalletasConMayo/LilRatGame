@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtnv5h0sf3urg"]
+
+[ext_resource type="PackedScene" uid="uid://b7xx11f4ku0jr" path="res://Scenes/trash_can_tp.tscn" id="1_p3h1m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_md7me"]
+size = Vector2(112, 67)
+
+[node name="trash_can_exit" instance=ExtResource("1_p3h1m")]
+
+[node name="Area2D2" type="Area2D" parent="." index="4"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" index="0"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_md7me")
+
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]

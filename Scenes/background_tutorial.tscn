@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://csx00j5vio1gg"]
+
+[ext_resource type="Texture2D" uid="uid://bqymlq1p00sg" path="res://Images/Level/backgrounds/Campana.png" id="1_xl638"]
+[ext_resource type="Script" path="res://Scripts/cloud0.gd" id="2_xaib4"]
+[ext_resource type="Texture2D" uid="uid://qgqyngmif4lx" path="res://Images/Level/backgrounds/Cloud0.png" id="3_wlfok"]
+[ext_resource type="Script" path="res://Scripts/cloud1.gd" id="4_d3lne"]
+[ext_resource type="Texture2D" uid="uid://iqvbcec3g8b1" path="res://Images/Level/backgrounds/Cloud1.png" id="5_vajeg"]
+
+[node name="background" type="ParallaxBackground"]
+scroll_ignore_camera_zoom = true
+
+[node name="campana" type="ParallaxLayer" parent="."]
+position = Vector2(0, -23)
+motion_scale = Vector2(0.05, 0.01)
+motion_mirroring = Vector2(960, 0)
+
+[node name="campana" type="Sprite2D" parent="campana"]
+texture = ExtResource("1_xl638")
+centered = false
+
+[node name="cloud0" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.1, 0)
+motion_mirroring = Vector2(1020, 0)
+script = ExtResource("2_xaib4")
+
+[node name="cloud0" type="Sprite2D" parent="cloud0"]
+position = Vector2(436, 73)
+texture = ExtResource("3_wlfok")
+
+[node name="cloud1" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.2, 0)
+motion_mirroring = Vector2(960, 0)
+script = ExtResource("4_d3lne")
+
+[node name="cloud11" type="Sprite2D" parent="cloud1"]
+position = Vector2(146, 152)
+texture = ExtResource("5_vajeg")
+
+[node name="cloud12" type="Sprite2D" parent="cloud1"]
+position = Vector2(624, 152)
+texture = ExtResource("5_vajeg")

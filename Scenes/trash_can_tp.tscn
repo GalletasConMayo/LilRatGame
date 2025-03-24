@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7xx11f4ku0jr"]
+
+[ext_resource type="Script" path="res://Scripts/area_exit.gd" id="1_ih66k"]
+[ext_resource type="Texture2D" uid="uid://ctunmvk6rp61h" path="res://Images/Entities/Trash_can_top.png" id="2_wa1da"]
+[ext_resource type="Texture2D" uid="uid://brnb1euo4ejml" path="res://Images/Entities/Trash_can_buttom.png" id="3_5rer4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dj8f1"]
+size = Vector2(41, 18)
+
+[node name="trash_can_tp" type="StaticBody2D"]
+visibility_layer = 4
+y_sort_enabled = true
+collision_layer = 65537
+script = ExtResource("1_ih66k")
+
+[node name="Front" type="Sprite2D" parent="."]
+z_index = 2
+position = Vector2(0, 1)
+scale = Vector2(0.992188, 1)
+texture = ExtResource("3_5rer4")
+
+[node name="Back" type="Sprite2D" parent="."]
+position = Vector2(0, 2)
+scale = Vector2(0.992188, 1)
+texture = ExtResource("2_wa1da")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-26, -15, -22, -15, -22, 29, 21, 29, 21, -15, 26, -15, 26, 32, -26, 32)
+one_way_collision_margin = 0.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 98304
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 19)
+shape = SubResource("RectangleShape2D_dj8f1")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

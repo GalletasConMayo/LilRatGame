@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://b3jg6yjdrk0bh"]
+
+[ext_resource type="Texture2D" uid="uid://cs64a88iss5af" path="res://Bullet/21.png" id="2_sumyn"]
+[ext_resource type="Texture2D" uid="uid://cxkjq2xidmnsa" path="res://Bullet/28.png" id="3_5hmk8"]
+[ext_resource type="Texture2D" uid="uid://b32ncehn3tsn0" path="res://Bullet/27.png" id="4_0ni78"]
+[ext_resource type="Script" path="res://Player/bullet.gd" id="6_i844r"]
+[ext_resource type="Texture2D" uid="uid://hymg1iclugu3" path="res://Bullet/23.png" id="7_0kqui"]
+[ext_resource type="Texture2D" uid="uid://g67flbyvnp3k" path="res://Bullet/22.png" id="8_16nkb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4i56q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_sumyn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_16nkb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0ni78")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5hmk8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_0kqui")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0ni78")
+}],
+"loop": true,
+"name": &"Bullet",
+"speed": 30.0
+}]
+
+[node name="Bullet" type="AnimatedSprite2D"]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(178, 50)
+scale = Vector2(0.0983092, 0.1)
+sprite_frames = SubResource("SpriteFrames_4i56q")
+animation = &"Bullet"
+autoplay = "Bullet"
+frame = 1
+frame_progress = 0.621162
+script = ExtResource("6_i844r")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
