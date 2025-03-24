@@ -6,12 +6,17 @@ var dash : bool = false
 
 var player_camera : bool = true
 var follow_player_camera : bool = false
+var weapon : bool = true
+var ribbon : bool = true
 
 var active_camera: Array[String] = []
 var exited_camera: String
 
-var weapon : bool = true
-var ribbon : bool = true
+var cheeses: int
+var cheese_piece: int
+var max_cheeses: int
+var hitpoints : int
+var max_hitpoints : int
 
 signal camera_search()
 signal trash_can()

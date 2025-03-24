@@ -1,0 +1,55 @@
+Historia: eres un ratoncito que quiere comer un queso supremo, y para lograrlo debe
+derrotar a 3 gatos malvados y su dueña que lo protegen
+
+Juego tipo megaman, con 3 stages principales con un boss al final de cada una
+Una 4 stage con un boss final
+SI en las otras 3 stages haces x cosa, el final boss es mas difícil
+Niveles cortos, de no mas de 16 pantallas exluyendo boss.
+
+Combate melee
+Movimientos del combate iniciales:
+-Combo de 2 golpes hacia adelante
+-Cargar un golpe mas fuerte que los 2 en combo
+-Un simple golpe hacia arriba
+-Saltar y golpear hacia abajo
+
+
+Se desbloquea un elemento al derrotar un boss
+Reglas elementales:
+-Los elementos se pueden cambiar de forma libre en el juego
+-Cada elemento tiene un move set distinto al básico
+	--ejemplo:-- tierra es un solo golpe mas fuerte pero lento
+		  -- rayo es un golpe rapido y con harto rango
+-Para usar un elemento, debe tener una limitante:
+	--Ver si es mejor con cooldown o con usos por nivel
+-Tienen el mismo daño base, haciendo mas daño hacia otros elementos tipo piedra papel tijera
+
+Niveles y ambiente / elemento:
+
+Tierra: ambiente entre basura y natural
+
+Rayo:   bajo tierra, nivel oscuro
+
+Fuego:  en una casa, en una cocina
+
+prioridad elemental:
+
+Fuego > Tierra > Rayo > Fuego (?)
+
+Bosses:
+3 Gatos con una caracteristica elemental que destaque al mismo tiempo que su nivel
+-Gato sucio de basurero, grande, elemento tierra, combate lento, mucho daño
+-Gato negro ninja, 	 chico,  elemento rayo,   combate rapido, poco daño
+-Gato naranja cocinero, normal,  elemento fuego,  combate equilibrado, deja quemado
+
+Final boss:
+Dueña de los gatos
+Es un poco mas dificl que los otros 3 gatos
+
+Hacer un final epico
+
+bonus si hay tiempo: implementar un final boss secreto, que sera otra rata, y se peleara
+por un queso con musica de linkin park de fondo
+
+este raton maneja los 3 elementos, los cuales ira intercambiando
+Solo puedes hacerle daño a su elemento activo, con su respectiva debilidad

@@ -23,9 +23,6 @@ const FALL_GRAVITY 	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTFALL * JUMP_TTFALL
 #Numeric Variables
 var CURRENT_SPEED : int
 var LAST_DIRECTION = 1
-var HP
-var DAMAGE
-var SPEED
 var bullet_direction
 var current_state : int
 var last_state : int
@@ -66,10 +63,8 @@ func _ready():
 	dash_reset = true
 	$player_collision.disabled = false
 	$player_collision.position.x = -6
-	HP = 10
-	DAMAGE = 1
-	SPEED = 0
 
+	
 func _physics_process(delta):
 	if Input.is_action_pressed("reset"):
 		global_variables.reset.emit()
@@ -92,14 +87,6 @@ func _physics_process(delta):
 
 
 func player_gravity(delta)->void:
-#Esto creo que era para que girara la ratita, pero gira con hitbox y actua raro
-#	if !is_on_floor():
-#		if SPIN == 1:
-#			$AnimatedSprite2D.rotate(PI/6)
-#		elif SPIN == -1:
-#			$AnimatedSprite2D.rotate(-PI/6)
-#		elif SPIN == -0:
-#			$AnimatedSprite2D.set_rotation(0)
 
 	if Input.is_action_pressed("down") and !is_on_floor():
 		fast_fall = true
@@ -276,6 +263,3 @@ func _on_idle_timer_timeout()->void:
 func teleport_to_location(position_x, position_y)->void:
 	self.position.x = position_x
 	self.position.y = position_y
-
-
-

@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://chrnq3hfno3x4"]
+[gd_scene load_steps=4 format=3 uid="uid://chrnq3hfno3x4"]
 
+[ext_resource type="Script" path="res://Scripts/HUD.gd" id="1_6qtbd"]
 [ext_resource type="Texture2D" uid="uid://mbiqtgu8rxjj" path="res://Images/Player/HUD.png" id="1_aticg"]
+[ext_resource type="FontFile" uid="uid://dhj8xfl36onsg" path="res://Images/Rat-Regular.otf" id="3_r4s30"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -9,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_6qtbd")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -16,4 +19,46 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 360.0
 grow_horizontal = 2
+rotation = 0.000223999
 texture = ExtResource("1_aticg")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 270
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/h_separation = 19
+columns = 2
+
+[node name="hitpoins" type="Label" parent="HBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_r4s30")
+text = "0"
+
+[node name="Control" type="Control" parent="HBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="cheeses" type="Label" parent="HBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_r4s30")
+text = "0"
+
+[node name="cheese_piece" type="Label" parent="HBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_r4s30")
+text = "0"
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+layout_mode = 2
