@@ -905,15 +905,19 @@ snap_to_pixel = true
 tween_resource = SubResource("Resource_45fv3")
 tween_on_load = false
 
-[node name="DoubleJumpTimer" type="Timer" parent="."]
-wait_time = 0.1
+[node name="JumpTimer" type="Timer" parent="."]
+wait_time = 0.2
 one_shot = true
 
-[node name="WallJumpTimer" type="Timer" parent="."]
+[node name="JumpBufferTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
 
 [node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="WallJumpTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
 
@@ -924,23 +928,10 @@ one_shot = true
 [node name="DashResetTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="JumpTimer" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
-
-[node name="MinJumpTimer" type="Timer" parent="."]
-wait_time = 0.1
-
 [node name="IdleTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
 
-[node name="JumpBufferTimer" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
-
-[connection signal="timeout" from="DoubleJumpTimer" to="." method="_on_double_jump_timer_timeout"]
-[connection signal="timeout" from="DashDurationTimer" to="." method="_on_dash_timer_timeout"]
-[connection signal="timeout" from="DashResetTimer" to="." method="_on_dash_reset_timer_timeout"]
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]
+[connection signal="timeout" from="DashDurationTimer" to="." method="_on_dash_duration_timer_timeout"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]

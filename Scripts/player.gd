@@ -5,12 +5,10 @@ const WALK_SPEED: int = 130
 const RUN_SPEED  : int = 200
 const FALL_SPEED : int = 300
 const FAST_FALL_SPEED : int = 450
+const WALLJUMP_VELOCITY : int = 200
+const DASH_SPEED : int = 700
 
 const ACCELERATION : int = 700
-const DEACCELERATION : int = 800
-
-const DASH_SPEED : int = 500
-const INITIAL_SPEED : int = 80
 
 #JUMP_HEIGHT = 0.5 * JUMP_TTRISE^2 + JUMP_VELOCITY * JUMP_TTRISE
 #JUMP_VELOCITY = -GRAVITY * JUMP_HEIGHT
@@ -22,17 +20,15 @@ const JUMP_VELOCITY	:float =(-1) *  2 * JUMP_HEIGHT / JUMP_TTRISE
 const RISE_GRAVITY	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTRISE * JUMP_TTRISE)
 const FALL_GRAVITY 	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTFALL * JUMP_TTFALL)
 
-const WALLJUMP_VELOCITY : int = 300
-
 #Numeric Variables
 var CURRENT_SPEED : int
 var LAST_DIRECTION = 1
-var DASH_DIRECTION
 var HP
 var DAMAGE
 var SPEED
 var bullet_direction
-var current_state
+var current_state : int
+var last_state : int
 var direction
 var shift
 var vertical_vel = 0
@@ -46,7 +42,6 @@ var wall_jump : bool = false
 var dash_reset : bool
 var dash : bool
 var jump_time : bool
-var double_jump_time : bool
 var fast_fall : bool
 var sleep : bool = false
 var was_on_floor : bool = false
@@ -80,19 +75,19 @@ func _physics_process(delta):
 		global_variables.reset.emit()
 	if Input.is_action_pressed("debug"):
 		global_variables.debug.emit()
-		
+	wall_logic = $player_collision/RayCastFrontMid.is_colliding() or ($player_collision/RayCastFrontUp.is_colliding() and $player_collision/RayCastFrontDown.is_colliding())
+	
 	player_gravity(delta)
 	player_SM()
 	player_idle()
 	player_run(delta)
 	player_dash(delta)
 	player_jump()
-	#jump_logic()
-	#double_jump_logic()
-	#wall_jump_logic()
 	play_animations()
+	
 	was_on_floor = is_on_floor()
-	LAST_DIRECTION = direction
+	if direction != 0:
+		LAST_DIRECTION = direction
 	move_and_slide()
 
 
@@ -116,7 +111,8 @@ func player_gravity(delta)->void:
 			velocity.y = clamp(velocity.y, -FAST_FALL_SPEED, FAST_FALL_SPEED)
 		else:
 			if current_state == STATE.WALL:
-				velocity.y = clamp(velocity.y, -FALL_SPEED/16, FALL_SPEED/16)
+				velocity.y += FALL_GRAVITY/16 * delta
+				clamp(velocity.y, -FALL_SPEED/2, FALL_SPEED/2)
 			else:
 				velocity.y += RISE_GRAVITY * delta
 				velocity.y = clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
@@ -155,10 +151,8 @@ func player_SM()->void:
 	
 	if (wall_logic and !is_on_floor()):
 		current_state = STATE.WALL
-
-	if !$WallJumpTimer.is_stopped() and wall_logic:
-		current_state = STATE.CWALL
-
+	
+	last_state = current_state
 
 
 func player_run(delta)->void:
@@ -176,7 +170,7 @@ func player_run(delta)->void:
 		velocity.x = move_toward(velocity.x, direction * RUN_SPEED, ACCELERATION * delta)
 
 	elif dash:
-		velocity.x = DASH_DIRECTION * DASH_SPEED 
+		velocity.x = LAST_DIRECTION * DASH_SPEED 
 
 	elif wall_jump:
 		velocity.x = 2 * RUN_SPEED * direction
@@ -185,81 +179,68 @@ func player_run(delta)->void:
 		velocity.x = 0
 
 func player_jump()->void:
-	jump_logic()
-	double_jump_logic()
-	wall_jump_logic()
-	#Aqui se ve la logica para ver si el salto es normal, doble, wall, etc
-	jump_condition =  (jump  or  wall_jump  or  double_jump)
-	
-	if (Input.is_action_just_pressed("jump") and jump_condition) or (is_on_floor() and !$JumpBufferTimer.is_stopped()):
-		if jump:
-			jump = false
-			print("jump")
-		if double_jump:
-			print("doublejump")
-			double_jump = false
-		if wall_jump:
-			print("walljump")
-			double_jump = true
-			wall_jump = false
+	if (jump_logic() or wall_jump_logic() or double_jump_logic()):
 		velocity.y = JUMP_VELOCITY
 		$JumpTimer.start()
-		$MinJumpTimer.start()
-		coyote_buffer = false
+	
 	#Esta parte de abajo controla el que puedas saltar mientras mantienes el boton
-	if Input.is_action_pressed("jump") and !$JumpTimer.is_stopped(): # and is_on_floor():
+	if Input.is_action_pressed("jump") and !$JumpTimer.is_stopped():
 		velocity.y = JUMP_VELOCITY
-	#Esto controla la velocidad de caida
-	if Input.is_action_just_released("jump") and $MinJumpTimer.is_stopped():
+	if Input.is_action_just_released("jump") and $JumpTimer.is_stopped() and velocity.y < 0:
 		velocity.y = 0
 
-func jump_logic()->void:
+func jump_logic()->bool:
 	jump = is_on_floor() or coyote_buffer
-	if jump:
+	if jump and (Input.is_action_just_pressed("jump") or !$JumpBufferTimer.is_stopped()):
 		fast_fall = false
+		jump = false
+		coyote_buffer = false
+		return true
 		
+	return false
 
-func double_jump_logic()->void:
+func double_jump_logic()->bool:
 	if !global_variables.double_jump:
-		return
+		return false
 	if is_on_floor():
 		double_jump = true
-	if wall_logic and Input.is_action_pressed("jump"):
-		double_jump = false
-		return
-	if !$WallJumpTimer.is_stopped() or !$CoyoteTimer.is_stopped():
-		double_jump = false
-		return
+		pass
+	if (wall_logic and Input.is_action_just_pressed("jump")) or !$WallJumpTimer.is_stopped() or !$CoyoteTimer.is_stopped():
+		return false
 	if double_jump and !is_on_floor() and Input.is_action_just_pressed("jump"):
 		double_jump = false
+		return true
+	return false
 
-func wall_jump_logic()->void:
-	wall_logic = $player_collision/RayCastFrontMid.is_colliding() or ($player_collision/RayCastFrontUp.is_colliding() and $player_collision/RayCastFrontDown.is_colliding())
-
+func wall_jump_logic()->bool:
 	if !global_variables.wall_jump:
-		return
+		return false
 	if current_state == STATE.WALL:
 		$WallJumpTimer.start()
-	if !$WallJumpTimer.is_stopped() and direction != 0 and !is_on_wall():
-		wall_jump = true
+		pass
+	if !$WallJumpTimer.is_stopped() and direction != 0 and !is_on_wall() and  Input.is_action_just_pressed("jump"):
+		velocity.x = WALLJUMP_VELOCITY * direction
+		return true
+	return false
 
 func player_dash(delta)->void:
 	if !global_variables.dash:
 		return
-
+	if is_on_floor() and $DashResetTimer.is_stopped():
+		dash_reset = true
 	if Input.is_action_just_pressed("dash") and dash_reset: # and is_on_floor():
-		DASH_DIRECTION = direction
 		$DashDurationTimer.start()
 		$DashResetTimer.start()
 		velocity.y = 0
-		velocity.x = DASH_DIRECTION * DASH_SPEED
-		dash_reset = false
+		velocity.x = LAST_DIRECTION * DASH_SPEED
 		dash = true
+		dash_reset = false
+
 
 func player_idle()->void:
 	if current_state != STATE.SLEEP and current_state != STATE.IDLE:
 		sleep = false
-		
+
 func play_animations()->void:
 	ribbon.visible = global_variables.ribbon
 	weapon.visible = global_variables.weapon
@@ -281,19 +262,13 @@ func RL_sprite_collission()->void:
 	if direction == -1:
 		$player_collision.position.x = 6
 		$player_collision.scale.x = -1
-
-func _on_dash_timer_timeout()->void:
+		
+func _on_dash_duration_timer_timeout():
+	velocity.x = RUN_SPEED * direction
 	dash = false
-
-func _on_dash_reset_timer_timeout()->void:
-	if is_on_floor():
-		dash_reset = true
-
+	
 func _on_jump_timer_timeout()->void:
 	jump_time = false
-
-func _on_double_jump_timer_timeout()->void:
-	double_jump_time = false
 
 func _on_idle_timer_timeout()->void:
 	sleep = true
@@ -301,3 +276,6 @@ func _on_idle_timer_timeout()->void:
 func teleport_to_location(position_x, position_y)->void:
 	self.position.x = position_x
 	self.position.y = position_y
+
+
+
