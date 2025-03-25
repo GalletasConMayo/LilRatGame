@@ -55,6 +55,9 @@ var rat : AnimatedSprite2D
 var weapon : AnimatedSprite2D
 var ribbon : AnimatedSprite2D
  
+#onready variables
+@onready var attack_component := $AttackComponent
+
 func _ready():
 	rat = $player_collision/rat
 	weapon = $player_collision/weapon
@@ -71,6 +74,10 @@ func _physics_process(delta):
 	if Input.is_action_pressed("debug"):
 		global_variables.debug.emit()
 	wall_logic = $player_collision/RayCastFrontMid.is_colliding() or ($player_collision/RayCastFrontUp.is_colliding() and $player_collision/RayCastFrontDown.is_colliding())
+	
+	# AttackComponent
+	if Input.is_action_just_pressed("ui_attack"):
+		attack_component.execute_attack()
 	
 	player_gravity(delta)
 	player_SM()
