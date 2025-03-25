@@ -76,7 +76,7 @@ func _physics_process(delta):
 	wall_logic = $player_collision/RayCastFrontMid.is_colliding() or ($player_collision/RayCastFrontUp.is_colliding() and $player_collision/RayCastFrontDown.is_colliding())
 	
 	# AttackComponent
-	if Input.is_action_just_pressed("ui_attack"):
+	if Input.is_action_just_pressed("ui_BassicAttack"):
 		attack_component.execute_attack()
 	
 	player_gravity(delta)

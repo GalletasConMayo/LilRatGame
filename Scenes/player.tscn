@@ -1,4 +1,4 @@
-[gd_scene load_steps=105 format=3 uid="uid://b7paocrh1u781"]
+[gd_scene load_steps=108 format=3 uid="uid://b7paocrh1u781"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_pi0nl"]
 [ext_resource type="Texture2D" uid="uid://dpu4kdoc4af2q" path="res://Images/Player/Rat_sprites/casi_full_rat_sheet.png" id="2_fsyou"]
@@ -860,7 +860,68 @@ transition = 0
 ease = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w0mk1"]
-size = Vector2(23, 16.5)
+size = Vector2(22.5, 18.25)
+
+[sub_resource type="Animation" id="Animation_3itbg"]
+resource_name = "BasicAttack"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Attack-Hitbox/BasicAttack:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_gon3m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Attack-Hitbox/BasicAttack:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bg1k8"]
+_data = {
+"BasicAttack": SubResource("Animation_3itbg"),
+"RESET": SubResource("Animation_gon3m")
+}
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 1
@@ -877,7 +938,8 @@ polygon = PackedVector2Array(5, 1, 5, -8, 12, -8, 12, 0, 12, 3, 12, 16, 5, 16, 0
 texture_filter = 1
 position = Vector2(4, 3.5)
 sprite_frames = SubResource("SpriteFrames_jein8")
-animation = &"rat_wall"
+animation = &"rat_idle"
+frame_progress = 0.526372
 
 [node name="ribbon" type="AnimatedSprite2D" parent="player_collision"]
 visible = false
@@ -904,6 +966,7 @@ position = Vector2(10, 12)
 target_position = Vector2(10, 0)
 
 [node name="phantom_player_camera" type="Node2D" parent="." groups=["phantom_player_camera"]]
+visible = false
 script = ExtResource("4_lktpr")
 priority = 5
 snap_to_pixel = true
@@ -944,11 +1007,20 @@ script = ExtResource("5_4uvxj")
 script = ExtResource("6_ryd01")
 
 [node name="BasicAttack" type="CollisionShape2D" parent="AttackComponent/Attack-Hitbox"]
-position = Vector2(31, 2)
+position = Vector2(26, 2)
 shape = SubResource("RectangleShape2D_w0mk1")
 disabled = true
 
 [node name="Attack-animation" type="AnimationPlayer" parent="AttackComponent"]
+libraries = {
+"": SubResource("AnimationLibrary_bg1k8")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_fsyou")
+hframes = 31
+vframes = 3
+frame = 4
 
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]
 [connection signal="timeout" from="DashDurationTimer" to="." method="_on_dash_duration_timer_timeout"]

@@ -20,6 +20,7 @@ func execute_attack() -> void:
 		animation_player.play("BasicAttack")  # Nombre de la animación en el AnimationPlayer
 		enable_hitbox(true)
 
+
 # Habilita/deshabilita la hitbox
 func enable_hitbox(active: bool) -> void:
 	hitbox.monitoring = active  
@@ -27,6 +28,7 @@ func enable_hitbox(active: bool) -> void:
 # Conectado a la señal "animation_finished" del AnimationPlayer
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == "BasicAttack":
+		print("holaa")
 		enable_hitbox(false)
 		is_attacking = false
 		emit_signal("attack_finished")
