@@ -240,7 +240,7 @@ func play_animations()->void:
 	weapon.visible = global_variables.weapon
 	for member in state:
 		if member == state[current_state]:
-			if member == "cwall" or member == "dash":
+			if member == "cwall":
 				pass
 			else:
 				rat.play("rat_"+member)
