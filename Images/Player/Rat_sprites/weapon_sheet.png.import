@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chg8jehccv3ed"
-path="res://.godot/imported/rat_dash.png-9fe2b6dd025dd02eb1e3475444de03b3.ctex"
+uid="uid://3t71tp5l08mx"
+path="res://.godot/imported/weapon_sheet.png-8c28e6cba0a9581b6ecdadca14e7de62.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Player/Rat_sprites/rat_dash.png"
-dest_files=["res://.godot/imported/rat_dash.png-9fe2b6dd025dd02eb1e3475444de03b3.ctex"]
+source_file="res://Images/Player/Rat_sprites/weapon_sheet.png"
+dest_files=["res://.godot/imported/weapon_sheet.png-8c28e6cba0a9581b6ecdadca14e7de62.ctex"]
 
 [params]
 

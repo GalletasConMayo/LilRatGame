@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpu4kdoc4af2q"
-path="res://.godot/imported/casi_full_rat_sheet.png-fb0be65b9243188e743187ef5559ebfb.ctex"
+uid="uid://dtekgkd8gwvqy"
+path="res://.godot/imported/rat_sheet.png-57868aec815642acafbc4b2cab9e5b6e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Player/Rat_sprites/casi_full_rat_sheet.png"
-dest_files=["res://.godot/imported/casi_full_rat_sheet.png-fb0be65b9243188e743187ef5559ebfb.ctex"]
+source_file="res://Images/Player/Rat_sprites/rat_sheet.png"
+dest_files=["res://.godot/imported/rat_sheet.png-57868aec815642acafbc4b2cab9e5b6e.ctex"]
 
 [params]
 

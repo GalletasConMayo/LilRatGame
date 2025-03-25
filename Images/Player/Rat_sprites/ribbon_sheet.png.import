@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpx5mtpesf7i3"
-path="res://.godot/imported/kiwi_cutie_rat.png-c4069ac1c782fc1ef4ac59530961ec40.ctex"
+uid="uid://hhcyr1jpje0e"
+path="res://.godot/imported/ribbon_sheet.png-7302eae7f990260eb34849866bac450f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Player/Rat_sprites/kiwi_cutie_rat.png"
-dest_files=["res://.godot/imported/kiwi_cutie_rat.png-c4069ac1c782fc1ef4ac59530961ec40.ctex"]
+source_file="res://Images/Player/Rat_sprites/ribbon_sheet.png"
+dest_files=["res://.godot/imported/ribbon_sheet.png-7302eae7f990260eb34849866bac450f.ctex"]
 
 [params]
 
