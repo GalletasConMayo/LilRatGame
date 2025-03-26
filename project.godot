@@ -127,6 +127,10 @@ asd={
 2d_physics/layer_2="Player"
 2d_physics/layer_3="PowerUps"
 2d_physics/layer_4="Cameras"
+2d_physics/layer_10="PlayerHitbox"
+2d_physics/layer_11="PlayerHurtbox"
+2d_physics/layer_12="EnemyHitbox"
+2d_physics/layer_13="EnemyHurtbox"
 2d_physics/layer_16="Transitions"
 
 [rendering]

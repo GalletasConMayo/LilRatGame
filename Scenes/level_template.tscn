@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://1drujila14e4"]
+[gd_scene load_steps=42 format=3 uid="uid://1drujila14e4"]
 
 [ext_resource type="Script" path="res://Scripts/area_exit.gd" id="1_wv5ol"]
 [ext_resource type="Script" path="res://Scripts/level_cameras.gd" id="2_25b6h"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://c041d2kegtk8m" path="res://Scenes/pickables/misc/pollito.tscn" id="14_t7owm"]
 [ext_resource type="PackedScene" uid="uid://thx5vvmxwldj" path="res://Scenes/pickables/misc/cheese.tscn" id="15_grhng"]
 [ext_resource type="PackedScene" uid="uid://dtnv5h0sf3urg" path="res://Scenes/trash_can_exit.tscn" id="16_v6fwg"]
+[ext_resource type="PackedScene" uid="uid://bkc5s73qvfim7" path="res://Scenes/cat_enemy.tscn" id="17_rjlh2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oshtc"]
 shader = ExtResource("4_o0p5y")
@@ -369,6 +370,9 @@ position = Vector2(-326, 754)
 position = Vector2(2200, 570)
 
 [node name="enemies" type="Node" parent="."]
+
+[node name="Cat_enemy" parent="enemies" instance=ExtResource("17_rjlh2")]
+position = Vector2(3263, -680)
 
 [node name="player_start_pos" type="Node2D" parent="." groups=["player_start_pos"]]
 position = Vector2(3113, -700)

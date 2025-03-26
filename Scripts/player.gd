@@ -31,7 +31,7 @@ var shift
 var vertical_vel = 0
 var horizontal_vel = 0
 
-#Binary Variables *true/false
+#Binary Variables 
 var jump : bool = false
 var double_jump : bool = false
 var double_jump_buff : bool = false
@@ -55,8 +55,6 @@ var rat : AnimatedSprite2D
 var weapon : AnimatedSprite2D
 var ribbon : AnimatedSprite2D
  
-#onready variables
-@onready var attack_component := $AttackComponent
 
 func _ready():
 	current_state = STATE.IDLE
@@ -97,9 +95,13 @@ func player_gravity(delta)->void:
 			velocity.y += FALL_GRAVITY * delta
 			velocity.y = clamp(velocity.y, -FAST_FALL_SPEED, FAST_FALL_SPEED)
 		else:
-			if current_state == STATE.WALL:
-				velocity.y += FALL_GRAVITY/16 * delta
-				clamp(velocity.y, -FALL_SPEED/2, FALL_SPEED/2)
+			if current_state == STATE.WALL or current_state == STATE.CWALL:
+				if velocity.y < 0:
+					velocity.y += RISE_GRAVITY * delta
+					clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
+				if velocity.y > 0:
+					velocity.y += FALL_GRAVITY/20 * delta
+					clamp(velocity.y, -FALL_SPEED/5, FALL_SPEED/5)
 			else:
 				velocity.y += RISE_GRAVITY * delta
 				velocity.y = clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
@@ -124,7 +126,7 @@ func player_SM()->void:
 	if abs(velocity.x) <= WALK_SPEED and abs(velocity.x) > 1 and is_on_floor():
 		current_state = STATE.WALK
 
-	if abs(velocity.x) > WALK_SPEED and is_on_floor():
+	if abs(velocity.x) > WALK_SPEED and is_on_floor() and !is_on_wall():
 		current_state = STATE.RUN
 
 	if velocity.y < 0 and !is_on_floor():
@@ -139,6 +141,9 @@ func player_SM()->void:
 	if (wall_logic and !is_on_floor()):
 		current_state = STATE.WALL
 	
+	if is_on_wall():
+		current_state = STATE.CWALL
+		
 	if Input.is_action_just_pressed("ui_BassicAttack"):
 		$timers/AtackTimer.start()
 	
@@ -147,6 +152,7 @@ func player_SM()->void:
 	
 	last_state = current_state
 	global_variables.state_signal.emit(state[current_state])
+
 
 
 func player_run(delta)->void:
@@ -160,15 +166,14 @@ func player_run(delta)->void:
 	if walking:
 		CURRENT_SPEED = WALK_SPEED
 
-	if direction != 0 and !dash:
+	if direction != LAST_DIRECTION and !dash:
+		velocity.x = move_toward(velocity.x, direction * 1/5*RUN_SPEED, 5*ACCELERATION * delta)
+	elif direction != 0 and !dash:
 		velocity.x = move_toward(velocity.x, direction * RUN_SPEED, ACCELERATION * delta)
-
 	elif dash:
 		velocity.x = LAST_DIRECTION * DASH_SPEED 
-
 	elif wall_jump:
 		velocity.x = 2 * RUN_SPEED * direction
-
 	else:
 		velocity.x = 0
 

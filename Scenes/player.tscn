@@ -59,6 +59,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../player_collision/atacks/normal_hit_1:monitoring")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_hjpt7"]
 resource_name = "dash"
@@ -270,10 +282,22 @@ tracks/3/path = NodePath("../player_collision/atacks/normal_hit_1:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false, true, false]
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../player_collision/atacks/normal_hit_1:monitoring")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_anvfx"]
@@ -502,8 +526,8 @@ ease = 2
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 1
-collision_layer = 2
-collision_mask = 32781
+collision_layer = 1026
+collision_mask = 38925
 platform_on_leave = 2
 platform_floor_layers = 4294901760
 script = ExtResource("1_pi0nl")
@@ -528,6 +552,7 @@ script = ExtResource("2_liu2k")
 
 [node name="normal_hit_1" type="Area2D" parent="player_collision/atacks"]
 visible = false
+monitoring = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="player_collision/atacks/normal_hit_1"]
 polygon = PackedVector2Array(-1, 13, 10, 8, 15, 2, 18, -8, 26, 3, 23, 14, 9, 17)
