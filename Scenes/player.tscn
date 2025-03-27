@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://b7paocrh1u781"]
+[gd_scene load_steps=23 format=3 uid="uid://b7paocrh1u781"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_pi0nl"]
 [ext_resource type="Script" path="res://Scripts/animations.gd" id="2_08nn6"]
 [ext_resource type="Texture2D" uid="uid://dtekgkd8gwvqy" path="res://Images/Player/Rat_sprites/rat_sheet.png" id="2_dwkhu"]
 [ext_resource type="Script" path="res://Scripts/atacks.gd" id="2_liu2k"]
+[ext_resource type="Script" path="res://Scenes/normal_hit_1.gd" id="3_d5fqc"]
 [ext_resource type="Texture2D" uid="uid://hhcyr1jpje0e" path="res://Images/Player/Rat_sprites/ribbon_sheet.png" id="3_t7635"]
 [ext_resource type="Texture2D" uid="uid://3t71tp5l08mx" path="res://Images/Player/Rat_sprites/weapon_sheet.png" id="4_dje7n"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_lktpr"]
@@ -552,7 +553,10 @@ script = ExtResource("2_liu2k")
 
 [node name="normal_hit_1" type="Area2D" parent="player_collision/atacks"]
 visible = false
+collision_layer = 512
+collision_mask = 4096
 monitoring = false
+script = ExtResource("3_d5fqc")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="player_collision/atacks/normal_hit_1"]
 polygon = PackedVector2Array(-1, 13, 10, 8, 15, 2, 18, -8, 26, 3, 23, 14, 9, 17)

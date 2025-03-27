@@ -32,6 +32,8 @@ func enemy_movement():
 		#-1:
 			#velocity.x = SPEED * -1
 
+func take_damage():
+	print("Gato dañado")
 
 func _on_cat_hitbox_body_entered(body):
 	if body is PlayerControl:
