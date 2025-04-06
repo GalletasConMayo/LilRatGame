@@ -6,8 +6,8 @@ var dash : bool = false
 
 var player_camera : bool = true
 var follow_player_camera : bool = false
-var weapon : bool = true
-var ribbon : bool = true
+var weapon : bool = false
+var ribbon : bool = false
 
 var active_camera: Array[String] = []
 var exited_camera: String

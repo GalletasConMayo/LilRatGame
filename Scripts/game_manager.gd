@@ -15,7 +15,7 @@ func _ready()->void:
 	global_variables.active_camera_clear()
 	player = get_tree().get_first_node_in_group("player")
 	level_container = get_tree().get_first_node_in_group("level_container")
-	scene = load("res://Scenes/level_template.tscn") as PackedScene
+	scene = load("res://Scenes/boss_playtest.tscn") as PackedScene
 	load_level()
 
 func load_level()->void:

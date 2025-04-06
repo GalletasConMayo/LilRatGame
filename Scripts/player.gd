@@ -59,17 +59,17 @@ var ribbon : AnimatedSprite2D
 func _ready():
 	current_state = STATE.IDLE
 	dash_reset = true
-	$player_collision.disabled = false
-	$player_collision.position.x = -6
+	$hurtbox.disabled = false
+	$hurtbox.position.x = -6
 
-	
+
 func _physics_process(delta):
 	if Input.is_action_pressed("reset"):
 		global_variables.reset.emit()
 	if Input.is_action_pressed("debug"):
 		global_variables.debug.emit()
-	wall_logic = $player_collision/RayCastFrontMid.is_colliding() or ($player_collision/RayCastFrontUp.is_colliding() and $player_collision/RayCastFrontDown.is_colliding())
-	
+	wall_logic = $hurtbox/RayCastFrontMid.is_colliding() or ($hurtbox/RayCastFrontUp.is_colliding() and $hurtbox/RayCastFrontDown.is_colliding())
+
 
 	player_gravity(delta)
 	player_SM()
@@ -99,7 +99,7 @@ func player_gravity(delta)->void:
 				if velocity.y < 0:
 					velocity.y += RISE_GRAVITY * delta
 					clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
-				if velocity.y > 0:
+				if velocity.y >= 0:
 					velocity.y += FALL_GRAVITY/20 * delta
 					clamp(velocity.y, -FALL_SPEED/5, FALL_SPEED/5)
 			else:
@@ -165,11 +165,13 @@ func player_run(delta)->void:
 	
 	if walking:
 		CURRENT_SPEED = WALK_SPEED
-
-	if direction != LAST_DIRECTION and !dash:
-		velocity.x = move_toward(velocity.x, direction * 1/5*RUN_SPEED, 5*ACCELERATION * delta)
-	elif direction != 0 and !dash:
-		velocity.x = move_toward(velocity.x, direction * RUN_SPEED, ACCELERATION * delta)
+	if direction:
+		velocity.x = RUN_SPEED * direction
+	#este comentario es para la aceleracion, pero el movement se siente pesado
+	#if direction != LAST_DIRECTION and !dash:
+		#velocity.x = move_toward(velocity.x, direction * 1/5*RUN_SPEED, 5*ACCELERATION * delta)
+	#elif direction != 0 and !dash:
+		#velocity.x = move_toward(velocity.x, direction * RUN_SPEED, ACCELERATION * delta)
 	elif dash:
 		velocity.x = LAST_DIRECTION * DASH_SPEED 
 	elif wall_jump:
@@ -185,8 +187,8 @@ func player_jump()->void:
 	#Esta parte de abajo controla el que puedas saltar mientras mantienes el boton
 	if Input.is_action_pressed("jump") and !$timers/JumpTimer.is_stopped():
 		velocity.y = JUMP_VELOCITY
-	if Input.is_action_just_released("jump") and $timers/JumpTimer.is_stopped() and velocity.y < 0:
-		velocity.y = 0
+	#if Input.is_action_just_released("jump") and $timers/JumpTimer.is_stopped() and velocity.y < 0:
+		#velocity.y = 0
 
 func jump_logic()->bool:
 	jump = is_on_floor() or coyote_buffer
@@ -208,6 +210,7 @@ func double_jump_logic()->bool:
 		return false
 	if double_jump and !is_on_floor() and Input.is_action_just_pressed("jump"):
 		double_jump = false
+		fast_fall = false
 		return true
 	return false
 
@@ -243,13 +246,13 @@ func RL_sprite_collission()->void:
 	#Esto de aqui esta un poco mucho hardcodeado, pq hacerlo funcion estaba medio paja
 	#Gira la hitbox en torno al cuerpo y no al centro del sprite
 	if direction == 1:
-		$player_collision.position.x = -6
-		$player_collision.scale.x = 1
+		$hurtbox.position.x = -6
+		$hurtbox.scale.x = 1
 		#$Animations.position.x = -6
 		$animations.scale.x = 1
 	if direction == -1:
-		$player_collision.position.x = 6
-		$player_collision.scale.x = -1
+		$hurtbox.position.x = 6
+		$hurtbox.scale.x = -1
 		#$Animations.position.x = 6
 		$animations.scale.x = -1
 		

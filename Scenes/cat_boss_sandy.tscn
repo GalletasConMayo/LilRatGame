@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkc5s73qvfim7"]
+[gd_scene load_steps=5 format=3 uid="uid://bkc5s73qvfim7"]
 
 [ext_resource type="Script" path="res://Scripts/cat_enemy.gd" id="1_1kgsi"]
-[ext_resource type="Texture2D" uid="uid://bky367c6tvhg2" path="res://Images/Enemies/gato.png" id="1_7bjvg"]
 
 [sub_resource type="Animation" id="Animation_j3ou3"]
 length = 0.001
@@ -89,12 +88,11 @@ _data = {
 "cat_attack": SubResource("Animation_vrirl")
 }
 
-[node name="Cat_enemy" type="CharacterBody2D"]
+[node name="Sandy" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_1kgsi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_7bjvg")
 hframes = 6
 frame = 1
 

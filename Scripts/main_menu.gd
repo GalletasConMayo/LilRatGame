@@ -11,7 +11,6 @@ func _ready():
 func _process(delta):
 	pass
 
-
 func _on_button_1_button_up():
 	get_tree().change_scene_to_packed(LEVEL_SELECTOR)
 	

@@ -50,7 +50,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../player_collision/atacks/normal_hit_1:visible")
+tracks/3/path = NodePath("../atacks/normal_hit_1:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -62,7 +62,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../player_collision/atacks/normal_hit_1:monitoring")
+tracks/4/path = NodePath("../atacks/normal_hit_1:monitoring")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -278,7 +278,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../player_collision/atacks/normal_hit_1:visible")
+tracks/3/path = NodePath("../atacks/normal_hit_1:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -290,7 +290,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../player_collision/atacks/normal_hit_1:monitoring")
+tracks/4/path = NodePath("../atacks/normal_hit_1:monitoring")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -532,31 +532,6 @@ platform_on_leave = 2
 platform_floor_layers = 4294901760
 script = ExtResource("1_pi0nl")
 
-[node name="player_collision" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(5, 1, 5, -8, 12, -8, 12, 0, 12, 3, 12, 16, 5, 16, 0, 16, 0, 1)
-
-[node name="RayCastFrontUp" type="RayCast2D" parent="player_collision"]
-position = Vector2(11, -6)
-target_position = Vector2(9, 0)
-
-[node name="RayCastFrontMid" type="RayCast2D" parent="player_collision"]
-position = Vector2(11, 3)
-target_position = Vector2(9, 0)
-
-[node name="RayCastFrontDown" type="RayCast2D" parent="player_collision"]
-position = Vector2(10, 12)
-target_position = Vector2(10, 0)
-
-[node name="atacks" type="Node2D" parent="player_collision"]
-script = ExtResource("2_liu2k")
-
-[node name="normal_hit_1" type="Area2D" parent="player_collision/atacks"]
-visible = false
-monitoring = false
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="player_collision/atacks/normal_hit_1"]
-polygon = PackedVector2Array(-1, 13, 10, 8, 15, 2, 18, -8, 26, 3, 23, 14, 9, 17)
-
 [node name="animations" type="Node2D" parent="."]
 script = ExtResource("2_08nn6")
 
@@ -588,6 +563,31 @@ hframes = 3
 vframes = 10
 frame = 1
 
+[node name="atacks" type="Node2D" parent="."]
+script = ExtResource("2_liu2k")
+
+[node name="normal_hit_1" type="Area2D" parent="atacks"]
+visible = false
+monitoring = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="atacks/normal_hit_1"]
+polygon = PackedVector2Array(-1, 13, 10, 8, 15, 2, 18, -8, 26, 3, 23, 14, 9, 17)
+
+[node name="hurtbox" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(5, 1, 5, -8, 12, -8, 12, 0, 12, 3, 12, 16, 5, 16, 0, 16, 0, 1)
+
+[node name="RayCastFrontUp" type="RayCast2D" parent="hurtbox"]
+position = Vector2(11, -6)
+target_position = Vector2(9, 0)
+
+[node name="RayCastFrontMid" type="RayCast2D" parent="hurtbox"]
+position = Vector2(11, 3)
+target_position = Vector2(9, 0)
+
+[node name="RayCastFrontDown" type="RayCast2D" parent="hurtbox"]
+position = Vector2(10, 12)
+target_position = Vector2(10, 0)
+
 [node name="timers" type="Node2D" parent="."]
 
 [node name="JumpTimer" type="Timer" parent="timers"]
@@ -603,7 +603,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="WallJumpTimer" type="Timer" parent="timers"]
-wait_time = 0.2
+wait_time = 0.3
 one_shot = true
 
 [node name="DashDurationTimer" type="Timer" parent="timers"]
