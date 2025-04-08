@@ -1,10 +1,7 @@
-<<<<<<< HEAD:Scenes/cat_boss_sandy.tscn
-[gd_scene load_steps=5 format=3 uid="uid://bkc5s73qvfim7"]
-=======
-[gd_scene load_steps=7 format=3 uid="uid://bkc5s73qvfim7"]
->>>>>>> 9deac1bc914cf78ad10a00b4ef3a9e9324bc9a3a:Scenes/cat_enemy.tscn
+[gd_scene load_steps=7 format=3 uid="uid://bcnqmvcvxlyfj"]
 
 [ext_resource type="Script" path="res://Scripts/cat_enemy.gd" id="1_1kgsi"]
+[ext_resource type="Texture2D" uid="uid://daa2ereos47n6" path="res://Images/Bosses/sandy.png" id="2_gd57v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lpjig"]
 size = Vector2(84, 113)
@@ -100,6 +97,7 @@ collision_layer = 0
 script = ExtResource("1_1kgsi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_gd57v")
 hframes = 6
 frame = 1
 

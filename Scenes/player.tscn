@@ -1,10 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://b7paocrh1u781"]
+[gd_scene load_steps=22 format=3 uid="uid://b7paocrh1u781"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_pi0nl"]
 [ext_resource type="Script" path="res://Scripts/animations.gd" id="2_08nn6"]
 [ext_resource type="Texture2D" uid="uid://dtekgkd8gwvqy" path="res://Images/Player/Rat_sprites/rat_sheet.png" id="2_dwkhu"]
 [ext_resource type="Script" path="res://Scripts/atacks.gd" id="2_liu2k"]
-[ext_resource type="Script" path="res://Scenes/normal_hit_1.gd" id="3_d5fqc"]
 [ext_resource type="Texture2D" uid="uid://hhcyr1jpje0e" path="res://Images/Player/Rat_sprites/ribbon_sheet.png" id="3_t7635"]
 [ext_resource type="Texture2D" uid="uid://3t71tp5l08mx" path="res://Images/Player/Rat_sprites/weapon_sheet.png" id="4_dje7n"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_lktpr"]
@@ -533,37 +532,6 @@ platform_on_leave = 2
 platform_floor_layers = 4294901760
 script = ExtResource("1_pi0nl")
 
-<<<<<<< HEAD
-=======
-[node name="player_collision" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(5, 1, 5, -8, 12, -8, 12, 0, 12, 3, 12, 16, 5, 16, 0, 16, 0, 1)
-
-[node name="RayCastFrontUp" type="RayCast2D" parent="player_collision"]
-position = Vector2(11, -6)
-target_position = Vector2(9, 0)
-
-[node name="RayCastFrontMid" type="RayCast2D" parent="player_collision"]
-position = Vector2(11, 3)
-target_position = Vector2(9, 0)
-
-[node name="RayCastFrontDown" type="RayCast2D" parent="player_collision"]
-position = Vector2(10, 12)
-target_position = Vector2(10, 0)
-
-[node name="atacks" type="Node2D" parent="player_collision"]
-script = ExtResource("2_liu2k")
-
-[node name="normal_hit_1" type="Area2D" parent="player_collision/atacks"]
-visible = false
-collision_layer = 512
-collision_mask = 4096
-monitoring = false
-script = ExtResource("3_d5fqc")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="player_collision/atacks/normal_hit_1"]
-polygon = PackedVector2Array(-1, 13, 10, 8, 15, 2, 18, -8, 26, 3, 23, 14, 9, 17)
-
->>>>>>> 9deac1bc914cf78ad10a00b4ef3a9e9324bc9a3a
 [node name="animations" type="Node2D" parent="."]
 script = ExtResource("2_08nn6")
 
