@@ -1,45 +1,128 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8i227klbxv7i"]
+[gd_scene load_steps=9 format=3 uid="uid://c8i227klbxv7i"]
 
-[ext_resource type="Script" path="res://Scripts/cat_enemy.gd" id="1_6dpft"]
+[ext_resource type="Script" path="res://Scripts/boss_derpy.gd" id="1_82fvs"]
+[ext_resource type="Texture2D" uid="uid://c4qwpsniahfic" path="res://Images/Bosses/Derpy.png" id="2_qrnqv"]
 
 [sub_resource type="Animation" id="Animation_j3ou3"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("animations/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7r6ii"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("animations/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 1), Vector2i(5, 1), Vector2i(6, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_o3ide"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("animations/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_vrirl"]
 resource_name = "cat_attack"
-length = 2.80001
+length = 1.60001
 loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("animations/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2), Vector2i(4, 2), Vector2i(5, 2)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cajya"]
 _data = {
 "RESET": SubResource("Animation_j3ou3"),
-"cat_attack": SubResource("Animation_vrirl")
+"chase": SubResource("Animation_7r6ii"),
+"idle": SubResource("Animation_o3ide"),
+"meleeatt": SubResource("Animation_vrirl")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gfqsr"]
+size = Vector2(61.75, 93.5)
+
 [node name="Derpy" type="CharacterBody2D"]
-collision_layer = 0
-script = ExtResource("1_6dpft")
+collision_layer = 4096
+collision_mask = 513
+script = ExtResource("1_82fvs")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-hframes = 6
+[node name="timers" type="Node2D" parent="."]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="MeleeAttTimer" type="Timer" parent="timers"]
+wait_time = 1.5
+one_shot = true
+
+[node name="RangeAttTimer" type="Timer" parent="timers"]
+wait_time = 1.5
+one_shot = true
+
+[node name="Teleport" type="Timer" parent="timers/RangeAttTimer"]
+one_shot = true
+
+[node name="IdleTimer" type="Timer" parent="timers"]
+one_shot = true
+
+[node name="animations" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="animations"]
+texture = ExtResource("2_qrnqv")
+hframes = 7
+vframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_cajya")
 }
 
-[node name="cat_hurtbox" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-17, 59, -10, 11, -11, -11, -22, -23, -19, -37, 0, -41, 11, -27, 47, 22, 55, 62)
-
-[node name="cat_hitbox" type="Area2D" parent="."]
+[node name="hitbox" type="Area2D" parent="."]
 visible = false
 collision_layer = 2048
 collision_mask = 1536
 monitoring = false
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="cat_hitbox"]
-polygon = PackedVector2Array(-11, 53, -9, 2, 0, -65, -50, -50, -60, 26, -24, 57, -5, 63)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 
-[node name="AttackTimer" type="Timer" parent="."]
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(-23, 1)
+shape = SubResource("RectangleShape2D_gfqsr")
 
-[connection signal="body_entered" from="cat_hitbox" to="." method="_on_cat_hitbox_body_entered"]
+[connection signal="timeout" from="timers/MeleeAttTimer" to="." method="_on_attack_timeout"]
+[connection signal="timeout" from="timers/RangeAttTimer" to="." method="_on_attack_timeout"]
+[connection signal="timeout" from="timers/RangeAttTimer/Teleport" to="." method="_on_teleport_timeout"]
+[connection signal="body_entered" from="hitbox" to="." method="_on_cat_hitbox_body_entered"]

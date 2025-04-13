@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=3 uid="uid://bcnqmvcvxlyfj"]
+[gd_scene load_steps=6 format=3 uid="uid://bcnqmvcvxlyfj"]
 
-[ext_resource type="Script" path="res://Scripts/cat_enemy.gd" id="1_1kgsi"]
 [ext_resource type="Texture2D" uid="uid://daa2ereos47n6" path="res://Images/Bosses/sandy.png" id="2_gd57v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lpjig"]
@@ -94,7 +93,6 @@ _data = {
 
 [node name="Sandy" type="CharacterBody2D"]
 collision_layer = 0
-script = ExtResource("1_1kgsi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_gd57v")
@@ -104,11 +102,6 @@ frame = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(22, 7.5)
 shape = SubResource("RectangleShape2D_lpjig")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_cajya")
-}
 
 [node name="cat_hitbox" type="Area2D" parent="."]
 visible = false
@@ -127,5 +120,10 @@ collision_mask = 512
 polygon = PackedVector2Array(-17, 59, -10, 11, -11, -11, -22, -23, -19, -37, 0, -41, 11, -27, 47, 22, 55, 62)
 
 [node name="AttackTimer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cajya")
+}
 
 [connection signal="body_entered" from="cat_hitbox" to="." method="_on_cat_hitbox_body_entered"]

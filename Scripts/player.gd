@@ -63,7 +63,7 @@ func _ready():
 	$hurtbox.position.x = -6
 
 
-func _physics_process(delta):
+func _physics_process(delta: float):
 	if Input.is_action_pressed("reset"):
 		global_variables.reset.emit()
 	if Input.is_action_pressed("debug"):
@@ -84,7 +84,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 
-func player_gravity(delta)->void:
+func player_gravity(delta: float)->void:
 
 	if Input.is_action_pressed("down") and !is_on_floor():
 		fast_fall = true
@@ -155,7 +155,7 @@ func player_SM()->void:
 
 
 
-func player_run(delta)->void:
+func player_run(delta: float)->void:
 	direction = Input.get_axis("left", "right")
 	walking = Input.is_action_pressed("walking")
 	if is_on_floor() and $timers/DashResetTimer.is_stopped():
@@ -165,15 +165,15 @@ func player_run(delta)->void:
 	
 	if walking:
 		CURRENT_SPEED = WALK_SPEED
-	if direction:
-		velocity.x = RUN_SPEED * direction
+	if  dash:
+		velocity.x = LAST_DIRECTION * DASH_SPEED 
 	#este comentario es para la aceleracion, pero el movement se siente pesado
 	#if direction != LAST_DIRECTION and !dash:
 		#velocity.x = move_toward(velocity.x, direction * 1/5*RUN_SPEED, 5*ACCELERATION * delta)
 	#elif direction != 0 and !dash:
 		#velocity.x = move_toward(velocity.x, direction * RUN_SPEED, ACCELERATION * delta)
-	elif dash:
-		velocity.x = LAST_DIRECTION * DASH_SPEED 
+	elif direction:
+		velocity.x = RUN_SPEED * direction
 	elif wall_jump:
 		velocity.x = 2 * RUN_SPEED * direction
 	else:
@@ -225,7 +225,7 @@ func wall_jump_logic()->bool:
 		return true
 	return false
 
-func player_dash(delta)->void:
+func player_dash(delta: float)->void:
 	if !global_variables.dash:
 		return
 	if is_on_floor() and $timers/DashResetTimer.is_stopped():
@@ -234,7 +234,6 @@ func player_dash(delta)->void:
 		$timers/DashDurationTimer.start()
 		$timers/DashResetTimer.start()
 		velocity.y = 0
-		velocity.x = LAST_DIRECTION * DASH_SPEED
 		dash = true
 		dash_reset = false
 
@@ -246,18 +245,19 @@ func RL_sprite_collission()->void:
 	#Esto de aqui esta un poco mucho hardcodeado, pq hacerlo funcion estaba medio paja
 	#Gira la hitbox en torno al cuerpo y no al centro del sprite
 	if direction == 1:
-		$hurtbox.position.x = -6
+		$hurtbox.position.x = -4
 		$hurtbox.scale.x = 1
 		#$Animations.position.x = -6
 		$animations.scale.x = 1
+		$atacks.scale.x = 1
 	if direction == -1:
-		$hurtbox.position.x = 6
+		$hurtbox.position.x = 4
 		$hurtbox.scale.x = -1
 		#$Animations.position.x = 6
 		$animations.scale.x = -1
+		$atacks.scale.x = -1
 		
 func _on_dash_duration_timer_timeout():
-	velocity.x = RUN_SPEED * direction
 	dash = false
 	
 func _on_jump_timer_timeout()->void:
@@ -266,6 +266,6 @@ func _on_jump_timer_timeout()->void:
 func _on_idle_timer_timeout()->void:
 	sleep = true
 
-func teleport_to_location(position_x, position_y)->void:
+func teleport_to_location(position_x: float, position_y: float)->void:
 	self.position.x = position_x
 	self.position.y = position_y
