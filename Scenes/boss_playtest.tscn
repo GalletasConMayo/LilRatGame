@@ -48,4 +48,4 @@ shape = SubResource("RectangleShape2D_omy4t")
 position = Vector2(211, 227)
 
 [node name="Derpy" parent="." instance=ExtResource("6_fy65o")]
-position = Vector2(176, 218)
+position = Vector2(134, 153)

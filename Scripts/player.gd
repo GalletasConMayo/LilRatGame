@@ -17,7 +17,7 @@ const JUMP_HEIGHT 	:float = 40
 const JUMP_TTRISE 	:float = 0.3
 const JUMP_TTFALL 	:float = 0.15
 const JUMP_VELOCITY	:float =(-1) *  2 * JUMP_HEIGHT / JUMP_TTRISE
-const RISE_GRAVITY	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTRISE * JUMP_TTRISE)
+const GRAVITY		:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTRISE * JUMP_TTRISE)
 const FALL_GRAVITY 	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTFALL * JUMP_TTFALL)
 
 #Numeric Variables
@@ -54,13 +54,11 @@ const state = ["idle", "sleep", "walk", "run", "jump", "fall", "dash", "wall", "
 var rat : AnimatedSprite2D
 var weapon : AnimatedSprite2D
 var ribbon : AnimatedSprite2D
- 
 
 func _ready():
 	current_state = STATE.IDLE
 	dash_reset = true
-	$hurtbox.disabled = false
-	$hurtbox.position.x = -6
+	$hurtbox/Hurtbox.disabled = false
 
 
 func _physics_process(delta: float):
@@ -69,19 +67,46 @@ func _physics_process(delta: float):
 	if Input.is_action_pressed("debug"):
 		global_variables.debug.emit()
 	wall_logic = $hurtbox/RayCastFrontMid.is_colliding() or ($hurtbox/RayCastFrontUp.is_colliding() and $hurtbox/RayCastFrontDown.is_colliding())
-
-
+	
 	player_gravity(delta)
 	player_SM()
 	player_idle()
 	player_run(delta)
 	player_dash(delta)
 	player_jump()
+	hp_check()
 	
 	was_on_floor = is_on_floor()
 	if direction != 0:
 		LAST_DIRECTION = direction
 	move_and_slide()
+
+
+func RL_sprite_collission()->void:
+	#Esto de aqui esta un poco mucho hardcodeado, pq hacerlo funcion estaba medio paja
+	#Gira la hitbox en torno al cuerpo y no al centro del sprite
+	if direction == 1:
+		$hurtbox.scale.x = 1
+		$animations.scale.x = 1
+		$atacks.scale.x = 1
+	if direction == -1:
+		$hurtbox.scale.x = -1
+		$animations.scale.x = -1
+		$atacks.scale.x = -1
+
+
+func _on_dash_duration_timer_timeout():
+	dash = false
+
+func _on_jump_timer_timeout()->void:
+	jump_time = false
+
+func _on_idle_timer_timeout()->void:
+	sleep = true
+
+func teleport_to_location(position_x: float, position_y: float)->void:
+	self.position.x = position_x
+	self.position.y = position_y
 
 
 func player_gravity(delta: float)->void:
@@ -97,13 +122,13 @@ func player_gravity(delta: float)->void:
 		else:
 			if current_state == STATE.WALL or current_state == STATE.CWALL:
 				if velocity.y < 0:
-					velocity.y += RISE_GRAVITY * delta
+					velocity.y += GRAVITY * delta
 					clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
 				if velocity.y >= 0:
 					velocity.y += FALL_GRAVITY/20 * delta
 					clamp(velocity.y, -FALL_SPEED/5, FALL_SPEED/5)
 			else:
-				velocity.y += RISE_GRAVITY * delta
+				velocity.y += GRAVITY * delta
 				velocity.y = clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
 	
 	if velocity.y >= 0 and !is_on_floor():
@@ -113,6 +138,7 @@ func player_gravity(delta: float)->void:
 
 	if Input.is_action_just_pressed("jump") and !is_on_floor():
 		$timers/JumpBufferTimer.start()
+
 
 func player_SM()->void:
 	if is_on_floor() and velocity.x == 0 and !sleep:
@@ -154,7 +180,6 @@ func player_SM()->void:
 	global_variables.state_signal.emit(state[current_state])
 
 
-
 func player_run(delta: float)->void:
 	direction = Input.get_axis("left", "right")
 	walking = Input.is_action_pressed("walking")
@@ -179,6 +204,7 @@ func player_run(delta: float)->void:
 	else:
 		velocity.x = 0
 
+
 func player_jump()->void:
 	if (jump_logic() or wall_jump_logic() or double_jump_logic()):
 		velocity.y = JUMP_VELOCITY
@@ -190,6 +216,7 @@ func player_jump()->void:
 	#if Input.is_action_just_released("jump") and $timers/JumpTimer.is_stopped() and velocity.y < 0:
 		#velocity.y = 0
 
+
 func jump_logic()->bool:
 	jump = is_on_floor() or coyote_buffer
 	if jump and (Input.is_action_just_pressed("jump") or !$timers/JumpBufferTimer.is_stopped()):
@@ -199,6 +226,7 @@ func jump_logic()->bool:
 		return true
 		
 	return false
+
 
 func double_jump_logic()->bool:
 	if !global_variables.double_jump:
@@ -214,6 +242,7 @@ func double_jump_logic()->bool:
 		return true
 	return false
 
+
 func wall_jump_logic()->bool:
 	if !global_variables.wall_jump:
 		return false
@@ -224,6 +253,7 @@ func wall_jump_logic()->bool:
 		velocity.x = WALLJUMP_VELOCITY * direction
 		return true
 	return false
+
 
 func player_dash(delta: float)->void:
 	if !global_variables.dash:
@@ -237,35 +267,28 @@ func player_dash(delta: float)->void:
 		dash = true
 		dash_reset = false
 
+
 func player_idle()->void:
 	if current_state != STATE.SLEEP and current_state != STATE.IDLE:
 		sleep = false
 
-func RL_sprite_collission()->void:
-	#Esto de aqui esta un poco mucho hardcodeado, pq hacerlo funcion estaba medio paja
-	#Gira la hitbox en torno al cuerpo y no al centro del sprite
-	if direction == 1:
-		$hurtbox.position.x = -4
-		$hurtbox.scale.x = 1
-		#$Animations.position.x = -6
-		$animations.scale.x = 1
-		$atacks.scale.x = 1
-	if direction == -1:
-		$hurtbox.position.x = 4
-		$hurtbox.scale.x = -1
-		#$Animations.position.x = 6
-		$animations.scale.x = -1
-		$atacks.scale.x = -1
-		
-func _on_dash_duration_timer_timeout():
-	dash = false
-	
-func _on_jump_timer_timeout()->void:
-	jump_time = false
 
-func _on_idle_timer_timeout()->void:
-	sleep = true
+func hp_check()->void:
+	if global_variables.hitpoints <= 0:
+		print("ratoncito ded")
+		set_physics_process(false)
+		#ded animation play 
+		await get_tree().create_timer(2).timeout
+		queue_free()
 
-func teleport_to_location(position_x: float, position_y: float)->void:
-	self.position.x = position_x
-	self.position.y = position_y
+
+func _on_hurtbox_area_entered(area):
+	$hurtbox/Hurtbox.disabled = true
+	get_tree().paused = true
+	await get_tree().create_timer(0.3).timeout
+	get_tree().paused = false
+
+
+func _on_i_frames_timer_timeout():
+	$hurtbox/Hurtbox.disabled = false
+

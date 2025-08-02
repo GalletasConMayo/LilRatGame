@@ -4,8 +4,8 @@ func _ready():
 	global_variables.cheeses = 0
 	global_variables.cheese_piece = 0
 	global_variables.max_cheeses = 4
-	global_variables.hitpoints = 4
-	global_variables.max_hitpoints = 4
+	global_variables.hitpoints = 5
+	global_variables.max_hitpoints = 5
 
 func _process(delta):
 	check_hud_variables()
