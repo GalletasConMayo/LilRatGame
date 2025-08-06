@@ -1,0 +1,93 @@
+[gd_scene load_steps=4 format=3 uid="uid://wfxh051hbe8p"]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_jw2ej"]
+[ext_resource type="Texture2D" uid="uid://cl0d4belwg35l" path="res://Images/art.png" id="1_lkqwv"]
+[ext_resource type="FontFile" uid="uid://dhj8xfl36onsg" path="res://Images/Rat-Regular.otf" id="3_brblc"]
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jw2ej")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_lkqwv")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 32
+
+[node name="game_title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0.584314, 1)
+theme_override_fonts/font = ExtResource("3_brblc")
+theme_override_font_sizes/font_size = 51
+text = "LIL RAT GAME
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="separator" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="separator3" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="separator2" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button1" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_brblc")
+theme_override_font_sizes/font_size = 26
+text = "play
+"
+
+[node name="Button2" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_brblc")
+theme_override_font_sizes/font_size = 26
+text = "exit, you coward
+"
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0.584314, 1)
+theme_override_fonts/font = ExtResource("3_brblc")
+text = "ver.preAlpha 0.1
+CookiesWM
+"
+
+[connection signal="button_up" from="MarginContainer/HBoxContainer/VBoxContainer/Button1" to="." method="_on_button_1_button_up"]
+[connection signal="button_up" from="MarginContainer/HBoxContainer/VBoxContainer/Button2" to="." method="_on_button_2_button_up"]

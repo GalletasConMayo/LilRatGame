@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ft13a7q4o77w"]
+
+[ext_resource type="PackedScene" uid="uid://ck4q38sqqwiyh" path="res://Scenes/pickables/pickables.tscn" id="1_cnr3u"]
+
+[node name="doublejump" instance=ExtResource("1_cnr3u")]
+
+[node name="AnimatedSprite" parent="." index="1"]
+animation = &"doublejump"
+autoplay = "doublejump"

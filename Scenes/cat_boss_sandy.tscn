@@ -1,0 +1,129 @@
+[gd_scene load_steps=6 format=3 uid="uid://bcnqmvcvxlyfj"]
+
+[ext_resource type="Texture2D" uid="uid://daa2ereos47n6" path="res://Images/Bosses/sandy.png" id="2_gd57v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lpjig"]
+size = Vector2(84, 113)
+
+[sub_resource type="Animation" id="Animation_j3ou3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cat_hitbox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cat_hitbox:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_vrirl"]
+resource_name = "cat_attack"
+length = 2.80001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 1.1, 1.5, 1.6, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(5, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cat_hitbox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5, 1.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cat_hitbox:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.5, 1.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cajya"]
+_data = {
+"RESET": SubResource("Animation_j3ou3"),
+"cat_attack": SubResource("Animation_vrirl")
+}
+
+[node name="Sandy" type="CharacterBody2D"]
+collision_layer = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_gd57v")
+hframes = 6
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(22, 7.5)
+shape = SubResource("RectangleShape2D_lpjig")
+
+[node name="cat_hitbox" type="Area2D" parent="."]
+visible = false
+collision_layer = 2048
+collision_mask = 1536
+monitoring = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="cat_hitbox"]
+polygon = PackedVector2Array(-11, 53, -9, 2, 0, -65, -50, -50, -60, 26, -24, 57, -5, 63)
+
+[node name="Hurtbox" type="Area2D" parent="." groups=["enemy_hurtbox"]]
+collision_layer = 4096
+collision_mask = 512
+
+[node name="cat_hurtbox" type="CollisionPolygon2D" parent="Hurtbox"]
+polygon = PackedVector2Array(-17, 59, -10, 11, -11, -11, -22, -23, -19, -37, 0, -41, 11, -27, 47, 22, 55, 62)
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cajya")
+}
+
+[connection signal="body_entered" from="cat_hitbox" to="." method="_on_cat_hitbox_body_entered"]

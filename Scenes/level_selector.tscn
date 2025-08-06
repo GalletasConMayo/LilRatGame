@@ -1,0 +1,184 @@
+[gd_scene load_steps=12 format=3 uid="uid://dbfjjmarw5yd7"]
+
+[ext_resource type="Script" path="res://Scripts/level_selector.gd" id="1_2wf3u"]
+[ext_resource type="Texture2D" uid="uid://c5084cfqajs3r" path="res://Images/Menus/Controls_background1.png" id="2_on8rw"]
+[ext_resource type="Texture2D" uid="uid://1q40f3w4j1fd" path="res://Images/Menus/Controls-Sheet.png" id="3_2rv2s"]
+[ext_resource type="FontFile" uid="uid://dhj8xfl36onsg" path="res://Images/Rat-Regular.otf" id="4_o04km"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxwt0"]
+atlas = ExtResource("3_2rv2s")
+region = Rect2(0, 0, 130, 257)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r0pxs"]
+atlas = ExtResource("3_2rv2s")
+region = Rect2(130, 0, 130, 257)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nu016"]
+atlas = ExtResource("3_2rv2s")
+region = Rect2(260, 0, 130, 257)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcdfe"]
+atlas = ExtResource("3_2rv2s")
+region = Rect2(390, 0, 130, 257)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6dny"]
+atlas = ExtResource("3_2rv2s")
+region = Rect2(520, 0, 130, 257)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mx8m6"]
+atlas = ExtResource("3_2rv2s")
+region = Rect2(650, 0, 130, 257)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hhrkr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vxwt0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r0pxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nu016")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcdfe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6dny")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mx8m6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2wf3u")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("2_on8rw")
+
+[node name="controles" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Titulo" type="Label" parent="controles"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0.305882, 1)
+theme_override_fonts/font = ExtResource("4_o04km")
+theme_override_font_sizes/font_size = 41
+text = "Controles
+"
+
+[node name="Label" type="Label" parent="controles"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.687215, 0.687215, 0.687215, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0.305882, 1)
+theme_override_fonts/font = ExtResource("4_o04km")
+theme_override_font_sizes/font_size = 41
+text = "Presiona -Z- para continuar"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="controles"]
+layout_mode = 2
+theme_override_constants/separation = 295
+
+[node name="sprite" type="Control" parent="controles/HBoxContainer"]
+layout_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="controles/HBoxContainer/sprite"]
+position = Vector2(201, 145)
+scale = Vector2(0.723077, 0.717899)
+sprite_frames = SubResource("SpriteFrames_hhrkr")
+frame_progress = 0.0815407
+
+[node name="controles" type="Label" parent="controles/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0.305882, 1)
+theme_override_fonts/font = ExtResource("4_o04km")
+theme_override_font_sizes/font_size = 41
+text = "Movimiento
+Dash
+Salto
+Caminar"
+
+[node name="niveles" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="GridContainer" type="GridContainer" parent="niveles"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 45
+theme_override_constants/v_separation = 45
+columns = 2
+
+[node name="Button" type="Button" parent="niveles/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_o04km")
+theme_override_font_sizes/font_size = 56
+text = "Level 1"
+
+[node name="Button2" type="Button" parent="niveles/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_o04km")
+theme_override_font_sizes/font_size = 56
+text = "Level 2"
+
+[node name="Button3" type="Button" parent="niveles/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_o04km")
+theme_override_font_sizes/font_size = 56
+text = "Level3"
+
+[node name="Button4" type="Button" parent="niveles/GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_o04km")
+theme_override_font_sizes/font_size = 56
+text = "Level 4"
+
+[node name="Label" type="Label" parent="niveles"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0.305882, 1)
+theme_override_fonts/font = ExtResource("4_o04km")
+theme_override_font_sizes/font_size = 41
+text = "Hay un solo nivel xd"
+
+[connection signal="button_up" from="niveles/GridContainer/Button" to="." method="_on_button_button_up"]
+[connection signal="button_up" from="niveles/GridContainer/Button2" to="." method="_on_button_2_button_up"]
+[connection signal="button_down" from="niveles/GridContainer/Button3" to="." method="_on_button_3_button_down"]
+[connection signal="button_down" from="niveles/GridContainer/Button4" to="." method="_on_button_4_button_down"]

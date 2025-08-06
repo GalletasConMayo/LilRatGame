@@ -1,0 +1,24 @@
+Funcionalidades a implementar (codigo)
+
+-Player:
+
+./-Movimiento basico
+./-Habilidades desbloqueables
+-Hurtbox 
+-Sistema de salud
+-Combate
+
+-Enemigos:
+
+Niveles ordenados por elementos:
+
+-Tierra
+	
+-Rayo
+
+-Fuego
+
+-Final
+
+Sistema de animaciones (escenas / camaras)
+Tutorial - Textos 

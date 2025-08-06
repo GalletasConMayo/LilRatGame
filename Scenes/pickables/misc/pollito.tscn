@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c041d2kegtk8m"]
+
+[ext_resource type="PackedScene" uid="uid://ck4q38sqqwiyh" path="res://Scenes/pickables/pickables.tscn" id="1_kdbxa"]
+
+[node name="pollito" instance=ExtResource("1_kdbxa")]
+
+[node name="AnimatedSprite" parent="." index="1"]
+animation = &"pollito"
+autoplay = "pollito"

@@ -1,0 +1,154 @@
+[gd_scene load_steps=20 format=3 uid="uid://b7paocrh1u781"]
+
+[ext_resource type="Script" path="res://Player/player.gd" id="1_pi0nl"]
+[ext_resource type="Texture2D" uid="uid://bokiyhfinj1n4" path="res://Player/6 Rat 2/Death.png" id="1_y26qc"]
+[ext_resource type="Texture2D" uid="uid://bbgf4eos6i0je" path="res://Player/6 Rat 2/Hurt.png" id="2_a1id2"]
+[ext_resource type="Texture2D" uid="uid://xid2ewodr5cn" path="res://Player/6 Rat 2/Idle.png" id="3_c2sub"]
+[ext_resource type="Texture2D" uid="uid://c6v5v8pdss1br" path="res://Player/6 Rat 2/Walk.png" id="4_lpco5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8qt76"]
+atlas = ExtResource("1_y26qc")
+region = Rect2(4, 26, 18, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oes7w"]
+atlas = ExtResource("1_y26qc")
+region = Rect2(36, 26, 18, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cuxpy"]
+atlas = ExtResource("2_a1id2")
+region = Rect2(4, 25, 18, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8jwtj"]
+atlas = ExtResource("2_a1id2")
+region = Rect2(36, 25, 18, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kejj2"]
+atlas = ExtResource("3_c2sub")
+region = Rect2(4, 25, 18, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0li82"]
+atlas = ExtResource("3_c2sub")
+region = Rect2(36, 25, 18, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pm23"]
+atlas = ExtResource("3_c2sub")
+region = Rect2(68, 25, 18, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o43cs"]
+atlas = ExtResource("3_c2sub")
+region = Rect2(100, 25, 18, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_885ej"]
+atlas = ExtResource("4_lpco5")
+region = Rect2(4, 25, 18, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pulj8"]
+atlas = ExtResource("4_lpco5")
+region = Rect2(36, 25, 18, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjlut"]
+atlas = ExtResource("4_lpco5")
+region = Rect2(68, 25, 18, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0k242"]
+atlas = ExtResource("4_lpco5")
+region = Rect2(100, 25, 18, 7)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jein8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8qt76")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oes7w")
+}],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cuxpy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8jwtj")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 120.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kejj2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0li82")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pm23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o43cs")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_885ej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pulj8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjlut")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0k242")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3g5m6"]
+size = Vector2(14, 7)
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(23, 0)
+collision_layer = 2
+script = ExtResource("1_pi0nl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_jein8")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Collision_right" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 0)
+shape = SubResource("RectangleShape2D_3g5m6")
+disabled = true
+
+[node name="Collision_left" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_3g5m6")
+disabled = true
+
+[node name="DashDurationTimer" type="Timer" parent="."]
+wait_time = 0.15
+
+[node name="DashResetTimer" type="Timer" parent="."]
+wait_time = 0.3
+
+[node name="JumpTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="Bullet_point" type="Marker2D" parent="."]
+position = Vector2(9, 1)
+
+[connection signal="timeout" from="DashDurationTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="DashResetTimer" to="." method="_on_dash_reset_timer_timeout"]
+[connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]

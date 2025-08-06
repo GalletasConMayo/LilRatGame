@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://bf80ar4fiexi2"]
+
+[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_w4js0"]
+[ext_resource type="PackedScene" uid="uid://b7paocrh1u781" path="res://Scenes/player.tscn" id="2_rem8d"]
+[ext_resource type="PackedScene" uid="uid://chrnq3hfno3x4" path="res://Scenes/HUD.tscn" id="3_qc3p6"]
+[ext_resource type="Script" path="res://Scripts/camera_control.gd" id="4_l1xay"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_d1f8s"]
+
+[node name="game" type="Node2D"]
+script = ExtResource("1_w4js0")
+
+[node name="level" type="Node2D" parent="." groups=["level_container"]]
+
+[node name="player" parent="." instance=ExtResource("2_rem8d")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("3_qc3p6")]
+metadata/_edit_use_anchors_ = true
+
+[node name="camera_control" type="Node2D" parent="."]
+script = ExtResource("4_l1xay")
+
+[node name="Camera2D" type="Camera2D" parent="camera_control"]
+
+[node name="PhantomCameraHost" type="Node" parent="camera_control/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_d1f8s")
+
+[node name="initial_scene_timer" type="Timer" parent="."]

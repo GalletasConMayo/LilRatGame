@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://vda1ldheryen"]
+
+[ext_resource type="PackedScene" uid="uid://ck4q38sqqwiyh" path="res://Scenes/pickables/pickables.tscn" id="1_1x0fr"]
+
+[node name="dash" instance=ExtResource("1_1x0fr")]
+
+[node name="AnimatedSprite" parent="." index="1"]
+animation = &"dash"
+autoplay = "dash"
