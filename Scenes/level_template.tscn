@@ -146,8 +146,8 @@ script = ExtResource("6_law4g")
 
 [node name="cheese" type="Area2D" parent="tiles/secret_tiles"]
 position = Vector2(459, 649)
-collision_layer = 2
-collision_mask = 0
+collision_layer = 8
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="tiles/secret_tiles/cheese"]
 position = Vector2(-6, -1)
@@ -155,8 +155,8 @@ shape = SubResource("RectangleShape2D_a4t1h")
 
 [node name="pollito" type="Area2D" parent="tiles/secret_tiles"]
 position = Vector2(1417, 456)
-collision_layer = 2
-collision_mask = 0
+collision_layer = 8
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="tiles/secret_tiles/pollito"]
 position = Vector2(1, -4)
@@ -170,7 +170,7 @@ script = ExtResource("2_25b6h")
 
 [node name="initial_camera" type="Area2D" parent="cameras"]
 position = Vector2(36, 283)
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 
 [node name="PhantomCamera2D" type="Node2D" parent="cameras/initial_camera"]
@@ -187,7 +187,7 @@ shape = SubResource("RectangleShape2D_wjomf")
 [node name="camera0" type="Area2D" parent="cameras"]
 z_index = 2
 position = Vector2(265, 169)
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 
 [node name="PhantomCamera2D" type="Node2D" parent="cameras/camera0"]
@@ -202,7 +202,7 @@ shape = SubResource("RectangleShape2D_bd0pa")
 [node name="camera1" type="Area2D" parent="cameras"]
 z_index = 2
 position = Vector2(1174, 195)
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 
 [node name="PhantomCamera2D" type="Node2D" parent="cameras/camera1"]
@@ -217,7 +217,7 @@ shape = SubResource("RectangleShape2D_3vwux")
 [node name="camera2" type="Area2D" parent="cameras"]
 z_index = 2
 position = Vector2(880, 596)
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="cameras/camera2"]
@@ -231,7 +231,7 @@ tween_resource = SubResource("Resource_xr1fj")
 [node name="camera3" type="Area2D" parent="cameras"]
 z_index = 2
 position = Vector2(1576, 574)
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 
 [node name="PhantomCamera2D" type="Node2D" parent="cameras/camera3"]
@@ -250,7 +250,7 @@ shape = SubResource("RectangleShape2D_xb66f")
 [node name="camera4" type="Area2D" parent="cameras"]
 z_index = 2
 position = Vector2(1809, 223)
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="cameras/camera4"]
@@ -264,7 +264,7 @@ tween_resource = SubResource("Resource_xr1fj")
 [node name="camera5" type="Area2D" parent="cameras"]
 z_index = 2
 position = Vector2(1809, 223)
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="cameras/camera5"]
@@ -278,7 +278,7 @@ tween_resource = SubResource("Resource_xr1fj")
 [node name="camera6" type="Area2D" parent="cameras"]
 z_index = 2
 position = Vector2(2742, -176)
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="cameras/camera6"]
@@ -292,7 +292,7 @@ tween_resource = SubResource("Resource_xr1fj")
 [node name="camera7" type="Area2D" parent="cameras"]
 z_index = 2
 position = Vector2(3856, -792)
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 
 [node name="PhantomCamera2D" type="Node2D" parent="cameras/camera7"]
@@ -307,7 +307,7 @@ shape = SubResource("RectangleShape2D_1nkhl")
 [node name="camera8" type="Area2D" parent="cameras"]
 z_index = 2
 position = Vector2(-505, -338)
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 
 [node name="PhantomCamera2D" type="Node2D" parent="cameras/camera8"]
@@ -322,7 +322,7 @@ shape = SubResource("RectangleShape2D_mer1p")
 [node name="camera9" type="Area2D" parent="cameras"]
 z_index = 2
 position = Vector2(-480, 546)
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 
 [node name="PhantomCamera2D" type="Node2D" parent="cameras/camera9"]
@@ -338,57 +338,36 @@ shape = SubResource("RectangleShape2D_eoo0w")
 
 [node name="trash_can_tp" parent="entities" instance=ExtResource("10_0huch")]
 position = Vector2(-260, 738)
-collision_layer = 65536
-collision_mask = 4
 
 [node name="dash" parent="entities" instance=ExtResource("11_ns7qm")]
 position = Vector2(55, 99)
-collision_layer = 2
-collision_mask = 0
 
 [node name="doublejump" parent="entities" instance=ExtResource("12_uopqs")]
 position = Vector2(403, 659)
-collision_layer = 2
-collision_mask = 0
 
 [node name="walljump" parent="entities" instance=ExtResource("13_qqac1")]
 position = Vector2(3036, -644)
-collision_layer = 2
-collision_mask = 0
 
 [node name="pollito" parent="entities" instance=ExtResource("14_t7owm")]
 position = Vector2(4308, -816)
-collision_layer = 2
-collision_mask = 0
 
 [node name="cheese3" parent="entities" instance=ExtResource("15_grhng")]
 position = Vector2(2061, -16)
-collision_layer = 2
-collision_mask = 0
 
 [node name="cheese2" parent="entities" instance=ExtResource("15_grhng")]
 position = Vector2(1880, 601)
-collision_layer = 2
-collision_mask = 0
 
 [node name="cheese" parent="entities" instance=ExtResource("15_grhng")]
 position = Vector2(488, 648)
-collision_layer = 2
-collision_mask = 0
 
 [node name="trash_can_exit" parent="entities" instance=ExtResource("16_v6fwg")]
 position = Vector2(4315, -794)
-collision_mask = 4
 
 [node name="cheese4" parent="entities" instance=ExtResource("15_grhng")]
 position = Vector2(-326, 754)
-collision_layer = 2
-collision_mask = 0
 
 [node name="cheese5" parent="entities" instance=ExtResource("15_grhng")]
 position = Vector2(2200, 570)
-collision_layer = 2
-collision_mask = 0
 
 [node name="enemies" type="Node" parent="."]
 

@@ -31,7 +31,7 @@ script = ExtResource("3_pxk4w")
 [node name="camera0" type="Area2D" parent="cameras"]
 z_index = 2
 position = Vector2(265, 169)
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 
 [node name="PhantomCamera2D" type="Node2D" parent="cameras/camera0"]
