@@ -3,12 +3,33 @@ Funcionalidades a implementar (codigo)
 -Player:
 
 ./-Movimiento basico
-./-Habilidades desbloqueables
--Hurtbox 
--Sistema de salud
+./-Habilidades desbloqueables (no lo use mucho)
+./-Hurtbox 
+./-Sistema de salud
+./-I frames
 -Combate
 
--Enemigos:
+-Bosses:
+
+-Sistema de salud
+
+-Derpy (Fuego):
+
+/-Primera fase patron de ataques
+-Segunda fase
+-Hitboxes
+
+-Sandy (Rayo):
+
+-Primera fase patron de ataques
+-Segunda fase
+-Hitboxes
+
+-Tercer boss que aun no se que sera:
+
+-Primera fase patron de ataques
+-Segunda fase
+-Hitboxes
 
 Niveles ordenados por elementos:
 
@@ -20,5 +41,5 @@ Niveles ordenados por elementos:
 
 -Final
 
-Sistema de animaciones (escenas / camaras)
+./-Sistema de animaciones (escenas / camaras)
 Tutorial - Textos 

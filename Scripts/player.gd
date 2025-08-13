@@ -34,6 +34,7 @@ var vertical_vel = 0
 var horizontal_vel = 0
 
 #Binary Variables 
+var can_control : bool = true
 var jump : bool = false
 var double_jump : bool = false
 var double_jump_buff : bool = false
@@ -49,9 +50,13 @@ var coyote_buffer : bool = false
 var walking : bool = false
 var wall_logic : bool = false
 var jump_condition: bool = false
+var can_attack_1: bool = true
+var attack_1: bool = false
+var attack_2: bool = false
 #SM for animations and stuff
-enum STATE 	{IDLE, SLEEP, WALK, RUN, JUMP, FALL, DASH, WALL, CWALL, ASD}
-const state = ["idle", "sleep", "walk", "run", "jump", "fall", "dash", "wall", "cwall", "normal_hit_1"]
+enum STATE 	{IDLE, SLEEP, WALK, RUN, JUMP, FALL, DASH, WALL, CWALL,
+NORMAL1, NORMAL2, CHARGE, NORMALRUN1, NORMALRUN2, CHARGERUN}
+
 
 var rat : AnimatedSprite2D
 var weapon : AnimatedSprite2D
@@ -60,7 +65,6 @@ var ribbon : AnimatedSprite2D
 func _ready():
 	current_state = STATE.IDLE
 	dash_reset = true
-	$collisions/Hurtbox.disabled = false
 
 
 func _physics_process(delta: float):
@@ -70,13 +74,15 @@ func _physics_process(delta: float):
 		global_variables.debug.emit()
 	wall_logic = $collisions/RayCastFrontMid.is_colliding() or ($collisions/RayCastFrontUp.is_colliding() and $collisions/RayCastFrontDown.is_colliding())
 	
-	player_gravity(delta)
-	player_SM()
-	player_idle()
-	player_run(delta)
-	player_dash(delta)
-	player_jump()
-	
+	if can_control:
+		player_gravity(delta)
+		player_SM()
+		player_idle()
+		player_run(delta)
+		player_dash()
+		player_jump()
+		player_attack()
+
 	was_on_floor = is_on_floor()
 	if direction != 0:
 		LAST_DIRECTION = direction
@@ -88,14 +94,16 @@ func RL_sprite_collission()->void:
 	if direction == 1:
 		$collisions.scale.x = 1
 		$animations.scale.x = 1
-		$atacks.scale.x = 1
+		$hutrbox.scale.x = 1
+		$hitbox.scale.x = 1
 	if direction == -1:
 		$collisions.scale.x = -1
 		$animations.scale.x = -1
-		$atacks.scale.x = -1
+		$hutrbox.scale.x = -1
+		$hitbox.scale.x = -1
 
 
-func _on_dash_duration_timer_timeout():
+func _on_dash_duration_timer_timeout()->void:
 	dash = false
 
 func _on_jump_timer_timeout()->void:
@@ -104,13 +112,64 @@ func _on_jump_timer_timeout()->void:
 func _on_idle_timer_timeout()->void:
 	sleep = true
 
+func _on_attack_timer_1_timeout():
+	can_attack_1 = true
+
+func _on_attack_duration_timer_timeout():
+	attack_1 = false
+	attack_2 = false
+
 func teleport_to_location(position_x: float, position_y: float)->void:
 	self.position.x = position_x
 	self.position.y = position_y
 
+func reset()->void:
+	can_control = true
+	$animations.visible = true
+	global_variables.hitpoints = 5
+
+
+func player_SM()->void:
+	if is_on_floor() and velocity.x == 0 and !sleep:
+		current_state = STATE.IDLE
+		if $timers/Idle.is_stopped():
+			$timers/Idle.start()
+
+	if sleep:
+		current_state = STATE.SLEEP
+
+	if abs(velocity.x) <= WALK_SPEED and abs(velocity.x) > 1 and is_on_floor():
+		current_state = STATE.WALK
+
+	if abs(velocity.x) > WALK_SPEED and is_on_floor() and !is_on_wall():
+		current_state = STATE.RUN
+
+	if velocity.y < 0 and !is_on_floor():
+		current_state = STATE.JUMP
+	
+	if velocity.y >= 0 and !is_on_floor():
+		current_state = STATE.FALL
+
+	if dash:
+		current_state = STATE.DASH
+	
+	if attack_1:
+		current_state = STATE.NORMAL1
+	
+	if attack_2:
+		current_state = STATE.NORMAL2
+	
+	if (wall_logic and !is_on_floor()):
+		current_state = STATE.WALL
+	
+	if is_on_wall():
+		current_state = STATE.CWALL
+	
+	last_state = current_state
+	global_variables.state_signal.emit(current_state)
+
 
 func player_gravity(delta: float)->void:
-
 	if Input.is_action_pressed("down") and !is_on_floor():
 		fast_fall = true
 	if dash:
@@ -133,57 +192,17 @@ func player_gravity(delta: float)->void:
 	
 	if velocity.y >= 0 and !is_on_floor():
 		if was_on_floor:
-			$timers/CoyoteTimer.start()
+			$timers/Coyote.start()
 			coyote_buffer = true
 
 	if Input.is_action_just_pressed("jump") and !is_on_floor():
-		$timers/JumpBufferTimer.start()
-
-
-func player_SM()->void:
-	if is_on_floor() and velocity.x == 0 and !sleep:
-		current_state = STATE.IDLE
-		if $timers/IdleTimer.is_stopped():
-			$timers/IdleTimer.start()
-
-	if sleep:
-		current_state = STATE.SLEEP
-
-	if abs(velocity.x) <= WALK_SPEED and abs(velocity.x) > 1 and is_on_floor():
-		current_state = STATE.WALK
-
-	if abs(velocity.x) > WALK_SPEED and is_on_floor() and !is_on_wall():
-		current_state = STATE.RUN
-
-	if velocity.y < 0 and !is_on_floor():
-		current_state = STATE.JUMP
-	
-	if velocity.y >= 0 and !is_on_floor():
-		current_state = STATE.FALL
-
-	if dash:
-		current_state = STATE.DASH
-	
-	if (wall_logic and !is_on_floor()):
-		current_state = STATE.WALL
-	
-	if is_on_wall():
-		current_state = STATE.CWALL
-		
-	if Input.is_action_just_pressed("ui_BassicAttack"):
-		$timers/AtackTimer.start()
-	
-	if !$timers/AtackTimer.is_stopped():
-		current_state = STATE.ASD
-	
-	last_state = current_state
-	global_variables.state_signal.emit(state[current_state])
+		$timers/JumpBuffer.start()
 
 
 func player_run(delta: float)->void:
 	direction = Input.get_axis("left", "right")
 	walking = Input.is_action_pressed("walking")
-	if is_on_floor() and $timers/DashResetTimer.is_stopped():
+	if is_on_floor() and $timers/DashReset.is_stopped():
 		dash_reset = true
 	RL_sprite_collission()
 	CURRENT_SPEED = RUN_SPEED
@@ -208,18 +227,18 @@ func player_run(delta: float)->void:
 func player_jump()->void:
 	if (jump_logic() or wall_jump_logic() or double_jump_logic()):
 		velocity.y = JUMP_VELOCITY
-		$timers/JumpTimer.start()
+		$timers/Jump.start()
 	
 	#Esta parte de abajo controla el que puedas saltar mientras mantienes el boton
-	if Input.is_action_pressed("jump") and !$timers/JumpTimer.is_stopped():
+	if Input.is_action_pressed("jump") and !$timers/Jump.is_stopped():
 		velocity.y = JUMP_VELOCITY
-	#if Input.is_action_just_released("jump") and $timers/JumpTimer.is_stopped() and velocity.y < 0:
+	#if Input.is_action_just_released("jump") and $timers/Jump.is_stopped() and velocity.y < 0:
 		#velocity.y = 0
 
 
 func jump_logic()->bool:
 	jump = is_on_floor() or coyote_buffer
-	if jump and (Input.is_action_just_pressed("jump") or !$timers/JumpBufferTimer.is_stopped()):
+	if jump and (Input.is_action_just_pressed("jump") or !$timers/JumpBuffer.is_stopped()):
 		fast_fall = false
 		jump = false
 		coyote_buffer = false
@@ -234,7 +253,7 @@ func double_jump_logic()->bool:
 	if is_on_floor():
 		double_jump = true
 		pass
-	if (wall_logic and Input.is_action_just_pressed("jump")) or !$timers/WallJumpTimer.is_stopped() or !$timers/CoyoteTimer.is_stopped():
+	if (wall_logic and Input.is_action_just_pressed("jump")) or !$timers/WallJump.is_stopped() or !$timers/Coyote.is_stopped():
 		return false
 	if double_jump and !is_on_floor() and Input.is_action_just_pressed("jump"):
 		double_jump = false
@@ -247,29 +266,42 @@ func wall_jump_logic()->bool:
 	if !global_variables.wall_jump:
 		return false
 	if current_state == STATE.WALL:
-		$timers/WallJumpTimer.start()
+		$timers/WallJump.start()
 		pass
-	if !$timers/WallJumpTimer.is_stopped() and direction != 0 and !is_on_wall() and  Input.is_action_just_pressed("jump"):
+	if !$timers/WallJump.is_stopped() and direction != 0 and !is_on_wall() and  Input.is_action_just_pressed("jump"):
 		velocity.x = WALLJUMP_VELOCITY * direction
 		return true
 	return false
 
 
-func player_dash(delta: float)->void:
+func player_dash()->void:
 	if !global_variables.dash:
 		return
-	if is_on_floor() and $timers/DashResetTimer.is_stopped():
+	if is_on_floor() and $timers/DashReset.is_stopped():
 		dash_reset = true
 	if Input.is_action_just_pressed("dash") and dash_reset: # and is_on_floor():
-		$timers/DashDurationTimer.start()
-		$timers/DashResetTimer.start()
+		$timers/DashDuration.start()
+		$timers/DashReset.start()
 		velocity.y = 0
 		dash = true
 		dash_reset = false
 
 
+func player_attack()->void:
+	if Input.is_action_just_pressed("ui_BassicAttack") and $timers/attacks/Lock.is_stopped():
+		if !$timers/attacks/Second.is_stopped() and $timers/attacks/Lock.is_stopped():
+			attack_2 = true
+		
+		if can_attack_1:
+			$timers/attacks/Second.start()
+			$timers/attacks/CD.start()
+			can_attack_1 = false
+			attack_1 = true
+		
+		$timers/attacks/Lock.start()
+
+
 func player_idle()->void:
 	if current_state != STATE.SLEEP and current_state != STATE.IDLE:
 		sleep = false
-
 

@@ -1,4 +1,6 @@
 extends CharacterBody2D
+class_name Enemy
+
 var player: PlayerControl
 const  jump_attack = "parameters/esteimaxin/conditions/jump"
 const dash_attack = "parameters/esteimaxin/conditions/dash"
@@ -32,12 +34,22 @@ const FALL_GRAVITY 	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTFALL * JUMP_TTFALL
 func _ready():
 	player = get_tree().get_first_node_in_group("player")
 	await get_tree().create_timer(2).timeout
+	global_variables.reset.connect(reset)
 
 
 func _physics_process(delta: float):
 	gravity(delta)
 	move_and_slide()
 	#print(animation_tree.get("parameters/esteimaxin/playback").get_current_node())
+
+func reset()->void:
+	state_machine.travel("idle")
+	teleport_to_location(0,0)
+
+
+func teleport_to_location(position_x: float, position_y: float)->void:
+	self.position.x = position_x
+	self.position.y = position_y
 
 
 func gravity(delta: float)-> void:
@@ -74,18 +86,18 @@ func sprite_redirection() -> void:
 			$hurtbox.scale.x = -1
 			$hitbox.scale.x = -1
 			$animations.scale.x = -1
-			$colisions.scale.x = -1
+			$collisions.scale.x = -1
 			$terraincollision.scale.x = -1
 		elif direction >= 0:
 			$hurtbox.scale.x = 1
 			$hitbox.scale.x = 1
 			$animations.scale.x = 1
-			$colisions.scale.x = 1
+			$collisions.scale.x = 1
 			$terraincollision.scale.x = 1
 
 
 func move_repeat()->void:
-	if $colisions/WallCollision.is_colliding():
+	if $collisions/WallCollision.is_colliding():
 		velocity.x = 0
 		animation_tree.set(preparation, true)
 	else:
@@ -106,14 +118,11 @@ func flea_scratch()->void:
 
 
 func second_attack()->void:
-	if $colisions/PlayerCollision.is_colliding():
+	if $collisions/PlayerCollision.is_colliding():
 		state_machine.travel("dash")
-	elif $colisions/WallCollision.is_colliding():
+	elif $collisions/WallCollision.is_colliding():
 		pass
-	elif !$colisions/WallCollision.is_colliding():
+	elif !$collisions/WallCollision.is_colliding():
 		state_machine.travel("jump")
 		secondjump = true
 
-
-func _on_cat_body_entered(body):
-	global_variables.hitpoints -= 1
