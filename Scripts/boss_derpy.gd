@@ -6,7 +6,9 @@ const  jump_attack = "parameters/esteimaxin/conditions/jump"
 const dash_attack = "parameters/esteimaxin/conditions/dash"
 const attacks = [jump_attack,dash_attack]
 const preparation = "parameters/esteimaxin/conditions/prep"
+const start = "parameters/esteimaxin/conditions/start"
 
+var HP:int
 
 var transition_count:int= 0
 var flea_count:int = 0
@@ -35,11 +37,13 @@ func _ready():
 	player = get_tree().get_first_node_in_group("player")
 	await get_tree().create_timer(2).timeout
 	global_variables.reset.connect(reset)
+	animation_tree.set(start, true)
 
 
 func _physics_process(delta: float):
 	gravity(delta)
 	move_and_slide()
+	$hurtbox.hp_check()
 	#print(animation_tree.get("parameters/esteimaxin/playback").get_current_node())
 
 func reset()->void:

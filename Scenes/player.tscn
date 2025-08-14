@@ -636,19 +636,17 @@ frame = 1
 script = ExtResource("7_qmgj4")
 
 [node name="normal_hit" type="Area2D" parent="hitbox"]
-visible = false
 monitoring = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hitbox/normal_hit"]
 polygon = PackedVector2Array(-1, 13, 10, 8, 15, 2, 18, -8, 26, 3, 23, 14, 9, 17)
 
 [node name="hutrbox" type="Node2D" parent="."]
-visible = false
 script = ExtResource("8_kpcmo")
 
 [node name="hurtbox" type="Area2D" parent="hutrbox"]
 collision_layer = 512
-collision_mask = 3072
+collision_mask = 1024
 
 [node name="Hurtbox" type="CollisionShape2D" parent="hutrbox/hurtbox"]
 position = Vector2(0, 4)

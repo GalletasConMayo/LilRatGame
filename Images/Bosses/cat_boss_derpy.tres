@@ -240,6 +240,7 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5007p"]
 switch_mode = 2
 advance_mode = 2
+advance_condition = &"start"
 
 [resource]
 allow_transition_to_self = true
@@ -272,4 +273,4 @@ states/transition/position = Vector2(972, 195.205)
 states/win/node = SubResource("AnimationNodeStateMachine_2xw55")
 states/win/position = Vector2(1679.73, -72.426)
 transitions = ["dash", "transition", SubResource("AnimationNodeStateMachineTransition_bsmqj"), "jump", "transition", SubResource("AnimationNodeStateMachineTransition_ny783"), "transition", "att_melee", SubResource("AnimationNodeStateMachineTransition_4e5i5"), "transition", "flea", SubResource("AnimationNodeStateMachineTransition_slp4c"), "flea", "transition 2", SubResource("AnimationNodeStateMachineTransition_u5f6r"), "att_melee", "transition 2", SubResource("AnimationNodeStateMachineTransition_5jut2"), "transition 2", "moving", SubResource("AnimationNodeStateMachineTransition_sjcey"), "moving", "prep", SubResource("AnimationNodeStateMachineTransition_umk3e"), "prep", "jump", SubResource("AnimationNodeStateMachineTransition_fh80a"), "prep", "dash", SubResource("AnimationNodeStateMachineTransition_aml0u"), "moving", "moving2", SubResource("AnimationNodeStateMachineTransition_4ubjo"), "moving2", "moving", SubResource("AnimationNodeStateMachineTransition_nj4rt"), "moving2", "prep", SubResource("AnimationNodeStateMachineTransition_pnw1j"), "flea", "flea 2", SubResource("AnimationNodeStateMachineTransition_1fwwf"), "flea 2", "flea", SubResource("AnimationNodeStateMachineTransition_g5rnq"), "flea 2", "transition 2", SubResource("AnimationNodeStateMachineTransition_nep2d"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_htso1"), "idle", "moving2", SubResource("AnimationNodeStateMachineTransition_5007p")]
-graph_offset = Vector2(778.73, -157.426)
+graph_offset = Vector2(789.73, -255.426)

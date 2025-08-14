@@ -7,7 +7,6 @@ func _process(delta):
 
 func hp_check()->void:
 	if global_variables.hitpoints <= 0:
-		print("ratoncito ded")
 		#ded animation play 
 		#$"..".set_physics_process(false)
 		$"..".can_control = false
@@ -29,13 +28,16 @@ func flash_white():
 func _on_hurtbox_area_entered(area):
 	print(area.name)
 	global_variables.hitpoints -= 1
-	get_tree().paused = true
-	await get_tree().create_timer(0.3).timeout
-	get_tree().paused = false
+	hit_stop_time(0.3)
 	$"../timers/IFrames".start()
 	flash_white()
 	$hurtbox.set_deferred("monitoring",false)
 
+
+func hit_stop_time(seconds:float)->void:
+	get_tree().paused = true
+	await get_tree().create_timer(seconds).timeout
+	get_tree().paused = false
 
 func _on_i_frames_timer_timeout():
 	$hurtbox.set_deferred("monitoring",true)
