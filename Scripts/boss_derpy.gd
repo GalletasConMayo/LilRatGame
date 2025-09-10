@@ -38,6 +38,10 @@ func _ready():
 	await get_tree().create_timer(2).timeout
 	global_variables.reset.connect(reset)
 	animation_tree.set(start, true)
+	var areas = $hitbox.get_children()
+	for area in areas:
+		area.monitoring = false
+		print(area.name, " monitoring = ", area.monitoring)
 
 
 func _physics_process(delta: float):

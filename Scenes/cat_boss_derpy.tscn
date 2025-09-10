@@ -11,7 +11,7 @@
 resource_local_to_scene = true
 shader = ExtResource("2_qitym")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
-shader_parameter/flash_modifier = 1.0
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="Animation" id="Animation_j3ou3"]
 length = 0.001
@@ -75,7 +75,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("hitbox/dash:monitoring")
+tracks/2/path = NodePath("hitbox/dash:monitorable")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -115,7 +115,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("hitbox/jump:monitoring")
+tracks/1/path = NodePath("hitbox/jump:monitorable")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -181,7 +181,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("hitbox/jump:monitoring")
+tracks/3/path = NodePath("hitbox/jump:monitorable")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -221,7 +221,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("hurtbox/meeleatt:monitoring")
+tracks/1/path = NodePath("hurtbox/meeleatt:monitorable")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -311,7 +311,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("hurtbox/moving:monitoring")
+tracks/1/path = NodePath("hurtbox/moving:monitorable")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -385,7 +385,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("hitbox/land:monitoring")
+tracks/2/path = NodePath("hitbox/land:monitorable")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -442,7 +442,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("hitbox/moving:monitoring")
+tracks/2/path = NodePath("hitbox/moving:monitorable")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -498,7 +498,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("hitbox/land:monitoring")
+tracks/2/path = NodePath("hitbox/land:monitorable")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -595,7 +595,6 @@ _data = {
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_yoyb1"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_rxc26"]
-graph_offset = Vector2(-61, 54)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_yoyb1")
 nodes/TimeScale/position = Vector2(416.274, 30.5557)
 nodes/esteimaxin/node = ExtResource("3_ub8k0")
@@ -648,16 +647,15 @@ root_node = NodePath("../..")
 tree_root = SubResource("AnimationNodeBlendTree_rxc26")
 anim_player = NodePath("../AnimationPlayer")
 parameters/TimeScale/scale = 1.0
-parameters/esteimaxin/conditions/dash = true
+parameters/esteimaxin/conditions/dash = false
 parameters/esteimaxin/conditions/jump = false
-parameters/esteimaxin/conditions/prep = true
+parameters/esteimaxin/conditions/prep = false
 parameters/esteimaxin/conditions/start = false
 parameters/esteimaxin/rip/blend_position = 0
 
 [node name="hitbox" type="Node2D" parent="."]
 
 [node name="meleeatt" type="Area2D" parent="hitbox"]
-visible = false
 collision_layer = 1024
 collision_mask = 768
 
@@ -665,37 +663,29 @@ collision_mask = 768
 position = Vector2(70, 72)
 
 [node name="moving" type="Area2D" parent="hitbox"]
-visible = false
 collision_layer = 1024
 collision_mask = 768
-monitoring = false
 
 [node name="Moving" type="CollisionShape2D" parent="hitbox/moving"]
 position = Vector2(19, 16)
 shape = SubResource("RectangleShape2D_qfruh")
 
 [node name="dash" type="Area2D" parent="hitbox"]
-visible = false
 collision_layer = 1024
-monitoring = false
 
 [node name="Dash" type="CollisionShape2D" parent="hitbox/dash"]
 position = Vector2(17, 18)
 shape = SubResource("RectangleShape2D_ieqsp")
 
 [node name="jump" type="Area2D" parent="hitbox"]
-visible = false
 collision_layer = 1024
-monitoring = false
 
 [node name="Jump" type="CollisionShape2D" parent="hitbox/jump"]
 position = Vector2(23, 14)
 shape = SubResource("RectangleShape2D_e5xyk")
 
 [node name="land" type="Area2D" parent="hitbox"]
-visible = false
 collision_layer = 1024
-monitoring = false
 
 [node name="Land" type="CollisionShape2D" parent="hitbox/land"]
 position = Vector2(20, 33)
@@ -707,15 +697,13 @@ script = ExtResource("4_2ikp7")
 
 [node name="moving" type="Area2D" parent="hurtbox"]
 visible = false
-monitoring = false
+monitorable = false
 
 [node name="Moving" type="CollisionShape2D" parent="hurtbox/moving"]
 position = Vector2(6, -21)
 shape = SubResource("RectangleShape2D_3kvde")
 
 [node name="meeleatt" type="Area2D" parent="hurtbox"]
-visible = false
-monitoring = false
 
 [node name="collision" type="CollisionShape2D" parent="hurtbox/meeleatt"]
 position = Vector2(31, -3)

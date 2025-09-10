@@ -126,7 +126,7 @@ func teleport_to_location(position_x: float, position_y: float)->void:
 func reset()->void:
 	can_control = true
 	$animations.visible = true
-	global_variables.hitpoints = 5
+	global_variables.hitpoints = 10000
 
 
 func player_SM()->void:

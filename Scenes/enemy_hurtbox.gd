@@ -16,7 +16,6 @@ func _on_hurtbox_area_entered(area):
 	global_variables.hitpoints -= 1
 	hit_stop_time(0.3)
 	flash_white()
-	$hurtbox.set_deferred("monitoring",false)
 
 
 func hit_stop_time(seconds:float)->void:
@@ -24,6 +23,3 @@ func hit_stop_time(seconds:float)->void:
 	await get_tree().create_timer(seconds).timeout
 	get_tree().paused = false
 
-
-func _on_i_frames_timer_timeout():
-	$hurtbox.set_deferred("monitoring",true)
