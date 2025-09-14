@@ -38,4 +38,3 @@ func play_animations():
 			animated_sprite_2d.play("flea_jump")
 		STATE.WALK:
 			animated_sprite_2d.play("flea_walk")
-

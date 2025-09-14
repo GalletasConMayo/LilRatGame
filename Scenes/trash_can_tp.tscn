@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b7xx11f4ku0jr"]
 
-[ext_resource type="Script" path="res://Scripts/area_exit.gd" id="1_ih66k"]
+[ext_resource type="Script" uid="uid://dbduc5p4shk5b" path="res://Scripts/area_exit.gd" id="1_ih66k"]
 [ext_resource type="Texture2D" uid="uid://ctunmvk6rp61h" path="res://Images/Entities/Trash_can_top.png" id="2_wa1da"]
 [ext_resource type="Texture2D" uid="uid://brnb1euo4ejml" path="res://Images/Entities/Trash_can_buttom.png" id="3_5rer4"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://dcv4xox7jxj11"]
 
-[ext_resource type="Script" path="res://Scripts/enemy_flea.gd" id="1_dx4tl"]
+[ext_resource type="Script" uid="uid://c6n0qgtymbvfc" path="res://Scripts/enemy_flea.gd" id="1_dx4tl"]
 [ext_resource type="Texture2D" uid="uid://i3xtaouavmbn" path="res://Images/Enemies/pulga-Sheet.png" id="2_v7m12"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d2bha"]

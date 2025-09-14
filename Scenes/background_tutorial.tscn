@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://csx00j5vio1gg"]
 
 [ext_resource type="Texture2D" uid="uid://bqymlq1p00sg" path="res://Images/Level/backgrounds/Campana.png" id="1_xl638"]
-[ext_resource type="Script" path="res://Scripts/cloud0.gd" id="2_xaib4"]
+[ext_resource type="Script" uid="uid://cc5cumtfpbfmx" path="res://Scripts/cloud0.gd" id="2_xaib4"]
 [ext_resource type="Texture2D" uid="uid://qgqyngmif4lx" path="res://Images/Level/backgrounds/Cloud0.png" id="3_wlfok"]
-[ext_resource type="Script" path="res://Scripts/cloud1.gd" id="4_d3lne"]
+[ext_resource type="Script" uid="uid://bpy74k5x5pvh" path="res://Scripts/cloud1.gd" id="4_d3lne"]
 [ext_resource type="Texture2D" uid="uid://iqvbcec3g8b1" path="res://Images/Level/backgrounds/Cloud1.png" id="5_vajeg"]
 
 [node name="background" type="ParallaxBackground"]

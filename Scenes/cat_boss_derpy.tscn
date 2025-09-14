@@ -1,11 +1,11 @@
 [gd_scene load_steps=30 format=3 uid="uid://c8i227klbxv7i"]
 
-[ext_resource type="Script" path="res://Scripts/boss_derpy.gd" id="1_82fvs"]
-[ext_resource type="Script" path="res://Scripts/timers.gd" id="2_483ck"]
-[ext_resource type="Shader" path="res://Shaders/player.gdshader" id="2_qitym"]
+[ext_resource type="Script" uid="uid://cn78uquf02l1h" path="res://Scripts/boss_derpy.gd" id="1_82fvs"]
+[ext_resource type="Script" uid="uid://bo3eqi7bahpw0" path="res://Scripts/timers.gd" id="2_483ck"]
+[ext_resource type="Shader" uid="uid://dttnikoh5xe3t" path="res://Shaders/player.gdshader" id="2_qitym"]
 [ext_resource type="Texture2D" uid="uid://c4qwpsniahfic" path="res://Images/Bosses/Derpy.png" id="2_qrnqv"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://cjawk5s8040ho" path="res://Images/Bosses/cat_boss_derpy.tres" id="3_ub8k0"]
-[ext_resource type="Script" path="res://Scenes/enemy_hurtbox.gd" id="4_2ikp7"]
+[ext_resource type="Script" uid="uid://rbux131hykwx" path="res://Scenes/enemy_hurtbox.gd" id="4_2ikp7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ejdae"]
 resource_local_to_scene = true
@@ -578,18 +578,18 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cajya"]
 _data = {
-"RESET": SubResource("Animation_j3ou3"),
-"att_dash": SubResource("Animation_stldw"),
-"att_jump_down": SubResource("Animation_ywxya"),
-"att_jump_up": SubResource("Animation_7r6ii"),
-"att_melee": SubResource("Animation_vrirl"),
-"flea": SubResource("Animation_okipa"),
-"idle": SubResource("Animation_o3ide"),
-"landing": SubResource("Animation_uuet5"),
-"moving": SubResource("Animation_bso0y"),
-"prep": SubResource("Animation_r7rht"),
-"topframe": SubResource("Animation_eth2e"),
-"transition": SubResource("Animation_w1gsu")
+&"RESET": SubResource("Animation_j3ou3"),
+&"att_dash": SubResource("Animation_stldw"),
+&"att_jump_down": SubResource("Animation_ywxya"),
+&"att_jump_up": SubResource("Animation_7r6ii"),
+&"att_melee": SubResource("Animation_vrirl"),
+&"flea": SubResource("Animation_okipa"),
+&"idle": SubResource("Animation_o3ide"),
+&"landing": SubResource("Animation_uuet5"),
+&"moving": SubResource("Animation_bso0y"),
+&"prep": SubResource("Animation_r7rht"),
+&"topframe": SubResource("Animation_eth2e"),
+&"transition": SubResource("Animation_w1gsu")
 }
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_yoyb1"]
@@ -639,7 +639,7 @@ vframes = 6
 [node name="AnimationPlayer" type="AnimationPlayer" parent="animations"]
 root_node = NodePath("../..")
 libraries = {
-"": SubResource("AnimationLibrary_cajya")
+&"": SubResource("AnimationLibrary_cajya")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="animations"]

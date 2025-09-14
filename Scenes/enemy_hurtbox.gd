@@ -22,4 +22,3 @@ func hit_stop_time(seconds:float)->void:
 	get_tree().paused = true
 	await get_tree().create_timer(seconds).timeout
 	get_tree().paused = false
-

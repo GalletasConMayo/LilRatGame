@@ -87,8 +87,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cajya"]
 _data = {
-"RESET": SubResource("Animation_j3ou3"),
-"cat_attack": SubResource("Animation_vrirl")
+&"RESET": SubResource("Animation_j3ou3"),
+&"cat_attack": SubResource("Animation_vrirl")
 }
 
 [node name="Sandy" type="CharacterBody2D"]
@@ -123,7 +123,7 @@ polygon = PackedVector2Array(-17, 59, -10, 11, -11, -11, -22, -23, -19, -37, 0, 
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_cajya")
+&"": SubResource("AnimationLibrary_cajya")
 }
 
 [connection signal="body_entered" from="cat_hitbox" to="." method="_on_cat_hitbox_body_entered"]

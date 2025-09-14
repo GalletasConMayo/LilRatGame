@@ -133,4 +133,3 @@ func second_attack()->void:
 	elif !$collisions/WallCollision.is_colliding():
 		state_machine.travel("jump")
 		secondjump = true
-

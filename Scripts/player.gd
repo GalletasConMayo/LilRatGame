@@ -304,4 +304,3 @@ func player_attack()->void:
 func player_idle()->void:
 	if current_state != STATE.SLEEP and current_state != STATE.IDLE:
 		sleep = false
-

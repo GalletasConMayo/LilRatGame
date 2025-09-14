@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://csx00j5vio1gg" path="res://Scenes/background_tutorial.tscn" id="1_kbc2a"]
 [ext_resource type="PackedScene" uid="uid://bt110mbxbmqfq" path="res://Scenes/grass_tiles.tscn" id="2_gudya"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_ajddb"]
-[ext_resource type="Script" path="res://Scripts/level_cameras.gd" id="3_pxk4w"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_lgwgb"]
+[ext_resource type="Script" uid="uid://d0qh7tbcndc66" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_ajddb"]
+[ext_resource type="Script" uid="uid://dpsdgn8rwagrh" path="res://Scripts/level_cameras.gd" id="3_pxk4w"]
+[ext_resource type="Script" uid="uid://21nxc2vbpl5t" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_lgwgb"]
 [ext_resource type="PackedScene" uid="uid://c8i227klbxv7i" path="res://Scenes/cat_boss_derpy.tscn" id="6_fy65o"]
 
 [sub_resource type="Resource" id="Resource_m75f4"]
