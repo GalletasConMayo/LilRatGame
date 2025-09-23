@@ -23,7 +23,7 @@ signal trash_can()
 signal reset()
 signal debug()
 signal change_scene()
-signal state_signal(int)
+signal state_signal(String)
 
 func _ready():
 	debug.connect(debug_variables)

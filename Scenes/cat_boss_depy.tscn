@@ -1,10 +1,10 @@
 [gd_scene load_steps=30 format=3 uid="uid://c8i227klbxv7i"]
 
-[ext_resource type="Script" uid="uid://cn78uquf02l1h" path="res://Scripts/boss_derpy.gd" id="1_82fvs"]
+[ext_resource type="Script" uid="uid://cn78uquf02l1h" path="res://Scripts/boss_depy.gd" id="1_82fvs"]
 [ext_resource type="Script" uid="uid://bo3eqi7bahpw0" path="res://Scripts/timers.gd" id="2_483ck"]
 [ext_resource type="Shader" uid="uid://dttnikoh5xe3t" path="res://Shaders/player.gdshader" id="2_qitym"]
 [ext_resource type="Texture2D" uid="uid://c4qwpsniahfic" path="res://Images/Bosses/Derpy.png" id="2_qrnqv"]
-[ext_resource type="AnimationNodeStateMachine" uid="uid://cjawk5s8040ho" path="res://Images/Bosses/cat_boss_derpy.tres" id="3_ub8k0"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://cjawk5s8040ho" path="res://Images/Bosses/cat_boss_depy.tres" id="3_ub8k0"]
 [ext_resource type="Script" uid="uid://rbux131hykwx" path="res://Scenes/enemy_hurtbox.gd" id="4_2ikp7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ejdae"]
@@ -623,7 +623,7 @@ size = Vector2(166, 45)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gfqsr"]
 size = Vector2(154.75, 94.4688)
 
-[node name="Derpy" type="CharacterBody2D"]
+[node name="Depy" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_82fvs")
 
@@ -663,29 +663,37 @@ collision_mask = 768
 position = Vector2(70, 72)
 
 [node name="moving" type="Area2D" parent="hitbox"]
+visible = false
 collision_layer = 1024
 collision_mask = 768
+monitorable = false
 
 [node name="Moving" type="CollisionShape2D" parent="hitbox/moving"]
 position = Vector2(19, 16)
 shape = SubResource("RectangleShape2D_qfruh")
 
 [node name="dash" type="Area2D" parent="hitbox"]
+visible = false
 collision_layer = 1024
+monitorable = false
 
 [node name="Dash" type="CollisionShape2D" parent="hitbox/dash"]
 position = Vector2(17, 18)
 shape = SubResource("RectangleShape2D_ieqsp")
 
 [node name="jump" type="Area2D" parent="hitbox"]
+visible = false
 collision_layer = 1024
+monitorable = false
 
 [node name="Jump" type="CollisionShape2D" parent="hitbox/jump"]
 position = Vector2(23, 14)
 shape = SubResource("RectangleShape2D_e5xyk")
 
 [node name="land" type="Area2D" parent="hitbox"]
+visible = false
 collision_layer = 1024
+monitorable = false
 
 [node name="Land" type="CollisionShape2D" parent="hitbox/land"]
 position = Vector2(20, 33)
@@ -704,6 +712,8 @@ position = Vector2(6, -21)
 shape = SubResource("RectangleShape2D_3kvde")
 
 [node name="meeleatt" type="Area2D" parent="hurtbox"]
+visible = false
+monitorable = false
 
 [node name="collision" type="CollisionShape2D" parent="hurtbox/meeleatt"]
 position = Vector2(31, -3)

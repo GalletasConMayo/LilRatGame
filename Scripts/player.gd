@@ -6,7 +6,6 @@ class_name PlayerControl
 const WALK_SPEED: int = 130
 const RUN_SPEED  : int = 200
 const FALL_SPEED : int = 300
-const FAST_FALL_SPEED : int = 450
 const WALLJUMP_VELOCITY : int = 200
 const DASH_SPEED : int = 700
 
@@ -25,14 +24,12 @@ const FALL_GRAVITY 	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTFALL * JUMP_TTFALL
 #Numeric Variables
 var CURRENT_SPEED : int
 var LAST_DIRECTION = 1
-var bullet_direction
-var current_state : int
-var last_state : int
+var current_state : String
+var last_state : String
 var direction
-var shift
 var vertical_vel = 0
 var horizontal_vel = 0
-
+var wip_count = 0
 #Binary Variables 
 var can_control : bool = true
 var jump : bool = false
@@ -42,28 +39,24 @@ var wall_jump : bool = false
 var dash_reset : bool
 var dash : bool
 var jump_time : bool
-var fast_fall : bool
 var sleep : bool = false
 var was_on_floor : bool = false
 var jump_buffer : bool = false
 var coyote_buffer : bool = false
-var walking : bool = false
 var wall_logic : bool = false
 var jump_condition: bool = false
-var can_attack_1: bool = true
-var attack_1: bool = false
+var can_wip: bool = true
+var wip: bool = false
 var attack_2: bool = false
-#SM for animations and stuff
-enum STATE 	{IDLE, SLEEP, WALK, RUN, JUMP, FALL, DASH, WALL, CWALL,
-NORMAL1, NORMAL2, CHARGE, NORMALRUN1, NORMALRUN2, CHARGERUN}
-
+var wip_up:bool = false
+var wip_down:bool = false
 
 var rat : AnimatedSprite2D
 var weapon : AnimatedSprite2D
 var ribbon : AnimatedSprite2D
 
 func _ready():
-	current_state = STATE.IDLE
+	current_state = "idle"
 	dash_reset = true
 
 
@@ -112,12 +105,13 @@ func _on_jump_timer_timeout()->void:
 func _on_idle_timer_timeout()->void:
 	sleep = true
 
-func _on_attack_timer_1_timeout():
-	can_attack_1 = true
+func _on_attack_CD_timeout():
+	can_wip = true
 
-func _on_attack_duration_timer_timeout():
-	attack_1 = false
-	attack_2 = false
+func _on_attack_lock_timeout():
+	wip = false
+	wip_up = false
+	wip_down = false
 
 func teleport_to_location(position_x: float, position_y: float)->void:
 	self.position.x = position_x
@@ -131,65 +125,63 @@ func reset()->void:
 
 func player_SM()->void:
 	if is_on_floor() and velocity.x == 0 and !sleep:
-		current_state = STATE.IDLE
+		current_state = "idle"
 		if $timers/Idle.is_stopped():
 			$timers/Idle.start()
 
 	if sleep:
-		current_state = STATE.SLEEP
-
-	if abs(velocity.x) <= WALK_SPEED and abs(velocity.x) > 1 and is_on_floor():
-		current_state = STATE.WALK
+		current_state = "sleep"
 
 	if abs(velocity.x) > WALK_SPEED and is_on_floor() and !is_on_wall():
-		current_state = STATE.RUN
+		current_state = "run"
 
 	if velocity.y < 0 and !is_on_floor():
-		current_state = STATE.JUMP
+		current_state = "jump"
 	
 	if velocity.y >= 0 and !is_on_floor():
-		current_state = STATE.FALL
+		current_state = "fall"
 
 	if dash:
-		current_state = STATE.DASH
+		current_state = "dash"
 	
-	if attack_1:
-		current_state = STATE.NORMAL1
+	if wip:
+		if wip_count == 0:
+			current_state = "wip1"
+		else:
+			current_state = "wip2"
 	
-	if attack_2:
-		current_state = STATE.NORMAL2
+	if wip_up:
+		current_state = "wipup"
 	
+	if wip_down:
+		current_state = "wipdown"
+
 	if (wall_logic and !is_on_floor()):
-		current_state = STATE.WALL
+		current_state = "wall"
 	
 	if is_on_wall():
-		current_state = STATE.CWALL
+		current_state = "cwall"
 	
 	last_state = current_state
 	global_variables.state_signal.emit(current_state)
 
 
 func player_gravity(delta: float)->void:
-	if Input.is_action_pressed("down") and !is_on_floor():
-		fast_fall = true
+
 	if dash:
 		velocity.y = 0
 	else:
-		if fast_fall:
-			velocity.y += FALL_GRAVITY * delta
-			velocity.y = clamp(velocity.y, -FAST_FALL_SPEED, FAST_FALL_SPEED)
-		else:
-			if current_state == STATE.WALL or current_state == STATE.CWALL:
-				if velocity.y < 0:
-					velocity.y += GRAVITY * delta
-					clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
-				if velocity.y >= 0:
-					velocity.y += FALL_GRAVITY/20 * delta
-					clamp(velocity.y, -FALL_SPEED/5, FALL_SPEED/5)
-			else:
+		if current_state == "wall" or current_state == "cwall":
+			if velocity.y < 0:
 				velocity.y += GRAVITY * delta
-				velocity.y = clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
-	
+				clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
+			if velocity.y >= 0:
+				velocity.y += FALL_GRAVITY/20 * delta
+				clamp(velocity.y, -FALL_SPEED/5, FALL_SPEED/5)
+		else:
+			velocity.y += GRAVITY * delta
+			velocity.y = clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
+
 	if velocity.y >= 0 and !is_on_floor():
 		if was_on_floor:
 			$timers/Coyote.start()
@@ -201,14 +193,11 @@ func player_gravity(delta: float)->void:
 
 func player_run(delta: float)->void:
 	direction = Input.get_axis("left", "right")
-	walking = Input.is_action_pressed("walking")
 	if is_on_floor() and $timers/DashReset.is_stopped():
 		dash_reset = true
 	RL_sprite_collission()
 	CURRENT_SPEED = RUN_SPEED
 	
-	if walking:
-		CURRENT_SPEED = WALK_SPEED
 	if  dash:
 		velocity.x = LAST_DIRECTION * DASH_SPEED 
 	#este comentario es para la aceleracion, pero el movement se siente pesado
@@ -239,7 +228,6 @@ func player_jump()->void:
 func jump_logic()->bool:
 	jump = is_on_floor() or coyote_buffer
 	if jump and (Input.is_action_just_pressed("jump") or !$timers/JumpBuffer.is_stopped()):
-		fast_fall = false
 		jump = false
 		coyote_buffer = false
 		return true
@@ -257,7 +245,6 @@ func double_jump_logic()->bool:
 		return false
 	if double_jump and !is_on_floor() and Input.is_action_just_pressed("jump"):
 		double_jump = false
-		fast_fall = false
 		return true
 	return false
 
@@ -265,7 +252,7 @@ func double_jump_logic()->bool:
 func wall_jump_logic()->bool:
 	if !global_variables.wall_jump:
 		return false
-	if current_state == STATE.WALL:
+	if current_state == "wall":
 		$timers/WallJump.start()
 		pass
 	if !$timers/WallJump.is_stopped() and direction != 0 and !is_on_wall() and  Input.is_action_just_pressed("jump"):
@@ -288,19 +275,39 @@ func player_dash()->void:
 
 
 func player_attack()->void:
-	if Input.is_action_just_pressed("ui_BassicAttack") and $timers/attacks/Lock.is_stopped():
-		if !$timers/attacks/Second.is_stopped() and $timers/attacks/Lock.is_stopped():
-			attack_2 = true
-		
-		if can_attack_1:
-			$timers/attacks/Second.start()
+	if can_wip:
+		if Input.is_action_just_pressed("attack"): #and $timers/attacks/Lock.is_stopped():
 			$timers/attacks/CD.start()
-			can_attack_1 = false
-			attack_1 = true
+			can_wip = false
+			wip = true
+			if wip_count != 0: wip_count = 0
+			else: wip_count +=1
+			
+		if Input.is_action_just_pressed("attack") and Input.is_action_pressed("up"):
+			$timers/attacks/CD.start()
+			can_wip = false
+			wip_up = true
 		
+		if Input.is_action_just_pressed("attack") and Input.is_action_pressed("down"):
+			$timers/attacks/CD.start()
+			can_wip = false
+			wip_down = true
+			
 		$timers/attacks/Lock.start()
-
-
+			
+#old attack with timmers and weas raras
+	#if Input.is_action_just_pressed("ui_BassicAttack") and $timers/attacks/Lock.is_stopped():
+		#if !$timers/attacks/Second.is_stopped() and $timers/attacks/Lock.is_stopped():
+			#attack_2 = true
+		#
+		#if can_wip:
+			#$timers/attacks/Second.start()
+			#$timers/attacks/CD.start()
+			#can_wip = false
+			#wip = true
+		#
+		#$timers/attacks/Lock.start()
+		
 func player_idle()->void:
-	if current_state != STATE.SLEEP and current_state != STATE.IDLE:
+	if current_state != "sleep" and current_state != "idle":
 		sleep = false
