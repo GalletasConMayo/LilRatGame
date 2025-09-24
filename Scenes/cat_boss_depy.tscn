@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://c8i227klbxv7i"]
+[gd_scene load_steps=31 format=3 uid="uid://c8i227klbxv7i"]
 
 [ext_resource type="Script" uid="uid://cn78uquf02l1h" path="res://Scripts/boss_depy.gd" id="1_82fvs"]
 [ext_resource type="Script" uid="uid://bo3eqi7bahpw0" path="res://Scripts/timers.gd" id="2_483ck"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c4qwpsniahfic" path="res://Images/Bosses/Derpy.png" id="2_qrnqv"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://cjawk5s8040ho" path="res://Images/Bosses/cat_boss_depy.tres" id="3_ub8k0"]
 [ext_resource type="Script" uid="uid://rbux131hykwx" path="res://Scenes/enemy_hurtbox.gd" id="4_2ikp7"]
+[ext_resource type="Script" uid="uid://bclmpr4gg5eah" path="res://Scripts/hitbox_boss.gd" id="5_fohcs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ejdae"]
 resource_local_to_scene = true
@@ -72,30 +73,6 @@ tracks/1/keys = {
 "method": &"move_repeat"
 }]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("hitbox/dash:monitorable")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.396609),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("hitbox/dash:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.396609),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
 
 [sub_resource type="Animation" id="Animation_ywxya"]
 resource_name = "att_jump_down"
@@ -111,30 +88,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Vector2i(4, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("hitbox/jump:monitorable")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.4),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("hitbox/jump:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.4),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_7r6ii"]
@@ -178,30 +131,6 @@ tracks/2/keys = {
 "method": &"move_velocity"
 }]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("hitbox/jump:monitorable")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("hitbox/jump:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="Animation" id="Animation_vrirl"]
 resource_name = "meleeatt1"
@@ -218,37 +147,13 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2), Vector2i(4, 2)]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("hurtbox/meeleatt:monitorable")
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("hurtbox/meeleatt:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 1.6),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -308,37 +213,13 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(0, 0), Vector2i(1, 0)]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("hurtbox/moving:monitorable")
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("hurtbox/moving:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -382,30 +263,6 @@ tracks/1/keys = {
 "method": &"second_attack"
 }]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("hitbox/land:monitorable")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.394672),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("hitbox/land:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.394672),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
 
 [sub_resource type="Animation" id="Animation_bso0y"]
 resource_name = "moving"
@@ -439,30 +296,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [Vector2i(0, 1)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("hitbox/moving:monitorable")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.397094),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("hitbox/moving:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.397094),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
 
 [sub_resource type="Animation" id="Animation_r7rht"]
 resource_name = "meeleprep"
@@ -494,30 +327,6 @@ tracks/1/keys = {
 "args": [],
 "method": &"attack"
 }]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("hitbox/land:monitorable")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.995156),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("hitbox/land:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.995156),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_eth2e"]
@@ -653,14 +462,8 @@ parameters/esteimaxin/conditions/prep = false
 parameters/esteimaxin/conditions/start = false
 parameters/esteimaxin/rip/blend_position = 0
 
-[node name="hitbox" type="Node2D" parent="."]
-
-[node name="meleeatt" type="Area2D" parent="hitbox"]
-collision_layer = 1024
-collision_mask = 768
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox/meleeatt"]
-position = Vector2(70, 72)
+[node name="hitbox" type="Node2D" parent="." groups=["enemy_hitbox"]]
+script = ExtResource("5_fohcs")
 
 [node name="moving" type="Area2D" parent="hitbox"]
 visible = false
@@ -699,12 +502,11 @@ monitorable = false
 position = Vector2(20, 33)
 shape = SubResource("RectangleShape2D_c7kuu")
 
-[node name="hurtbox" type="Node2D" parent="."]
+[node name="hurtbox" type="Node2D" parent="." groups=["enemy_hitbox"]]
 position = Vector2(14, 35)
 script = ExtResource("4_2ikp7")
 
 [node name="moving" type="Area2D" parent="hurtbox"]
-visible = false
 monitorable = false
 
 [node name="Moving" type="CollisionShape2D" parent="hurtbox/moving"]
@@ -712,7 +514,6 @@ position = Vector2(6, -21)
 shape = SubResource("RectangleShape2D_3kvde")
 
 [node name="meeleatt" type="Area2D" parent="hurtbox"]
-visible = false
 monitorable = false
 
 [node name="collision" type="CollisionShape2D" parent="hurtbox/meeleatt"]

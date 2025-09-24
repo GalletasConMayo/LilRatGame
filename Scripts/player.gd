@@ -22,6 +22,8 @@ const GRAVITY		:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTRISE * JUMP_TTRISE)
 const FALL_GRAVITY 	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTFALL * JUMP_TTFALL)
 
 #Numeric Variables
+var HP: int
+var MAX_HP: int
 var CURRENT_SPEED : int
 var LAST_DIRECTION = 1
 var current_state : String
@@ -56,6 +58,7 @@ var weapon : AnimatedSprite2D
 var ribbon : AnimatedSprite2D
 
 func _ready():
+	HP = 5
 	current_state = "idle"
 	dash_reset = true
 
@@ -116,6 +119,10 @@ func _on_attack_lock_timeout():
 func teleport_to_location(position_x: float, position_y: float)->void:
 	self.position.x = position_x
 	self.position.y = position_y
+
+func player_move_to(vel_x: float, vel_y: float)->void:
+	self.velocity.x += vel_x
+	self.velocity.y += vel_y
 
 func reset()->void:
 	can_control = true
@@ -294,20 +301,8 @@ func player_attack()->void:
 			wip_down = true
 			
 		$timers/attacks/Lock.start()
-			
-#old attack with timmers and weas raras
-	#if Input.is_action_just_pressed("ui_BassicAttack") and $timers/attacks/Lock.is_stopped():
-		#if !$timers/attacks/Second.is_stopped() and $timers/attacks/Lock.is_stopped():
-			#attack_2 = true
-		#
-		#if can_wip:
-			#$timers/attacks/Second.start()
-			#$timers/attacks/CD.start()
-			#can_wip = false
-			#wip = true
-		#
-		#$timers/attacks/Lock.start()
-		
+
+
 func player_idle()->void:
 	if current_state != "sleep" and current_state != "idle":
 		sleep = false

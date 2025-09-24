@@ -15,8 +15,6 @@ var exited_camera: String
 var cheeses: int
 var cheese_piece: int
 var max_cheeses: int
-var hitpoints : int
-var max_hitpoints : int
 
 signal camera_search()
 signal trash_can()
@@ -24,10 +22,11 @@ signal reset()
 signal debug()
 signal change_scene()
 signal state_signal(String)
+signal hp_change()
 
 func _ready():
 	debug.connect(debug_variables)
-
+	
 func debug_variables()->void:
 	double_jump = true
 	wall_jump  = true

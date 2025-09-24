@@ -1,12 +1,16 @@
 extends Node2D
 class_name PlayerHurtbox
 
+signal hp_changed(HUD_HP: int)
+
+@onready var HP = $"..".HP
+
 func _process(delta):
 	hp_check()
 
 
 func hp_check()->void:
-	if global_variables.hitpoints <= 0:
+	if get_parent().HP <= 0:
 		#ded animation play 
 		#$"..".set_physics_process(false)
 		$"..".can_control = false
@@ -27,7 +31,8 @@ func flash_white():
 
 func _on_hurtbox_area_entered(area):
 	print(area.name)
-	global_variables.hitpoints -= 1
+	HP -= 1
+	emit_signal("hp_changed", HP)
 	hit_stop_time(0.3)
 	$"../timers/IFrames".start()
 	flash_white()

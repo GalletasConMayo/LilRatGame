@@ -434,7 +434,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../hitbox/normal_hit:monitoring")
+tracks/2/path = NodePath("../hitbox/wip:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -446,7 +446,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../hitbox/normal_hit:visible")
+tracks/3/path = NodePath("../hitbox/wip:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -487,7 +487,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../hitbox/normal_hit:monitoring")
+tracks/2/path = NodePath("../hitbox/wip:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -499,7 +499,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../hitbox/normal_hit:visible")
+tracks/3/path = NodePath("../hitbox/wip:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -606,15 +606,16 @@ shader_parameter/flash_modifier = 0.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5kjen"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1ek2"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tx1dd"]
-size = Vector2(61.7656, 24.0664)
+size = Vector2(57.5, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gymyn"]
 size = Vector2(25, 60.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pu2lt"]
 size = Vector2(20, 42.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tx1dd"]
+size = Vector2(15.8828, 24.0166)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i53eo"]
 size = Vector2(18.5, 25.75)
@@ -662,39 +663,39 @@ vframes = 10
 frame = 1
 
 [node name="hitbox" type="Node2D" parent="."]
-visible = false
 script = ExtResource("7_qmgj4")
 
-[node name="normal_hit" type="Area2D" parent="hitbox"]
+[node name="wip" type="Area2D" parent="hitbox"]
+visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox/normal_hit"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox/wip"]
+position = Vector2(36.75, 4)
 shape = SubResource("RectangleShape2D_f1ek2")
+
+[node name="wipup" type="Area2D" parent="hitbox"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox/wipup"]
+position = Vector2(9, -22.125)
+shape = SubResource("RectangleShape2D_gymyn")
+
+[node name="wipdown" type="Area2D" parent="hitbox"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox/wipdown"]
+position = Vector2(4, 30.25)
+shape = SubResource("RectangleShape2D_pu2lt")
 
 [node name="hutrbox" type="Node2D" parent="."]
 script = ExtResource("8_kpcmo")
 
-[node name="wip" type="Area2D" parent="hutrbox"]
-visible = false
+[node name="rat" type="Area2D" parent="hutrbox"]
 collision_layer = 512
 collision_mask = 1024
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hutrbox/wip"]
-position = Vector2(39, 4)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hutrbox/rat"]
+position = Vector2(0, 2.0083)
 shape = SubResource("RectangleShape2D_tx1dd")
-
-[node name="wipup" type="Area2D" parent="hutrbox"]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hutrbox/wipup"]
-position = Vector2(9, -22.125)
-shape = SubResource("RectangleShape2D_gymyn")
-
-[node name="wipdown" type="Area2D" parent="hutrbox"]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hutrbox/wipdown"]
-position = Vector2(4, 30.25)
-shape = SubResource("RectangleShape2D_pu2lt")
 
 [node name="timers" type="Node2D" parent="."]
 
@@ -765,7 +766,7 @@ snap_to_pixel = true
 tween_resource = SubResource("Resource_45fv3")
 tween_on_load = false
 
-[connection signal="area_entered" from="hutrbox/wip" to="hutrbox" method="_on_hurtbox_area_entered"]
+[connection signal="area_entered" from="hutrbox/rat" to="hutrbox" method="_on_hurtbox_area_entered"]
 [connection signal="timeout" from="timers/Jump" to="." method="_on_jump_timer_timeout"]
 [connection signal="timeout" from="timers/DashDuration" to="." method="_on_dash_duration_timer_timeout"]
 [connection signal="timeout" from="timers/Idle" to="." method="_on_idle_timer_timeout"]

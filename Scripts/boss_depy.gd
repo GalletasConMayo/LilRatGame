@@ -34,6 +34,7 @@ const FALL_GRAVITY 	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTFALL * JUMP_TTFALL
 
 
 func _ready():
+	HP = 20
 	player = get_tree().get_first_node_in_group("player")
 	await get_tree().create_timer(2).timeout
 	global_variables.reset.connect(reset)
@@ -86,7 +87,7 @@ func reset_attacks()->void:
 
 
 func sprite_redirection() -> void:
-	if global_variables.hitpoints == 0:
+	if HP == 0:
 		state_machine.travel("win")
 	else:
 		direction = round((player.global_position - global_position).normalized().x)

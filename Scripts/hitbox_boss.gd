@@ -3,18 +3,15 @@ extends Node2D
 func hp_check()->void:
 	pass
 
+
 func flash_white():
 	$"../animations/Sprite2D".material.set_shader_parameter("flash_modifier", 1.0)
 	await get_tree().create_timer(0.1).timeout
 	$"../animations/Sprite2D".material.set_shader_parameter("flash_modifier", 0)
 	await get_tree().create_timer(0.1).timeout
 	
-func take_damage():
-	get_parent().HP =- 1
-	print(get_parent().HP)
-	
 
-func _on_hurtbox_area_entered(area):
+func _on_hitbox_area_entered(area):
 	print(area.name)
 	global_variables.hitpoints -= 1
 	hit_stop_time(0.3)
