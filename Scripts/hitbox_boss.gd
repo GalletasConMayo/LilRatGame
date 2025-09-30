@@ -1,24 +1,26 @@
 extends Node2D
+@export var player: CharacterBody2D
 
-func hp_check()->void:
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	player = get_parent()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
 	pass
 
-
-func flash_white():
-	$"../animations/Sprite2D".material.set_shader_parameter("flash_modifier", 1.0)
-	await get_tree().create_timer(0.1).timeout
-	$"../animations/Sprite2D".material.set_shader_parameter("flash_modifier", 0)
-	await get_tree().create_timer(0.1).timeout
-	
-
-func _on_hitbox_area_entered(area):
-	print(area.name)
-	global_variables.hitpoints -= 1
-	hit_stop_time(0.3)
-	flash_white()
+func _on_area_entered(area: Area2D):
+	print("entre")
+	# Verifica si el área que entró es una Hurtbox de enemigo
+	if area.is_in_group("player"):
+		print("grupo player998890989098909890")
+		var enemy = area.get_parent()  # Obtiene el nodo padre (el enemigo)
+		enemy.take_damage(player.DAMAGE)      # Llama a su función de recibir daño
 
 
-func hit_stop_time(seconds:float)->void:
-	get_tree().paused = true
-	await get_tree().create_timer(seconds).timeout
-	get_tree().paused = false
+func _on_jump_area_entered(area: Area2D) -> void:
+	pass # Replace with function body.
+
+
+func _on_jump_entered(area: Area2D) -> void:
+	pass # Replace with function body.

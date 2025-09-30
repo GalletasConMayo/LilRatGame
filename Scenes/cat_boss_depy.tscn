@@ -432,7 +432,7 @@ size = Vector2(166, 45)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gfqsr"]
 size = Vector2(154.75, 94.4688)
 
-[node name="Depy" type="CharacterBody2D"]
+[node name="Depy" type="CharacterBody2D" groups=["enemy_hitbox"]]
 collision_layer = 0
 script = ExtResource("1_82fvs")
 
@@ -469,7 +469,6 @@ script = ExtResource("5_fohcs")
 visible = false
 collision_layer = 1024
 collision_mask = 768
-monitorable = false
 
 [node name="Moving" type="CollisionShape2D" parent="hitbox/moving"]
 position = Vector2(19, 16)
@@ -478,7 +477,7 @@ shape = SubResource("RectangleShape2D_qfruh")
 [node name="dash" type="Area2D" parent="hitbox"]
 visible = false
 collision_layer = 1024
-monitorable = false
+collision_mask = 768
 
 [node name="Dash" type="CollisionShape2D" parent="hitbox/dash"]
 position = Vector2(17, 18)
@@ -487,7 +486,7 @@ shape = SubResource("RectangleShape2D_ieqsp")
 [node name="jump" type="Area2D" parent="hitbox"]
 visible = false
 collision_layer = 1024
-monitorable = false
+collision_mask = 768
 
 [node name="Jump" type="CollisionShape2D" parent="hitbox/jump"]
 position = Vector2(23, 14)
@@ -496,25 +495,29 @@ shape = SubResource("RectangleShape2D_e5xyk")
 [node name="land" type="Area2D" parent="hitbox"]
 visible = false
 collision_layer = 1024
-monitorable = false
+collision_mask = 768
 
 [node name="Land" type="CollisionShape2D" parent="hitbox/land"]
 position = Vector2(20, 33)
 shape = SubResource("RectangleShape2D_c7kuu")
 
-[node name="hurtbox" type="Node2D" parent="." groups=["enemy_hitbox"]]
+[node name="hurtbox" type="Node2D" parent="."]
 position = Vector2(14, 35)
 script = ExtResource("4_2ikp7")
 
 [node name="moving" type="Area2D" parent="hurtbox"]
-monitorable = false
+visible = false
+collision_layer = 2048
+collision_mask = 768
 
 [node name="Moving" type="CollisionShape2D" parent="hurtbox/moving"]
 position = Vector2(6, -21)
 shape = SubResource("RectangleShape2D_3kvde")
 
 [node name="meeleatt" type="Area2D" parent="hurtbox"]
-monitorable = false
+visible = false
+collision_layer = 2048
+collision_mask = 768
 
 [node name="collision" type="CollisionShape2D" parent="hurtbox/meeleatt"]
 position = Vector2(31, -3)
@@ -553,6 +556,10 @@ visible = false
 position = Vector2(0.375, 12)
 shape = SubResource("RectangleShape2D_gfqsr")
 
+[connection signal="area_entered" from="hitbox/moving" to="hitbox" method="_on_area_entered"]
+[connection signal="area_entered" from="hitbox/dash" to="hitbox" method="_on_area_entered"]
+[connection signal="area_entered" from="hitbox/jump" to="hitbox" method="_on_jump_entered"]
+[connection signal="area_entered" from="hitbox/land" to="hitbox" method="_on_area_entered"]
 [connection signal="timeout" from="timers/MeleeAttTimer" to="." method="_on_attack_timeout"]
 [connection signal="timeout" from="timers/RangeAttTimer" to="." method="_on_attack_timeout"]
 [connection signal="timeout" from="timers/RangeAttTimer/Teleport" to="." method="_on_teleport_timeout"]

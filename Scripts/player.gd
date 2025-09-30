@@ -24,8 +24,9 @@ const FALL_GRAVITY 	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTFALL * JUMP_TTFALL
 #Numeric Variables
 var HP: int
 var MAX_HP: int
+var DAMAGE: int
 var CURRENT_SPEED : int
-var LAST_DIRECTION = 1
+var LAST_DIRECTION : int = 1
 var current_state : String
 var last_state : String
 var direction

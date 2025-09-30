@@ -1,16 +1,16 @@
 extends Node2D
-class_name PlayerHurtbox
+@export var player: CharacterBody2D
 
 signal hp_changed(HUD_HP: int)
 
-@onready var HP = $"..".HP
+func _ready():
+	player = get_parent()
 
 func _process(delta):
 	hp_check()
 
-
 func hp_check()->void:
-	if get_parent().HP <= 0:
+	if player.HP <= 0:
 		#ded animation play 
 		#$"..".set_physics_process(false)
 		$"..".can_control = false
@@ -29,20 +29,16 @@ func flash_white():
 		i+=1
 
 
-func _on_hurtbox_area_entered(area):
-	print(area.name)
-	HP -= 1
-	emit_signal("hp_changed", HP)
+func take_damage(damage: int):
+	player.HP -= damage
+	emit_signal("hp_changed", player.HP)
+	player.player_move_to(player.direction, 0)
 	hit_stop_time(0.3)
 	$"../timers/IFrames".start()
 	flash_white()
-	$hurtbox.set_deferred("monitoring",false)
 
 
 func hit_stop_time(seconds:float)->void:
 	get_tree().paused = true
 	await get_tree().create_timer(seconds).timeout
 	get_tree().paused = false
-
-func _on_i_frames_timer_timeout():
-	$hurtbox.set_deferred("monitoring",true)
