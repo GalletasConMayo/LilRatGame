@@ -1,5 +1,6 @@
 extends Node2D
 @export var player: CharacterBody2D
+var i = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,6 +12,6 @@ func _process(delta):
 
 func _on_area_entered(area: Area2D):
 	# Verifica si el área que entró es una Hurtbox de enemigo
-	if area.is_in_group("enemy_hitbox"):
+	if area.is_in_group("enemy"):
 		var enemy = area.get_parent()  # Obtiene el nodo padre (el enemigo)
 		enemy.take_damage(player.DAMAGE)      # Llama a su función de recibir daño

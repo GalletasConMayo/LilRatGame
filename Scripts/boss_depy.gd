@@ -31,7 +31,7 @@ const JUMP_TTFALL 	:float = 0.2
 const JUMP_VELOCITY	:float =(-1) *  2 * JUMP_HEIGHT / JUMP_TTRISE
 const RISE_GRAVITY	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTRISE * JUMP_TTRISE)
 const FALL_GRAVITY 	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTFALL * JUMP_TTFALL)
-
+const DAMAGE: int = 1
 
 func _ready():
 	HP = 20
@@ -39,10 +39,6 @@ func _ready():
 	await get_tree().create_timer(2).timeout
 	global_variables.reset.connect(reset)
 	animation_tree.set(start, true)
-	var areas = $hitbox.get_children()
-	for area in areas:
-		area.monitoring = false
-		print(area.name, " monitoring = ", area.monitoring)
 
 
 func _physics_process(delta: float):
@@ -50,6 +46,7 @@ func _physics_process(delta: float):
 	move_and_slide()
 	$hurtbox.hp_check()
 	#print(animation_tree.get("parameters/esteimaxin/playback").get_current_node())
+
 
 func reset()->void:
 	state_machine.travel("idle")

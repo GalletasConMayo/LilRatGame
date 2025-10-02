@@ -5,8 +5,8 @@
 [ext_resource type="Shader" uid="uid://dttnikoh5xe3t" path="res://Shaders/player.gdshader" id="2_qitym"]
 [ext_resource type="Texture2D" uid="uid://c4qwpsniahfic" path="res://Images/Bosses/Derpy.png" id="2_qrnqv"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://cjawk5s8040ho" path="res://Images/Bosses/cat_boss_depy.tres" id="3_ub8k0"]
-[ext_resource type="Script" uid="uid://rbux131hykwx" path="res://Scenes/enemy_hurtbox.gd" id="4_2ikp7"]
-[ext_resource type="Script" uid="uid://bclmpr4gg5eah" path="res://Scripts/hitbox_boss.gd" id="5_fohcs"]
+[ext_resource type="Script" uid="uid://rbux131hykwx" path="res://Scripts/enemy_hurtbox.gd" id="5_fnp5w"]
+[ext_resource type="Script" uid="uid://bclmpr4gg5eah" path="res://Scripts/enemy_hitbox.gd" id="6_fohcs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ejdae"]
 resource_local_to_scene = true
@@ -19,7 +19,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprite2D:frame_coords")
+tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -47,7 +47,7 @@ length = 0.40001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprite2D:frame_coords")
+tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -80,7 +80,7 @@ length = 0.40001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprite2D:frame_coords")
+tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -96,7 +96,7 @@ length = 0.40001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprite2D:frame_coords")
+tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -138,7 +138,7 @@ length = 1.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprite2D:frame_coords")
+tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -171,7 +171,7 @@ length = 0.40001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprite2D:frame_coords")
+tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -204,7 +204,7 @@ step = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprite2D:frame_coords")
+tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -234,7 +234,7 @@ length = 0.40001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprite2D:frame_coords")
+tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -287,7 +287,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("animations/Sprite2D:frame_coords")
+tracks/1/path = NodePath("animations/Sprites:frame_coords")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -302,7 +302,7 @@ resource_name = "meeleprep"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprite2D:frame_coords")
+tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -335,7 +335,7 @@ length = 0.10001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprite2D:frame_coords")
+tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -364,7 +364,7 @@ step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprite2D:frame_coords")
+tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -404,12 +404,19 @@ _data = {
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_yoyb1"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_rxc26"]
+graph_offset = Vector2(-56.4876, 45.5206)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_yoyb1")
 nodes/TimeScale/position = Vector2(416.274, 30.5557)
 nodes/esteimaxin/node = ExtResource("3_ub8k0")
 nodes/esteimaxin/position = Vector2(120, 60)
 nodes/output/position = Vector2(580, 40)
 node_connections = [&"TimeScale", 0, &"esteimaxin", &"output", 0, &"TimeScale"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3kvde"]
+size = Vector2(120, 90)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqibg"]
+size = Vector2(166, 45)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qfruh"]
 size = Vector2(107, 79)
@@ -423,23 +430,17 @@ size = Vector2(103.5, 65)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c7kuu"]
 size = Vector2(108, 46)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3kvde"]
-size = Vector2(120, 90)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqibg"]
-size = Vector2(166, 45)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gfqsr"]
 size = Vector2(154.75, 94.4688)
 
-[node name="Depy" type="CharacterBody2D" groups=["enemy_hitbox"]]
+[node name="Depy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 0
 script = ExtResource("1_82fvs")
 
 [node name="animations" type="Node2D" parent="."]
 z_index = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="animations"]
+[node name="Sprites" type="Sprite2D" parent="animations"]
 material = SubResource("ShaderMaterial_ejdae")
 texture = ExtResource("2_qrnqv")
 hframes = 7
@@ -462,66 +463,66 @@ parameters/esteimaxin/conditions/prep = false
 parameters/esteimaxin/conditions/start = false
 parameters/esteimaxin/rip/blend_position = 0
 
-[node name="hitbox" type="Node2D" parent="." groups=["enemy_hitbox"]]
-script = ExtResource("5_fohcs")
+[node name="hitbox" type="Node2D" parent="."]
+position = Vector2(14, 35)
+script = ExtResource("6_fohcs")
 
 [node name="moving" type="Area2D" parent="hitbox"]
 visible = false
-collision_layer = 1024
+collision_layer = 2048
 collision_mask = 768
 
 [node name="Moving" type="CollisionShape2D" parent="hitbox/moving"]
-position = Vector2(19, 16)
-shape = SubResource("RectangleShape2D_qfruh")
-
-[node name="dash" type="Area2D" parent="hitbox"]
-visible = false
-collision_layer = 1024
-collision_mask = 768
-
-[node name="Dash" type="CollisionShape2D" parent="hitbox/dash"]
-position = Vector2(17, 18)
-shape = SubResource("RectangleShape2D_ieqsp")
-
-[node name="jump" type="Area2D" parent="hitbox"]
-visible = false
-collision_layer = 1024
-collision_mask = 768
-
-[node name="Jump" type="CollisionShape2D" parent="hitbox/jump"]
-position = Vector2(23, 14)
-shape = SubResource("RectangleShape2D_e5xyk")
-
-[node name="land" type="Area2D" parent="hitbox"]
-visible = false
-collision_layer = 1024
-collision_mask = 768
-
-[node name="Land" type="CollisionShape2D" parent="hitbox/land"]
-position = Vector2(20, 33)
-shape = SubResource("RectangleShape2D_c7kuu")
-
-[node name="hurtbox" type="Node2D" parent="."]
-position = Vector2(14, 35)
-script = ExtResource("4_2ikp7")
-
-[node name="moving" type="Area2D" parent="hurtbox"]
-visible = false
-collision_layer = 2048
-collision_mask = 768
-
-[node name="Moving" type="CollisionShape2D" parent="hurtbox/moving"]
 position = Vector2(6, -21)
 shape = SubResource("RectangleShape2D_3kvde")
 
-[node name="meeleatt" type="Area2D" parent="hurtbox"]
+[node name="meeleatt" type="Area2D" parent="hitbox"]
 visible = false
 collision_layer = 2048
 collision_mask = 768
 
-[node name="collision" type="CollisionShape2D" parent="hurtbox/meeleatt"]
+[node name="collision" type="CollisionShape2D" parent="hitbox/meeleatt"]
 position = Vector2(31, -3)
 shape = SubResource("RectangleShape2D_yqibg")
+
+[node name="hurtbox" type="Node2D" parent="."]
+script = ExtResource("5_fnp5w")
+
+[node name="moving" type="Area2D" parent="hurtbox" groups=["enemy"]]
+visible = false
+collision_layer = 1024
+collision_mask = 768
+
+[node name="Moving" type="CollisionShape2D" parent="hurtbox/moving"]
+position = Vector2(19, 16)
+shape = SubResource("RectangleShape2D_qfruh")
+
+[node name="dash" type="Area2D" parent="hurtbox" groups=["enemy"]]
+visible = false
+collision_layer = 1024
+collision_mask = 768
+
+[node name="Dash" type="CollisionShape2D" parent="hurtbox/dash"]
+position = Vector2(17, 18)
+shape = SubResource("RectangleShape2D_ieqsp")
+
+[node name="jump" type="Area2D" parent="hurtbox" groups=["enemy"]]
+visible = false
+collision_layer = 1024
+collision_mask = 768
+
+[node name="Jump" type="CollisionShape2D" parent="hurtbox/jump"]
+position = Vector2(23, 14)
+shape = SubResource("RectangleShape2D_e5xyk")
+
+[node name="land" type="Area2D" parent="hurtbox" groups=["enemy"]]
+visible = false
+collision_layer = 1024
+collision_mask = 768
+
+[node name="Land" type="CollisionShape2D" parent="hurtbox/land"]
+position = Vector2(20, 33)
+shape = SubResource("RectangleShape2D_c7kuu")
 
 [node name="timers" type="Node2D" parent="."]
 script = ExtResource("2_483ck")
@@ -557,9 +558,7 @@ position = Vector2(0.375, 12)
 shape = SubResource("RectangleShape2D_gfqsr")
 
 [connection signal="area_entered" from="hitbox/moving" to="hitbox" method="_on_area_entered"]
-[connection signal="area_entered" from="hitbox/dash" to="hitbox" method="_on_area_entered"]
-[connection signal="area_entered" from="hitbox/jump" to="hitbox" method="_on_jump_entered"]
-[connection signal="area_entered" from="hitbox/land" to="hitbox" method="_on_area_entered"]
+[connection signal="area_entered" from="hitbox/meeleatt" to="hitbox" method="_on_area_entered"]
 [connection signal="timeout" from="timers/MeleeAttTimer" to="." method="_on_attack_timeout"]
 [connection signal="timeout" from="timers/RangeAttTimer" to="." method="_on_attack_timeout"]
 [connection signal="timeout" from="timers/RangeAttTimer/Teleport" to="." method="_on_teleport_timeout"]

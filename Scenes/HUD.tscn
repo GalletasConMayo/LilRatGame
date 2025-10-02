@@ -23,25 +23,33 @@ texture = ExtResource("1_aticg")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -310.0
-offset_top = -36.0
-offset_right = -291.0
-offset_bottom = -13.0
-grow_horizontal = 0
+offset_left = -10.5
+offset_top = -50.0
+offset_right = 10.5
+grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 270
 
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_constants/h_separation = 19
 columns = 2
 
 [node name="hitpoins" type="Label" parent="HBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="xx" type="Label" parent="HBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="cheeses" type="Label" parent="HBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="cheese_piece" type="Label" parent="HBoxContainer/GridContainer"]
 layout_mode = 2

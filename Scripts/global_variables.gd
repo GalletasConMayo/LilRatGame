@@ -12,9 +12,9 @@ var ribbon : bool = false
 var active_camera: Array[String] = []
 var exited_camera: String
 
-var cheeses: int
-var cheese_piece: int
-var max_cheeses: int
+#var cheeses: int
+#var cheese_piece: int
+#var max_cheeses: int
 
 signal camera_search()
 signal trash_can()
@@ -22,7 +22,8 @@ signal reset()
 signal debug()
 signal change_scene()
 signal state_signal(String)
-signal hp_change()
+signal hp_change(int)
+signal first_hp_anim(int)
 
 func _ready():
 	debug.connect(debug_variables)

@@ -62,6 +62,8 @@ func _ready():
 	HP = 5
 	current_state = "idle"
 	dash_reset = true
+	await get_tree().create_timer(0.1).timeout
+	global_variables.first_hp_anim.emit(HP)
 
 
 func _physics_process(delta: float):
@@ -128,7 +130,7 @@ func player_move_to(vel_x: float, vel_y: float)->void:
 func reset()->void:
 	can_control = true
 	$animations.visible = true
-	global_variables.hitpoints = 10000
+	HP = 10000
 
 
 func player_SM()->void:
@@ -296,7 +298,7 @@ func player_attack()->void:
 			can_wip = false
 			wip_up = true
 		
-		if Input.is_action_just_pressed("attack") and Input.is_action_pressed("down"):
+		if Input.is_action_just_pressed("attack") and Input.is_action_pressed("down") and !is_on_floor():
 			$timers/attacks/CD.start()
 			can_wip = false
 			wip_down = true

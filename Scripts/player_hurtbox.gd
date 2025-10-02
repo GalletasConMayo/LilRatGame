@@ -1,8 +1,6 @@
 extends Node2D
 @export var player: CharacterBody2D
 
-signal hp_changed(HUD_HP: int)
-
 func _ready():
 	player = get_parent()
 
@@ -31,7 +29,7 @@ func flash_white():
 
 func take_damage(damage: int):
 	player.HP -= damage
-	emit_signal("hp_changed", player.HP)
+	global_variables.hp_change.emit(player.HP)
 	player.player_move_to(player.direction, 0)
 	hit_stop_time(0.3)
 	$"../timers/IFrames".start()

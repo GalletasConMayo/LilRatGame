@@ -36,6 +36,42 @@ tracks/1/keys = {
 "update": 1,
 "values": [Vector2i(1, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../hitbox/wipdown:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../hitbox/wipup:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../hitbox/wipup:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_igrcy"]
 resource_name = "block"
@@ -438,7 +474,7 @@ tracks/2/path = NodePath("../hitbox/wip:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.125, 0.208333),
+"times": PackedFloat32Array(0.125, 0.166667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -450,7 +486,7 @@ tracks/3/path = NodePath("../hitbox/wip:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.125, 0.208333),
+"times": PackedFloat32Array(0.125, 0.166667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -491,7 +527,7 @@ tracks/2/path = NodePath("../hitbox/wip:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.125, 0.175),
+"times": PackedFloat32Array(0.125, 0.166667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -503,7 +539,7 @@ tracks/3/path = NodePath("../hitbox/wip:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.125, 0.175),
+"times": PackedFloat32Array(0.125, 0.166667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -523,6 +559,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(0, 13), Vector2i(1, 13), Vector2i(2, 13), Vector2i(3, 13)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../hitbox/wipdown:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 0.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../hitbox/wipdown:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333333, 0.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="Animation" id="Animation_ukyrk"]
 resource_name = "wiprun"
@@ -536,7 +596,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 15), Vector2i(1, 15), Vector2i(2, 15), Vector2i(3, 15)]
+"values": [Vector2i(0, 14), Vector2i(1, 14), Vector2i(2, 14), Vector2i(3, 14)]
 }
 
 [sub_resource type="Animation" id="Animation_7dp3o"]
@@ -551,7 +611,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 16), Vector2i(1, 16), Vector2i(2, 16), Vector2i(3, 16)]
+"values": [Vector2i(0, 15), Vector2i(1, 15), Vector2i(2, 15), Vector2i(3, 15)]
 }
 
 [sub_resource type="Animation" id="Animation_gymyn"]
@@ -567,6 +627,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [Vector2i(0, 12), Vector2i(1, 12), Vector2i(2, 12), Vector2i(3, 12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../hitbox/wipup:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 0.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../hitbox/wipup:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333333, 0.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u5dm6"]
@@ -662,13 +746,15 @@ hframes = 7
 vframes = 10
 frame = 1
 
-[node name="hitbox" type="Node2D" parent="." groups=["player"]]
+[node name="hitbox" type="Node2D" parent="."]
 script = ExtResource("7_qmgj4")
 
 [node name="wip" type="Area2D" parent="hitbox"]
 visible = false
 collision_layer = 256
 collision_mask = 3072
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox/wip"]
 position = Vector2(36.75, 4)
@@ -678,6 +764,8 @@ shape = SubResource("RectangleShape2D_f1ek2")
 visible = false
 collision_layer = 256
 collision_mask = 3072
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox/wipup"]
 position = Vector2(9, -22.125)
@@ -687,6 +775,8 @@ shape = SubResource("RectangleShape2D_gymyn")
 visible = false
 collision_layer = 256
 collision_mask = 3072
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox/wipdown"]
 position = Vector2(4, 30.25)
@@ -695,7 +785,7 @@ shape = SubResource("RectangleShape2D_pu2lt")
 [node name="hutrbox" type="Node2D" parent="."]
 script = ExtResource("8_kpcmo")
 
-[node name="rat" type="Area2D" parent="hutrbox"]
+[node name="rat" type="Area2D" parent="hutrbox" groups=["player"]]
 collision_layer = 512
 collision_mask = 1024
 
@@ -775,7 +865,6 @@ tween_on_load = false
 [connection signal="area_entered" from="hitbox/wip" to="hitbox" method="_on_area_entered"]
 [connection signal="area_entered" from="hitbox/wipup" to="hitbox" method="_on_area_entered"]
 [connection signal="area_entered" from="hitbox/wipdown" to="hitbox" method="_on_area_entered"]
-[connection signal="area_entered" from="hutrbox/rat" to="hutrbox" method="_on_hurtbox_area_entered"]
 [connection signal="timeout" from="timers/Jump" to="." method="_on_jump_timer_timeout"]
 [connection signal="timeout" from="timers/DashDuration" to="." method="_on_dash_duration_timer_timeout"]
 [connection signal="timeout" from="timers/Idle" to="." method="_on_idle_timer_timeout"]

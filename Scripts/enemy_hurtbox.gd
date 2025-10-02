@@ -32,9 +32,6 @@ func flash_white():
 func take_damage(damage: int):
 	player.HP -= damage
 	emit_signal("hp_changed", player.HP)
-	player.player_move_to(player.direction, 0)
-	hit_stop_time(0.3)
-	$"../timers/IFrames".start()
 	flash_white()
 
 
