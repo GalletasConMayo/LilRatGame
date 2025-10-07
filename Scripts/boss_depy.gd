@@ -23,7 +23,10 @@ var secondjump:bool = false
 @onready var state_machine = animation_tree["parameters/esteimaxin/playback"]
 
 const FALL_SPEED := 400
-const INRANGE := 100
+const WALK_SPEED: int = 130
+const RUN_SPEED  : int = 200
+const WALLJUMP_VELOCITY : int = 200
+const DASH_SPEED : int = 700
 
 const JUMP_HEIGHT 	:float = 80
 const JUMP_TTRISE 	:float = 0.2
@@ -42,12 +45,16 @@ func _ready():
 
 
 func _physics_process(delta: float):
-	gravity(delta)
 	move_and_slide()
+	jump()
 	$hurtbox.hp_check()
 	#print(animation_tree.get("parameters/esteimaxin/playback").get_current_node())
 
-
+func jump()->void:
+	velocity.x = RUN_SPEED
+	position.y += -2*((velocity.x/32)-32)/32
+	print(position.y, position.x)
+	
 func reset()->void:
 	state_machine.travel("idle")
 	teleport_to_location(0,0)
@@ -56,25 +63,6 @@ func reset()->void:
 func teleport_to_location(position_x: float, position_y: float)->void:
 	self.position.x = position_x
 	self.position.y = position_y
-
-
-func gravity(delta: float)-> void:
-	if jumping:
-		velocity.y = JUMP_VELOCITY/2
-	else:
-		velocity.y = FALL_GRAVITY/4
-		velocity.y = clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
-
-
-func move_velocity(vel:int)->void:
-	if jumping:
-		if randf() < 0.7 or secondjump:
-			velocity.x = vel * direction * 0.5
-			secondjump = false
-		else:
-			velocity.x = vel * direction
-	else:
-		velocity.x = vel * direction
 
 
 func reset_attacks()->void:
@@ -102,32 +90,51 @@ func sprite_redirection() -> void:
 			$terraincollision.scale.x = 1
 
 
-func move_repeat()->void:
-	if $collisions/WallCollision.is_colliding():
-		velocity.x = 0
-		animation_tree.set(preparation, true)
-	else:
-		animation_tree.set(preparation, false)
-		state_machine.travel(animation_tree.get("parameters/esteimaxin/playback").get_current_node())
-
-
-func attack()->void:
-	if randf() < 0.5:
-		animation_tree.set(jump_attack, true)
-	else:
-		animation_tree.set(dash_attack, true)
 
 
 func flea_scratch()->void:
 	#state_machine.travel("flea")
 	pass
+	
+	
+####### OLD STUFF ###########
+func gravity(delta: float)-> void:
+	velocity.y += FALL_GRAVITY/4
+	velocity.y = clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
 
 
-func second_attack()->void:
-	if $collisions/PlayerCollision.is_colliding():
-		state_machine.travel("dash")
-	elif $collisions/WallCollision.is_colliding():
-		pass
-	elif !$collisions/WallCollision.is_colliding():
-		state_machine.travel("jump")
-		secondjump = true
+#func move_velocity(vel:int)->void:
+	#if jumping:
+		#if randf() < 0.7 or secondjump:
+			#velocity.x = vel * direction * 0.5
+			#secondjump = false
+		#else:
+			#velocity.x = vel * direction
+	#else:
+		#velocity.x = vel * direction
+
+
+#func move_repeat()->void:
+	#if $collisions/WallCollision.is_colliding():
+		#velocity.x = 0
+		#animation_tree.set(preparation, true)
+	#else:
+		#animation_tree.set(preparation, false)
+		#state_machine.travel(animation_tree.get("parameters/esteimaxin/playback").get_current_node())
+
+#
+#func attack()->void:
+	#if randf() < 0.5:
+		#animation_tree.set(jump_attack, true)
+	#else:
+		#animation_tree.set(dash_attack, true)
+
+#
+#func second_attack()->void:
+	#if $collisions/PlayerCollision.is_colliding():
+		#state_machine.travel("dash")
+	#elif $collisions/WallCollision.is_colliding():
+		#pass
+	#elif !$collisions/WallCollision.is_colliding():
+		#state_machine.travel("jump")
+		#secondjump = true

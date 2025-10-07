@@ -1,9 +1,9 @@
-[gd_scene load_steps=31 format=3 uid="uid://c8i227klbxv7i"]
+[gd_scene load_steps=28 format=3 uid="uid://c8i227klbxv7i"]
 
 [ext_resource type="Script" uid="uid://cn78uquf02l1h" path="res://Scripts/boss_depy.gd" id="1_82fvs"]
 [ext_resource type="Script" uid="uid://bo3eqi7bahpw0" path="res://Scripts/timers.gd" id="2_483ck"]
 [ext_resource type="Shader" uid="uid://dttnikoh5xe3t" path="res://Shaders/player.gdshader" id="2_qitym"]
-[ext_resource type="Texture2D" uid="uid://c4qwpsniahfic" path="res://Images/Bosses/Derpy.png" id="2_qrnqv"]
+[ext_resource type="Texture2D" uid="uid://xe7s76lf0kft" path="res://Images/Bosses/Depy.png" id="3_fohcs"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://cjawk5s8040ho" path="res://Images/Bosses/cat_boss_depy.tres" id="3_ub8k0"]
 [ext_resource type="Script" uid="uid://rbux131hykwx" path="res://Scripts/enemy_hurtbox.gd" id="5_fnp5w"]
 [ext_resource type="Script" uid="uid://bclmpr4gg5eah" path="res://Scripts/enemy_hitbox.gd" id="6_fohcs"]
@@ -26,7 +26,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Vector2i(0, 0)]
+"values": [Vector2i(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -51,123 +51,15 @@ tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2i(1, 5), Vector2i(2, 5)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [800],
-"method": &"move_velocity"
-}, {
-"args": [],
-"method": &"move_repeat"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_ywxya"]
-resource_name = "att_jump_down"
-length = 0.40001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprites:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(4, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_7r6ii"]
-resource_name = "att_jump_up"
-length = 0.40001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprites:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(2, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:jumping")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [450],
-"method": &"move_velocity"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_vrirl"]
-resource_name = "meleeatt1"
-length = 1.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprites:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1, 1.1),
+"times": PackedFloat32Array(-3.72529e-09, 0.0333333, 0.0666667, 0.1, 0.133333),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2), Vector2i(4, 2)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.6),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"reset_attacks"
-}, {
-"args": [],
-"method": &"set_velocity_x"
-}]
+"values": [Vector2i(0, 4), Vector2i(1, 4), Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4)]
 }
 
-[sub_resource type="Animation" id="Animation_okipa"]
-resource_name = "flea"
-length = 0.40001
+[sub_resource type="Animation" id="Animation_uhqow"]
+resource_name = "jump"
+length = 1.33334
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -175,32 +67,14 @@ tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.133333, 0.466667, 0.666667, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 4), Vector2i(1, 4)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"reset_attacks"
-}, {
-"args": [],
-"method": &"flea_scratch"
-}]
+"values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3)]
 }
 
-[sub_resource type="Animation" id="Animation_o3ide"]
-resource_name = "idle"
-step = 0.5
+[sub_resource type="Animation" id="Animation_tjrnd"]
+resource_name = "prepD"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -208,97 +82,14 @@ tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.0416667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Vector2i(0, 0), Vector2i(1, 0)]
 }
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"sprite_redirection"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_uuet5"]
-resource_name = "landing"
-length = 0.40001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprites:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2i(5, 1), Vector2i(6, 1)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"values": [{
-"args": [200],
-"method": &"move_velocity"
-}, {
-"args": [0],
-"method": &"move_velocity"
-}, {
-"args": [],
-"method": &"second_attack"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_bso0y"]
-resource_name = "moving"
-length = 0.40001
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [400],
-"method": &"move_velocity"
-}, {
-"args": [],
-"method": &"move_repeat"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("animations/Sprites:frame_coords")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(0, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_r7rht"]
-resource_name = "meeleprep"
+resource_name = "prepJ"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -306,32 +97,60 @@ tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(1, 1)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.0416667),
 "transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"sprite_redirection"
-}, {
-"args": [],
-"method": &"attack"
-}]
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_eth2e"]
-resource_name = "topframe"
-length = 0.10001
+[sub_resource type="Animation" id="Animation_lsvbr"]
+resource_name = "prepW"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("animations/Sprites:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0416667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 2), Vector2i(1, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_okipa"]
+resource_name = "scratch"
+length = 0.40001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("animations/Sprites:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 6), Vector2i(1, 6)]
+}
+
+[sub_resource type="Animation" id="Animation_fohcs"]
+resource_name = "turn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("animations/Sprites:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 7), Vector2i(1, 7), Vector2i(2, 7), Vector2i(3, 7)]
+}
+
+[sub_resource type="Animation" id="Animation_4jsss"]
+resource_name = "wall"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -342,69 +161,25 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Vector2i(3, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:jumping")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_w1gsu"]
-resource_name = "transition"
-length = 0.001
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprites:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 1,
-"values": []
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"values": []
+"values": [Vector2i(0, 5)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cajya"]
 _data = {
 &"RESET": SubResource("Animation_j3ou3"),
-&"att_dash": SubResource("Animation_stldw"),
-&"att_jump_down": SubResource("Animation_ywxya"),
-&"att_jump_up": SubResource("Animation_7r6ii"),
-&"att_melee": SubResource("Animation_vrirl"),
-&"flea": SubResource("Animation_okipa"),
-&"idle": SubResource("Animation_o3ide"),
-&"landing": SubResource("Animation_uuet5"),
-&"moving": SubResource("Animation_bso0y"),
-&"prep": SubResource("Animation_r7rht"),
-&"topframe": SubResource("Animation_eth2e"),
-&"transition": SubResource("Animation_w1gsu")
+&"dash": SubResource("Animation_stldw"),
+&"jump": SubResource("Animation_uhqow"),
+&"prepD": SubResource("Animation_tjrnd"),
+&"prepJ": SubResource("Animation_r7rht"),
+&"prepW": SubResource("Animation_lsvbr"),
+&"scratch": SubResource("Animation_okipa"),
+&"turn": SubResource("Animation_fohcs"),
+&"wall": SubResource("Animation_4jsss")
 }
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_yoyb1"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_rxc26"]
-graph_offset = Vector2(-56.4876, 45.5206)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_yoyb1")
 nodes/TimeScale/position = Vector2(416.274, 30.5557)
 nodes/esteimaxin/node = ExtResource("3_ub8k0")
@@ -442,9 +217,10 @@ z_index = 1
 
 [node name="Sprites" type="Sprite2D" parent="animations"]
 material = SubResource("ShaderMaterial_ejdae")
-texture = ExtResource("2_qrnqv")
-hframes = 7
-vframes = 6
+texture = ExtResource("3_fohcs")
+hframes = 5
+vframes = 8
+frame = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="animations"]
 root_node = NodePath("../..")
@@ -457,10 +233,6 @@ root_node = NodePath("../..")
 tree_root = SubResource("AnimationNodeBlendTree_rxc26")
 anim_player = NodePath("../AnimationPlayer")
 parameters/TimeScale/scale = 1.0
-parameters/esteimaxin/conditions/dash = false
-parameters/esteimaxin/conditions/jump = false
-parameters/esteimaxin/conditions/prep = false
-parameters/esteimaxin/conditions/start = false
 parameters/esteimaxin/rip/blend_position = 0
 
 [node name="hitbox" type="Node2D" parent="."]

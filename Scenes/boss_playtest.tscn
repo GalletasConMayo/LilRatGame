@@ -14,7 +14,7 @@ transition = 1
 ease = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omy4t"]
-size = Vector2(632, 348)
+size = Vector2(639, 358)
 
 [node name="boss_playtest" type="Node2D"]
 
@@ -41,7 +41,7 @@ tween_resource = SubResource("Resource_m75f4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="cameras/camera0"]
 z_index = 2
-position = Vector2(61, 5)
+position = Vector2(61.5, 0)
 shape = SubResource("RectangleShape2D_omy4t")
 
 [node name="player_start_pos" type="Node2D" parent="." groups=["player_start_pos"]]
