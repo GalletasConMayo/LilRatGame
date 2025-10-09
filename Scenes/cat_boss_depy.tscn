@@ -67,10 +67,24 @@ tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.133333, 0.466667, 0.666667, 0.966667),
+"times": PackedFloat32Array(0, 0.333333, 0.633333, 1, 1.1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"jump"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_tjrnd"]
@@ -101,6 +115,20 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Vector2i(0, 1), Vector2i(1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"sprite_redirection"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_lsvbr"]
@@ -143,10 +171,21 @@ tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.266667, 0.533333),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 7), Vector2i(1, 7), Vector2i(2, 7), Vector2i(3, 7)]
+"values": [Vector2i(0, 7), Vector2i(1, 7), Vector2i(2, 7)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
 }
 
 [sub_resource type="Animation" id="Animation_4jsss"]
@@ -211,6 +250,9 @@ size = Vector2(154.75, 94.4688)
 [node name="Depy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 0
 script = ExtResource("1_82fvs")
+JUMP_HEIGHT = 100.0
+JUMP_TTRISE = 0.5
+JUMP_TTFALL = 0.5
 
 [node name="animations" type="Node2D" parent="."]
 z_index = 1
@@ -240,7 +282,6 @@ position = Vector2(14, 35)
 script = ExtResource("6_fohcs")
 
 [node name="moving" type="Area2D" parent="hitbox"]
-visible = false
 collision_layer = 2048
 collision_mask = 768
 
@@ -325,7 +366,6 @@ target_position = Vector2(99, 0)
 collision_mask = 2
 
 [node name="terraincollision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0.375, 12)
 shape = SubResource("RectangleShape2D_gfqsr")
 

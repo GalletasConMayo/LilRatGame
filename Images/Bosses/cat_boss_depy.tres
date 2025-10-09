@@ -1,4 +1,4 @@
-[gd_resource type="AnimationNodeStateMachine" load_steps=33 format=3 uid="uid://cjawk5s8040ho"]
+[gd_resource type="AnimationNodeStateMachine" load_steps=34 format=3 uid="uid://cjawk5s8040ho"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5pdax"]
 animation = &"prep"
@@ -12,14 +12,32 @@ graph_offset = Vector2(9, -176)
 animation = &"flea"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ukuyt"]
-animation = &"prep"
+animation = &"jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_35ev7"]
+animation = &"prepJ"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o1eva"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fnx6b"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2uqr7"]
+switch_mode = 2
+advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_dooiw"]
 states/End/position = Vector2(943, 104)
 states/Start/position = Vector2(67, 104)
-states/prep/node = SubResource("AnimationNodeAnimation_ukuyt")
-states/prep/position = Vector2(225, 104)
-graph_offset = Vector2(-50, -144)
+states/jump/node = SubResource("AnimationNodeAnimation_ukuyt")
+states/jump/position = Vector2(371, 104)
+states/prepJ/node = SubResource("AnimationNodeAnimation_35ev7")
+states/prepJ/position = Vector2(206, 104)
+transitions = ["Start", "prepJ", SubResource("AnimationNodeStateMachineTransition_o1eva"), "prepJ", "jump", SubResource("AnimationNodeStateMachineTransition_fnx6b"), "jump", "End", SubResource("AnimationNodeStateMachineTransition_2uqr7")]
+graph_offset = Vector2(-66, -139)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sxkq8"]
 animation = &"moving"
@@ -102,23 +120,7 @@ transitions = ["Start", "flea", SubResource("AnimationNodeStateMachineTransition
 switch_mode = 2
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o1eva"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fnx6b"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2uqr7"]
-switch_mode = 2
-advance_mode = 2
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_28q04"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yyad2"]
 switch_mode = 2
 advance_mode = 2
 
@@ -130,10 +132,14 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yyad2"]
+switch_mode = 2
+advance_mode = 2
+
 [resource]
 allow_transition_to_self = true
 states/End/position = Vector2(1875, -228)
-states/Start/position = Vector2(1038.25, -259)
+states/Start/position = Vector2(1400.73, -221)
 states/dash/node = SubResource("AnimationNodeStateMachine_ailp4")
 states/dash/position = Vector2(1238.75, 31.574)
 states/flea/node = SubResource("AnimationNodeAnimation_iornm")
@@ -150,5 +156,5 @@ states/wall/node = SubResource("AnimationNodeStateMachine_35ev7")
 states/wall/position = Vector2(1557.75, 31.574)
 states/win/node = SubResource("AnimationNodeStateMachine_2xw55")
 states/win/position = Vector2(1762, -147.795)
-transitions = ["turn", "jump", SubResource("AnimationNodeStateMachineTransition_3c54v"), "turn", "wall", SubResource("AnimationNodeStateMachineTransition_o1eva"), "turn", "dash", SubResource("AnimationNodeStateMachineTransition_fnx6b"), "dash", "turn", SubResource("AnimationNodeStateMachineTransition_2uqr7"), "jump", "turn", SubResource("AnimationNodeStateMachineTransition_28q04"), "wall", "turn", SubResource("AnimationNodeStateMachineTransition_yyad2"), "flea", "moving", SubResource("AnimationNodeStateMachineTransition_ih67j"), "moving", "turn", SubResource("AnimationNodeStateMachineTransition_8pepl")]
-graph_offset = Vector2(855.73, -203.426)
+transitions = ["turn", "jump", SubResource("AnimationNodeStateMachineTransition_3c54v"), "jump", "turn", SubResource("AnimationNodeStateMachineTransition_28q04"), "flea", "moving", SubResource("AnimationNodeStateMachineTransition_ih67j"), "moving", "turn", SubResource("AnimationNodeStateMachineTransition_8pepl"), "Start", "jump", SubResource("AnimationNodeStateMachineTransition_yyad2")]
+graph_offset = Vector2(805.73, -245.426)

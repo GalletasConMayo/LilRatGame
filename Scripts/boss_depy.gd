@@ -22,18 +22,17 @@ var secondjump:bool = false
 @onready var animation_tree = $animations/AnimationTree
 @onready var state_machine = animation_tree["parameters/esteimaxin/playback"]
 
-const FALL_SPEED := 400
-const WALK_SPEED: int = 130
-const RUN_SPEED  : int = 200
-const WALLJUMP_VELOCITY : int = 200
+const RUN_SPEED  : int = 400
 const DASH_SPEED : int = 700
+const FALL_SPEED : int = 300
 
-const JUMP_HEIGHT 	:float = 80
-const JUMP_TTRISE 	:float = 0.2
-const JUMP_TTFALL 	:float = 0.2
-const JUMP_VELOCITY	:float =(-1) *  2 * JUMP_HEIGHT / JUMP_TTRISE
-const RISE_GRAVITY	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTRISE * JUMP_TTRISE)
-const FALL_GRAVITY 	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTFALL * JUMP_TTFALL)
+@export var JUMP_HEIGHT :float
+@export var JUMP_TTRISE :float
+@export var JUMP_TTFALL :float
+@onready var JUMP_VELOCITY	:float =(-1) *  2 * JUMP_HEIGHT / JUMP_TTRISE
+@onready var RISE_GRAVITY	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTRISE * JUMP_TTRISE)
+@onready var FALL_GRAVITY 	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTFALL * JUMP_TTFALL)
+
 const DAMAGE: int = 1
 
 func _ready():
@@ -45,16 +44,29 @@ func _ready():
 
 
 func _physics_process(delta: float):
-	move_and_slide()
-	jump()
+	
+	gravity(delta)
 	$hurtbox.hp_check()
+	move_and_slide()
 	#print(animation_tree.get("parameters/esteimaxin/playback").get_current_node())
 
+
 func jump()->void:
-	velocity.x = RUN_SPEED
-	position.y += -2*((velocity.x/32)-32)/32
-	print(position.y, position.x)
-	
+	jumping = true
+	velocity.y = JUMP_VELOCITY
+	velocity.x = RUN_SPEED * direction
+	print(direction)
+
+
+func gravity(delta)->void:
+	if jumping:
+		velocity.y += RISE_GRAVITY * delta
+		if velocity.y < 0.0: jumping = false
+	else:
+		velocity.y += FALL_GRAVITY * delta
+		clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
+
+
 func reset()->void:
 	state_machine.travel("idle")
 	teleport_to_location(0,0)
@@ -98,9 +110,6 @@ func flea_scratch()->void:
 	
 	
 ####### OLD STUFF ###########
-func gravity(delta: float)-> void:
-	velocity.y += FALL_GRAVITY/4
-	velocity.y = clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
 
 
 #func move_velocity(vel:int)->void:

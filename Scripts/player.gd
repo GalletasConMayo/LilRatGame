@@ -15,8 +15,8 @@ const ACCELERATION : int = 700
 #JUMP_VELOCITY = -GRAVITY * JUMP_HEIGHT
 
 const JUMP_HEIGHT 	:float = 40
-const JUMP_TTRISE 	:float = 0.3
-const JUMP_TTFALL 	:float = 0.15
+const JUMP_TTRISE 	:float = 0.3		#tiempo altura maxima
+const JUMP_TTFALL 	:float = 0.15		#tiempo desenso
 const JUMP_VELOCITY	:float =(-1) *  2 * JUMP_HEIGHT / JUMP_TTRISE
 const GRAVITY		:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTRISE * JUMP_TTRISE)
 const FALL_GRAVITY 	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTFALL * JUMP_TTFALL)
