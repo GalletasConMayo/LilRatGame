@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c8i227klbxv7i"]
+[gd_scene load_steps=30 format=3 uid="uid://c8i227klbxv7i"]
 
 [ext_resource type="Script" uid="uid://cn78uquf02l1h" path="res://Scripts/boss_depy.gd" id="1_82fvs"]
 [ext_resource type="Script" uid="uid://bo3eqi7bahpw0" path="res://Scripts/timers.gd" id="2_483ck"]
@@ -40,54 +40,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("hurtbox/jump:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("hurtbox/jump:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("hurtbox/jump:monitoring")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("hurtbox/jump:monitorable")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="Animation" id="Animation_stldw"]
 resource_name = "att_dash"
@@ -103,102 +55,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [Vector2i(0, 4), Vector2i(1, 4), Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4)]
-}
-
-[sub_resource type="Animation" id="Animation_uhqow"]
-resource_name = "one_jump"
-length = 1.33334
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprites:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.333333, 0.633333, 1, 1.1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 1.1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"values": [{
-"args": [1],
-"method": &"jump"
-}, {
-"args": [100],
-"method": &"vel_x_change"
-}, {
-"args": [0],
-"method": &"vel_x_change"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("hurtbox/jump:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.333333, 0.633333, 1),
-"transitions": PackedFloat32Array(1e+06, 1e+06, 1e+06, 1e+06),
-"update": 0,
-"values": [-0.42586, 0.0, 0.296706, 0.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("hurtbox/jump:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.333333, 0.633333, 1),
-"transitions": PackedFloat32Array(1e+06, 1e+06, 1e+06, 1e+06),
-"update": 0,
-"values": [Vector2(0, -10), Vector2(0, -40), Vector2(20, -20), Vector2(0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("hurtbox/jump:monitoring")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 1.33333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("hurtbox/jump:monitorable")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 1.33333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("hurtbox/jump:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 1.33333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_tjrnd"]
@@ -300,17 +156,13 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"reset_attacks"
-}]
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
 }
 
-[sub_resource type="Animation" id="Animation_kqet0"]
-resource_name = "two_jump_1"
-length = 2.53334
+[sub_resource type="Animation" id="Animation_4jsss"]
+resource_name = "wall"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -318,10 +170,26 @@ tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.333333, 0.633333, 1, 1.1, 1.3, 1.63333, 1.93333, 2.3, 2.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3)]
+"values": [Vector2i(0, 5)]
+}
+
+[sub_resource type="Animation" id="Animation_uhqow"]
+resource_name = "one_jump"
+length = 1.33334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("animations/Sprites:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.633333, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -330,90 +198,15 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 1.1, 1.33333, 2.3, 2.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "values": [{
-"args": [2],
+"args": [1],
 "method": &"jump"
-}, {
-"args": [100],
-"method": &"vel_x_change"
-}, {
-"args": [0],
-"method": &"vel_x_change"
-}, {
-"args": [2],
-"method": &"jump"
-}, {
-"args": [100],
-"method": &"vel_x_change"
-}, {
-"args": [0],
-"method": &"vel_x_change"
 }]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("hurtbox/jump:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.333333, 0.633333, 1, 1.3, 1.63333, 1.93333, 2.3),
-"transitions": PackedFloat32Array(1e+06, 1e+06, 1e+06, 1e+06, 1e+06, 1e+06, 1e+06, 1e+06),
-"update": 0,
-"values": [-0.42586, 0.0, 0.296706, 0.0, -0.42586, 0.0, 0.296706, 0.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("hurtbox/jump:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.333333, 0.633333, 1, 1.3, 1.63333, 1.93333, 2.3),
-"transitions": PackedFloat32Array(1e+06, 1e+06, 1e+06, 1e+06, 1e+06, 1e+06, 1e+06, 1e+06),
-"update": 0,
-"values": [Vector2(0, -10), Vector2(0, -40), Vector2(20, -20), Vector2(0, 0), Vector2(0, -10), Vector2(0, -40), Vector2(20, -20), Vector2(0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("hurtbox/jump:monitoring")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 2.53333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("hurtbox/jump:monitorable")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 2.53333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("hurtbox/jump:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 2.53333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
 
-[sub_resource type="Animation" id="Animation_srdyq"]
+[sub_resource type="Animation" id="Animation_kqet0"]
 resource_name = "two_jump_2"
 length = 2.83334
 tracks/0/type = "value"
@@ -435,94 +228,20 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 1.1, 1.4, 1.7, 2.7, 2.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1.7),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [2],
 "method": &"jump"
 }, {
-"args": [100],
-"method": &"vel_x_change"
-}, {
-"args": [0],
-"method": &"vel_x_change"
-}, {
-"args": [],
-"method": &"sprite_redirection"
-}, {
 "args": [2],
 "method": &"jump"
-}, {
-"args": [100],
-"method": &"vel_x_change"
-}, {
-"args": [0],
-"method": &"vel_x_change"
 }]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("hurtbox/jump:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.333333, 0.633333, 1, 1.7, 2.03333, 2.33333, 2.7),
-"transitions": PackedFloat32Array(1e+06, 1e+06, 1e+06, 1e+06, 1e+06, 1e+06, 1e+06, 1e+06),
-"update": 0,
-"values": [-0.42586, 0.0, 0.296706, 0.0, -0.42586, 0.0, 0.296706, 0.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("hurtbox/jump:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.333333, 0.633333, 1, 1.7, 2.03333, 2.33333, 2.7),
-"transitions": PackedFloat32Array(1e+06, 1e+06, 1e+06, 1e+06, 1e+06, 1e+06, 1e+06, 1e+06),
-"update": 0,
-"values": [Vector2(0, -10), Vector2(0, -40), Vector2(20, -20), Vector2(0, 0), Vector2(0, -10), Vector2(0, -40), Vector2(20, -20), Vector2(0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("hurtbox/jump:monitoring")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 2.83333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("hurtbox/jump:monitorable")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 2.83334),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("hurtbox/jump:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 2.83334),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
 
-[sub_resource type="Animation" id="Animation_4jsss"]
-resource_name = "wall"
+[sub_resource type="Animation" id="Animation_srdyq"]
+resource_name = "two_jump_1"
+length = 2.83334
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -530,10 +249,30 @@ tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.333333, 0.633333, 1, 1.1, 1.2, 1.26667, 1.33333, 1.4, 1.7, 2.03333, 2.33333, 2.7, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 5)]
+"values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(0, 7), Vector2i(1, 7), Vector2i(2, 7), Vector2i(4, 3), Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.4, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [2],
+"method": &"jump"
+}, {
+"args": [],
+"method": &"sprite_redirection"
+}, {
+"args": [2],
+"method": &"jump"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cajya"]
@@ -546,8 +285,8 @@ _data = {
 &"prepW": SubResource("Animation_lsvbr"),
 &"scratch": SubResource("Animation_okipa"),
 &"turn": SubResource("Animation_fohcs"),
-&"two_jump_1": SubResource("Animation_kqet0"),
-&"two_jump_2": SubResource("Animation_srdyq"),
+&"two_jump_1": SubResource("Animation_srdyq"),
+&"two_jump_2": SubResource("Animation_kqet0"),
 &"wall": SubResource("Animation_4jsss")
 }
 
@@ -564,14 +303,23 @@ node_connections = [&"TimeScale", 0, &"esteimaxin", &"output", 0, &"TimeScale"]
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3kvde"]
 size = Vector2(120, 90)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqibg"]
+size = Vector2(166, 45)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qfruh"]
+size = Vector2(107, 79)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ieqsp"]
 size = Vector2(144, 60)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e5xyk"]
-size = Vector2(163.75, 51.5)
+size = Vector2(103.5, 65)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c7kuu"]
+size = Vector2(108, 46)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gfqsr"]
-size = Vector2(170, 95)
+size = Vector2(154, 95)
 
 [node name="Depy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 0
@@ -608,7 +356,6 @@ position = Vector2(14, 35)
 script = ExtResource("6_fohcs")
 
 [node name="moving" type="Area2D" parent="hitbox"]
-visible = false
 collision_layer = 2048
 collision_mask = 768
 
@@ -616,10 +363,29 @@ collision_mask = 768
 position = Vector2(6, -21)
 shape = SubResource("RectangleShape2D_3kvde")
 
+[node name="meeleatt" type="Area2D" parent="hitbox"]
+visible = false
+collision_layer = 2048
+collision_mask = 768
+
+[node name="collision" type="CollisionShape2D" parent="hitbox/meeleatt"]
+position = Vector2(31, -3)
+shape = SubResource("RectangleShape2D_yqibg")
+
 [node name="hurtbox" type="Node2D" parent="."]
 script = ExtResource("5_fnp5w")
 
+[node name="moving" type="Area2D" parent="hurtbox" groups=["enemy"]]
+visible = false
+collision_layer = 1024
+collision_mask = 768
+
+[node name="Moving" type="CollisionShape2D" parent="hurtbox/moving"]
+position = Vector2(19, 16)
+shape = SubResource("RectangleShape2D_qfruh")
+
 [node name="dash" type="Area2D" parent="hurtbox" groups=["enemy"]]
+visible = false
 collision_layer = 1024
 collision_mask = 768
 
@@ -628,12 +394,22 @@ position = Vector2(17, 18)
 shape = SubResource("RectangleShape2D_ieqsp")
 
 [node name="jump" type="Area2D" parent="hurtbox" groups=["enemy"]]
+visible = false
 collision_layer = 1024
 collision_mask = 768
 
 [node name="Jump" type="CollisionShape2D" parent="hurtbox/jump"]
-position = Vector2(-6, 33)
+position = Vector2(23, 14)
 shape = SubResource("RectangleShape2D_e5xyk")
+
+[node name="land" type="Area2D" parent="hurtbox" groups=["enemy"]]
+visible = false
+collision_layer = 1024
+collision_mask = 768
+
+[node name="Land" type="CollisionShape2D" parent="hurtbox/land"]
+position = Vector2(20, 33)
+shape = SubResource("RectangleShape2D_c7kuu")
 
 [node name="timers" type="Node2D" parent="."]
 script = ExtResource("2_483ck")
@@ -664,11 +440,11 @@ target_position = Vector2(99, 0)
 collision_mask = 2
 
 [node name="terraincollision" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-8, 12)
+position = Vector2(0.375, 12)
 shape = SubResource("RectangleShape2D_gfqsr")
 
 [connection signal="area_entered" from="hitbox/moving" to="hitbox" method="_on_area_entered"]
+[connection signal="area_entered" from="hitbox/meeleatt" to="hitbox" method="_on_area_entered"]
 [connection signal="timeout" from="timers/MeleeAttTimer" to="." method="_on_attack_timeout"]
 [connection signal="timeout" from="timers/RangeAttTimer" to="." method="_on_attack_timeout"]
 [connection signal="timeout" from="timers/RangeAttTimer/Teleport" to="." method="_on_teleport_timeout"]

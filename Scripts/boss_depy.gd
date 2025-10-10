@@ -1,19 +1,17 @@
 extends CharacterBody2D
 class_name Enemy
 
+const one_jump = "parameters/esteimaxin/jump/conditions/one_jump"
+const two_jump_1 = "parameters/esteimaxin/jump/conditions/two_jump_1"
+const two_jump_2 = "parameters/esteimaxin/jump/conditions/two_jump_2"
+
 var player: PlayerControl
-const  jump_attack = "parameters/esteimaxin/conditions/jump"
-const dash_attack = "parameters/esteimaxin/conditions/dash"
-const attacks = [jump_attack,dash_attack]
-const preparation = "parameters/esteimaxin/conditions/prep"
-const start = "parameters/esteimaxin/conditions/start"
 
 var HP:int
-
 var transition_count:int= 0
 var flea_count:int = 0
 var direction:int = 0
-
+var last_direction:int = 0
 var secondjump:bool = false
 
 @export var jumping:bool = false
@@ -22,16 +20,17 @@ var secondjump:bool = false
 @onready var animation_tree = $animations/AnimationTree
 @onready var state_machine = animation_tree["parameters/esteimaxin/playback"]
 
-const RUN_SPEED  : int = 400
+const RUN_SPEED  : int = 640 - 180
 const DASH_SPEED : int = 700
 const FALL_SPEED : int = 300
 
-@export var JUMP_HEIGHT :float
-@export var JUMP_TTRISE :float
-@export var JUMP_TTFALL :float
-@onready var JUMP_VELOCITY	:float =(-1) *  2 * JUMP_HEIGHT / JUMP_TTRISE
-@onready var RISE_GRAVITY	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTRISE * JUMP_TTRISE)
-@onready var FALL_GRAVITY 	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTFALL * JUMP_TTFALL)
+var JUMP_HEIGHT :float = 320 - (5*16) - 95
+var JUMP_TTRISE :float = 0.5
+var JUMP_TTFALL :float = 0.5
+
+@onready var JUMP_VELOCITY	:float =(-1) *  (2 * JUMP_HEIGHT) / JUMP_TTRISE
+@onready var RISE_GRAVITY	:float =(-1) * (-2 * JUMP_HEIGHT) / (JUMP_TTRISE * JUMP_TTRISE)
+@onready var FALL_GRAVITY 	:float =(-1) * (-2 * JUMP_HEIGHT) / (JUMP_TTFALL * JUMP_TTFALL)
 
 const DAMAGE: int = 1
 
@@ -40,22 +39,45 @@ func _ready():
 	player = get_tree().get_first_node_in_group("player")
 	await get_tree().create_timer(2).timeout
 	global_variables.reset.connect(reset)
-	animation_tree.set(start, true)
 
 
 func _physics_process(delta: float):
-	
 	gravity(delta)
 	$hurtbox.hp_check()
 	move_and_slide()
 	#print(animation_tree.get("parameters/esteimaxin/playback").get_current_node())
 
 
-func jump()->void:
-	jumping = true
+func jump(type:int)->void:
+	JUMP_HEIGHT = 320 - (5*16) - 95
+	JUMP_TTRISE = 0.5
+	JUMP_TTFALL = 0.5
 	velocity.y = JUMP_VELOCITY
-	velocity.x = RUN_SPEED * direction
-	print(direction)
+	jumping = true
+	match type:
+		1:
+			velocity.x = (RUN_SPEED * direction)-10
+		2:
+			velocity.x = ((RUN_SPEED * direction)-20) / 2
+		_:
+			print("le pele a algo")
+			pass
+
+
+func prep_jump()->void:
+	var path = randf()
+	#var path = 0.9
+	if  0 < path and path <= 0.4:
+		animation_tree[one_jump] = true
+	elif 0.4 < path and path <= 0.6:
+		animation_tree[two_jump_1] = true
+	elif 0.6 < path and path <= 1:
+		animation_tree[two_jump_2] = true
+		last_direction = direction
+
+
+func vel_x_change(num:int)->void:
+	velocity.x = num * direction
 
 
 func gravity(delta)->void:
@@ -78,30 +100,29 @@ func teleport_to_location(position_x: float, position_y: float)->void:
 
 
 func reset_attacks()->void:
-	animation_tree.set(dash_attack, false)
-	animation_tree.set(jump_attack, false)
-	animation_tree.set(preparation, false)
+	animation_tree[one_jump] = false
+	animation_tree[two_jump_1] = false
+	animation_tree[two_jump_2] = false
 
 
 func sprite_redirection() -> void:
-	if HP == 0:
-		state_machine.travel("win")
-	else:
-		direction = round((player.global_position - global_position).normalized().x)
-		if direction < 0:
-			$hurtbox.scale.x = -1
-			$hitbox.scale.x = -1
-			$animations.scale.x = -1
-			$collisions.scale.x = -1
-			$terraincollision.scale.x = -1
-		elif direction >= 0:
-			$hurtbox.scale.x = 1
-			$hitbox.scale.x = 1
-			$animations.scale.x = 1
-			$collisions.scale.x = 1
-			$terraincollision.scale.x = 1
+	direction = round((player.global_position - global_position).normalized().x)
+	if animation_tree[two_jump_2]:
+		if last_direction == direction:
+			direction *= -1
 
-
+	if direction < 0:
+		$hurtbox.scale.x = -1
+		$hitbox.scale.x = -1
+		$animations.scale.x = -1
+		$collisions.scale.x = -1
+		$terraincollision.scale.x = -1
+	elif direction >= 0:
+		$hurtbox.scale.x = 1
+		$hitbox.scale.x = 1
+		$animations.scale.x = 1
+		$collisions.scale.x = 1
+		$terraincollision.scale.x = 1
 
 
 func flea_scratch()->void:
@@ -138,7 +159,7 @@ func flea_scratch()->void:
 	#else:
 		#animation_tree.set(dash_attack, true)
 
-#
+#	
 #func second_attack()->void:
 	#if $collisions/PlayerCollision.is_colliding():
 		#state_machine.travel("dash")
