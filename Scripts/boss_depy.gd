@@ -7,6 +7,7 @@ const two_jump_2 = "parameters/esteimaxin/jump/conditions/two_jump_2"
 
 var player: PlayerControl
 
+var vector_direction: Vector2
 var HP:int
 var transition_count:int= 0
 var flea_count:int = 0
@@ -106,7 +107,8 @@ func reset_attacks()->void:
 
 
 func sprite_redirection() -> void:
-	direction = round((player.global_position - global_position).normalized().x)
+	vector_direction = (player.global_position - global_position).normalized()
+	direction = round(vector_direction.x)
 	if animation_tree[two_jump_2]:
 		if last_direction == direction:
 			direction *= -1

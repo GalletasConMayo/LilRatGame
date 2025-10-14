@@ -3,9 +3,11 @@ extends Node2D
 
 func _ready():
 	player = get_parent()
+	#$rat.set_deferred("monitorable",false)
+
 
 func _process(delta):
-	hp_check()
+	pass
 
 func hp_check()->void:
 	if player.HP <= 0:
@@ -27,16 +29,31 @@ func flash_white():
 		i+=1
 
 
-func take_damage(damage: int):
+func take_damage(damage: int, direction:float):
 	player.HP -= damage
+	hp_check()
 	global_variables.hp_change.emit(player.HP)
-	player.player_move_to(player.direction, 0)
-	hit_stop_time(0.3)
-	$"../timers/IFrames".start()
+	player.can_control = false
+	hit_stop_time(0.1)
+	$"../timers/ControlAfterDamage".start()
+	#screen shake
+	IFrames()
+	player.move_x(500 * direction, 0)
+	player.velocity.y = -120
 	flash_white()
+
+
+func IFrames()->void:
+	$"../timers/IFrames".start()
+	$rat.set_deferred("monitorable",false)
+	print(get_child(0).monitorable)
 
 
 func hit_stop_time(seconds:float)->void:
 	get_tree().paused = true
 	await get_tree().create_timer(seconds).timeout
 	get_tree().paused = false
+
+
+func _on_i_frames_timeout() -> void:
+	$rat.set_deferred("monitorable", true)

@@ -4,8 +4,8 @@ class_name PlayerControl
 @onready var flash_shader := "res://Scenes/player.tscn::ShaderMaterial_tssud"
 
 const WALK_SPEED: int = 130
-const RUN_SPEED  : int = 200
-const FALL_SPEED : int = 300
+const RUN_SPEED  : int = 180
+const FALL_SPEED : int = 500
 const WALLJUMP_VELOCITY : int = 200
 const DASH_SPEED : int = 700
 
@@ -14,13 +14,14 @@ const ACCELERATION : int = 700
 #JUMP_HEIGHT = 0.5 * JUMP_TTRISE^2 + JUMP_VELOCITY * JUMP_TTRISE
 #JUMP_VELOCITY = -GRAVITY * JUMP_HEIGHT
 
-const JUMP_HEIGHT 	:float = 40
-const JUMP_TTRISE 	:float = 0.3		#tiempo altura maxima
-const JUMP_TTFALL 	:float = 0.15		#tiempo desenso
+const JUMP_HEIGHT 	:float = 100
+const JUMP_TTRISE 	:float = 0.4		#tiempo altura maxima
+const JUMP_TTFALL 	:float = 0.3		#tiempo desenso
 const JUMP_VELOCITY	:float =(-1) *  2 * JUMP_HEIGHT / JUMP_TTRISE
-const GRAVITY		:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTRISE * JUMP_TTRISE)
+const RISE_GRAVITY	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTRISE * JUMP_TTRISE)
 const FALL_GRAVITY 	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTFALL * JUMP_TTFALL)
 
+const GRAVITY:int = 400
 #Numeric Variables
 var HP: int
 var MAX_HP: int
@@ -53,7 +54,7 @@ var wip: bool = false
 var attack_2: bool = false
 var wip_up:bool = false
 var wip_down:bool = false
-
+var jump_release:bool = false
 var rat : AnimatedSprite2D
 var weapon : AnimatedSprite2D
 var ribbon : AnimatedSprite2D
@@ -77,7 +78,7 @@ func _physics_process(delta: float):
 		player_gravity(delta)
 		player_SM()
 		player_idle()
-		player_run(delta)
+		player_movement(delta)
 		player_dash()
 		player_jump()
 		player_attack()
@@ -102,6 +103,9 @@ func RL_sprite_collission()->void:
 		$hitbox.scale.x = -1
 
 
+func _on_control_after_damage_timeout() -> void:
+	can_control = true
+
 func _on_dash_duration_timer_timeout()->void:
 	dash = false
 
@@ -123,9 +127,9 @@ func teleport_to_location(position_x: float, position_y: float)->void:
 	self.position.x = position_x
 	self.position.y = position_y
 
-func player_move_to(vel_x: float, vel_y: float)->void:
-	self.velocity.x += vel_x
-	self.velocity.y += vel_y
+func move_x(vel_x: float, time: float)->void:
+	self.velocity.x = vel_x
+
 
 func reset()->void:
 	can_control = true
@@ -189,9 +193,12 @@ func player_gravity(delta: float)->void:
 				velocity.y += FALL_GRAVITY/20 * delta
 				clamp(velocity.y, -FALL_SPEED/5, FALL_SPEED/5)
 		else:
-			velocity.y += GRAVITY * delta
-			velocity.y = clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
-
+			if velocity.y < 0:
+				velocity.y += RISE_GRAVITY * delta
+			else:
+				velocity.y += FALL_GRAVITY * delta
+				velocity.y = clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
+				
 	if velocity.y >= 0 and !is_on_floor():
 		if was_on_floor:
 			$timers/Coyote.start()
@@ -201,7 +208,7 @@ func player_gravity(delta: float)->void:
 		$timers/JumpBuffer.start()
 
 
-func player_run(delta: float)->void:
+func player_movement(delta: float)->void:
 	direction = Input.get_axis("left", "right")
 	if is_on_floor() and $timers/DashReset.is_stopped():
 		dash_reset = true
@@ -210,11 +217,11 @@ func player_run(delta: float)->void:
 	
 	if  dash:
 		velocity.x = LAST_DIRECTION * DASH_SPEED 
-	#este comentario es para la aceleracion, pero el movement se siente pesado
-	#if direction != LAST_DIRECTION and !dash:
-		#velocity.x = move_toward(velocity.x, direction * 1/5*RUN_SPEED, 5*ACCELERATION * delta)
-	#elif direction != 0 and !dash:
-		#velocity.x = move_toward(velocity.x, direction * RUN_SPEED, ACCELERATION * delta)
+		#este comentario es para la aceleracion, pero el movement se siente pesado
+		#if direction != LAST_DIRECTION and !dash:
+			#velocity.x = move_toward(velocity.x, direction * 1/5*RUN_SPEED, 5*ACCELERATION * delta)
+		#elif direction != 0 and !dash:
+			#velocity.x = move_toward(velocity.x, direction * RUN_SPEED, ACCELERATION * delta)
 	elif direction:
 		velocity.x = RUN_SPEED * direction
 	elif wall_jump:
@@ -224,20 +231,24 @@ func player_run(delta: float)->void:
 
 
 func player_jump()->void:
+	if velocity.y > 0: jump_release = false
 	if (jump_logic() or wall_jump_logic() or double_jump_logic()):
 		velocity.y = JUMP_VELOCITY
 		$timers/Jump.start()
 	
 	#Esta parte de abajo controla el que puedas saltar mientras mantienes el boton
-	if Input.is_action_pressed("jump") and !$timers/Jump.is_stopped():
-		velocity.y = JUMP_VELOCITY
+	if Input.is_action_just_released("jump") and jump_release:
+		velocity.y = -100
+		jump_release = false
 	#if Input.is_action_just_released("jump") and $timers/Jump.is_stopped() and velocity.y < 0:
 		#velocity.y = 0
 
 
 func jump_logic()->bool:
 	jump = is_on_floor() or coyote_buffer
+
 	if jump and (Input.is_action_just_pressed("jump") or !$timers/JumpBuffer.is_stopped()):
+		jump_release = true
 		jump = false
 		coyote_buffer = false
 		return true

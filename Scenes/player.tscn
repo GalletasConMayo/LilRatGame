@@ -789,8 +789,12 @@ shape = SubResource("RectangleShape2D_tx1dd")
 
 [node name="timers" type="Node2D" parent="."]
 
-[node name="Jump" type="Timer" parent="timers"]
+[node name="ControlAfterDamage" type="Timer" parent="timers"]
 wait_time = 0.2
+one_shot = true
+
+[node name="Jump" type="Timer" parent="timers"]
+wait_time = 0.5
 one_shot = true
 
 [node name="JumpBuffer" type="Timer" parent="timers"]
@@ -856,12 +860,13 @@ snap_to_pixel = true
 tween_resource = SubResource("Resource_45fv3")
 tween_on_load = false
 
-[connection signal="area_entered" from="hitbox/wip" to="hitbox" method="_on_area_entered"]
-[connection signal="area_entered" from="hitbox/wipup" to="hitbox" method="_on_area_entered"]
-[connection signal="area_entered" from="hitbox/wipdown" to="hitbox" method="_on_area_entered"]
+[connection signal="area_entered" from="hitbox/wip" to="hitbox" method="_on_area_entered" binds= ["wip"]]
+[connection signal="area_entered" from="hitbox/wipup" to="hitbox" method="_on_area_entered" binds= ["wip_up"]]
+[connection signal="area_entered" from="hitbox/wipdown" to="hitbox" method="_on_area_entered" binds= ["wip_down"]]
+[connection signal="timeout" from="timers/ControlAfterDamage" to="." method="_on_control_after_damage_timeout"]
 [connection signal="timeout" from="timers/Jump" to="." method="_on_jump_timer_timeout"]
 [connection signal="timeout" from="timers/DashDuration" to="." method="_on_dash_duration_timer_timeout"]
 [connection signal="timeout" from="timers/Idle" to="." method="_on_idle_timer_timeout"]
-[connection signal="timeout" from="timers/IFrames" to="hutrbox" method="_on_i_frames_timer_timeout"]
+[connection signal="timeout" from="timers/IFrames" to="hutrbox" method="_on_i_frames_timeout"]
 [connection signal="timeout" from="timers/attacks/CD" to="." method="_on_attack_CD_timeout"]
 [connection signal="timeout" from="timers/attacks/Lock" to="." method="_on_attack_lock_timeout"]

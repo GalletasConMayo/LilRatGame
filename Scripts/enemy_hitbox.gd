@@ -1,9 +1,9 @@
 extends Node2D
-@export var player: CharacterBody2D
+var player: PlayerControl
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player = get_parent()
+	player = get_tree().get_first_node_in_group("player")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -13,4 +13,5 @@ func _on_area_entered(area: Area2D):
 	# Verifica si el área que entró es una Hurtbox de enemigo
 	if area.is_in_group("player"):
 		var enemy = area.get_parent()  # Obtiene el nodo padre (el enemigo)
-		enemy.take_damage(player.DAMAGE)      # Llama a su función de recibir daño
+		var vector_direction = (player.global_position - $moving.global_position).normalized()
+		enemy.take_damage(0, vector_direction.x)      # Llama a su función de recibir daño
