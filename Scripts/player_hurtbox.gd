@@ -9,6 +9,7 @@ func _ready():
 func _process(delta):
 	pass
 
+
 func hp_check()->void:
 	if player.HP <= 0:
 		#ded animation play 

@@ -16,12 +16,13 @@ const ACCELERATION : int = 700
 
 const JUMP_HEIGHT 	:float = 100
 const JUMP_TTRISE 	:float = 0.4		#tiempo altura maxima
-const JUMP_TTFALL 	:float = 0.3		#tiempo desenso
+const JUMP_TTFALL 	:float = 0.3	
 const JUMP_VELOCITY	:float =(-1) *  2 * JUMP_HEIGHT / JUMP_TTRISE
 const RISE_GRAVITY	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTRISE * JUMP_TTRISE)
 const FALL_GRAVITY 	:float =(-1) * -2 * JUMP_HEIGHT / (JUMP_TTFALL * JUMP_TTFALL)
 
 const GRAVITY:int = 400
+
 #Numeric Variables
 var HP: int
 var MAX_HP: int
@@ -55,6 +56,7 @@ var attack_2: bool = false
 var wip_up:bool = false
 var wip_down:bool = false
 var jump_release:bool = false
+
 var rat : AnimatedSprite2D
 var weapon : AnimatedSprite2D
 var ribbon : AnimatedSprite2D
@@ -102,7 +104,6 @@ func RL_sprite_collission()->void:
 		$hutrbox.scale.x = -1
 		$hitbox.scale.x = -1
 
-
 func _on_control_after_damage_timeout() -> void:
 	can_control = true
 
@@ -129,7 +130,6 @@ func teleport_to_location(position_x: float, position_y: float)->void:
 
 func move_x(vel_x: float, time: float)->void:
 	self.velocity.x = vel_x
-
 
 func reset()->void:
 	can_control = true
@@ -198,7 +198,7 @@ func player_gravity(delta: float)->void:
 			else:
 				velocity.y += FALL_GRAVITY * delta
 				velocity.y = clamp(velocity.y, -FALL_SPEED, FALL_SPEED)
-				
+
 	if velocity.y >= 0 and !is_on_floor():
 		if was_on_floor:
 			$timers/Coyote.start()
@@ -217,7 +217,7 @@ func player_movement(delta: float)->void:
 	
 	if  dash:
 		velocity.x = LAST_DIRECTION * DASH_SPEED 
-		#este comentario es para la aceleracion, pero el movement se siente pesado
+	#este comentario es para la aceleracion, pero el movement se siente pesado
 		#if direction != LAST_DIRECTION and !dash:
 			#velocity.x = move_toward(velocity.x, direction * 1/5*RUN_SPEED, 5*ACCELERATION * delta)
 		#elif direction != 0 and !dash:
@@ -246,7 +246,6 @@ func player_jump()->void:
 
 func jump_logic()->bool:
 	jump = is_on_floor() or coyote_buffer
-
 	if jump and (Input.is_action_just_pressed("jump") or !$timers/JumpBuffer.is_stopped()):
 		jump_release = true
 		jump = false

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4qwpsniahfic"
-path="res://.godot/imported/Derpy.png-65a1e8a137e4e4f85bbed3fc45499981.ctex"
+uid="uid://bbd8sy78kkhln"
+path="res://.godot/imported/calcetin.png-bc8bf81760f43a89d7b3516b11d5b591.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Bosses/Derpy.png"
-dest_files=["res://.godot/imported/Derpy.png-65a1e8a137e4e4f85bbed3fc45499981.ctex"]
+source_file="res://Images/Bosses/calcetin.png"
+dest_files=["res://.godot/imported/calcetin.png-bc8bf81760f43a89d7b3516b11d5b591.ctex"]
 
 [params]
 
