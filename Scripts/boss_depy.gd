@@ -11,11 +11,14 @@ const special_jump = "parameters/esteimaxin/jump/conditions/special_jump"
 const single_dash = "parameters/esteimaxin/dash/conditions/single_dash"
 const double_dash = "parameters/esteimaxin/dash/conditions/double_dash"
 const special_dash = "parameters/esteimaxin/dash/conditions/special_dash"
-
+const jump_return = "parameters/esteimaxin/conditions/jump_return"
+const dash_return = "parameters/esteimaxin/conditions/dash_return"
 var vector_direction: Vector2
 var player: PlayerControl
-
+var scratch_prob:float
 var HP:int
+
+var scratch_secuence:int
 var transition_count:int= 0
 var flea_count:int = 0
 var direction:int = 0
@@ -23,6 +26,7 @@ var last_direction:int = 0
 var jump_type:String
 var dash_type:String
 var wall1:bool
+var special:bool
 @export var jumping:bool = false
 
 @onready var animations = $animations/AnimationPlayer
@@ -61,11 +65,11 @@ func next_attack()->void:
 	#var path = randf()
 	var path = 0.2
 	if  0 <= path and path <= 0.33:
-		animation_tree[jump_attack] = true
+		SM_condition(jump_attack)
 	elif 0.33 < path and path <= 0.66:
-		animation_tree[dash_attack] = true
+		SM_condition(dash_attack)
 	elif 0.66 < path and path <= 1:
-		animation_tree[wall_attack] = true
+		SM_condition(wall_attack)
 		last_direction = direction
 
 
@@ -73,19 +77,19 @@ func prep_jump()->void:
 	#var path = randf()
 	var path = 0.9
 	if  0 < path and path <= 0.25:
-		animation_tree[one_jump] = true
+		SM_condition(one_jump)
 		jump_type = "single"
 	elif 0.25 < path and path <= 0.5:
-		animation_tree[two_jump_1] = true
+		SM_condition(two_jump_1)
 		jump_type = "double"
 	elif 0.5 < path and path <= 0.75:
-		animation_tree[two_jump_2] = true
+		SM_condition(two_jump_2)
 		jump_type = "double"
 		last_direction = direction
 	elif 0.75 < path and path <= 1:
-		animation_tree[special_jump] = true
+		SM_condition(special_jump)
 		jump_type = "special"
-		print("SPECIAL ATTQACKKKKSDKKSCKDK")
+		scratch_secuence = 0
 
 
 func jump()->void:
@@ -107,18 +111,19 @@ func jump()->void:
 
 
 func prep_dash()->void:
-	var path = randf()
-	#var path = 0.9
+	#var path = randf()
+	var path = 0.9
 	if  0 <= path and path <= 0.33:
-		animation_tree[single_dash] = true
+		SM_condition(single_dash)
 		dash_type = "single"
 	elif 0.33 < path and path <= 0.66:
-		animation_tree[double_dash] = true
+		SM_condition(double_dash)
 		dash_type = "double"
 		last_direction = direction
 	elif 0.66 < path and path <= 1:
-		animation_tree[special_dash] = true
+		SM_condition(special_dash)
 		dash_type = "special"
+		scratch_secuence = 0
 
 
 func dash()->void:
@@ -128,12 +133,39 @@ func dash()->void:
 		"double":
 			velocity.x = direction * DASH_SPEED
 		"special":
-			velocity.x = direction * DASH_SPEED 
+			velocity.x = direction * DASH_SPEED * 2
+		"return":
+			velocity.x = direction * DASH_SPEED * 2
 		_:
 			print("le pele a algo en dash")
 			pass
 
 
+func scratch()->void:
+	if scratch_secuence == 0:
+		state_machine.travel("scratch")
+		scratch_prob = 0
+		scratch_secuence += 1
+	else:
+		pass
+
+
+func repeat_scratch()->void:
+	if scratch_prob > 3:
+		pass
+	else:
+		scratch_prob += randf()
+		state_machine.travel("scratch")
+
+func prep_return()->void:
+	var path  = randf()
+	print(path)
+	if path > 0.5:
+		SM_condition(jump_return)
+	else:
+		SM_condition(dash_return)
+		dash_type = "return"
+	
 func wall(secuence:int)->void:
 	match secuence:
 		0:
@@ -175,24 +207,12 @@ func teleport_to_location(position_x: float, position_y: float)->void:
 	self.position.y = position_y
 
 
-func reset_attacks()->void:
-	animation_tree[jump_attack] = false
-	animation_tree[dash_attack] = false
-	animation_tree[wall_attack] = false
-	animation_tree[one_jump] = false
-	animation_tree[two_jump_1] = false
-	animation_tree[two_jump_2] = false
-	animation_tree[single_dash] = false
-	animation_tree[double_dash] = false
-
 func sprite_redirection() -> void:
 	vector_direction = (player.global_position - global_position)
 	var temp = (vector_direction.x*vector_direction.x) + (vector_direction.y*vector_direction.y)
 	var normx = vector_direction.x / temp
 	var normy = vector_direction.y / temp 
-	print(normx, normy, 'calc')
 	direction = round(vector_direction.normalized().x)
-	print(direction)
 	if animation_tree[two_jump_2] or animation_tree[double_dash]:
 		if last_direction == direction:
 			direction *= -1
@@ -209,11 +229,12 @@ func sprite_redirection() -> void:
 		$terraincollision.scale.x = 1
 
 
-func flea_scratch()->void:
-	#state_machine.travel("flea")
-	pass
-	
-	
+func SM_condition(condition:String)->void:
+	animation_tree[condition] = true
+	await get_tree().create_timer(0.5).timeout
+	animation_tree[condition] = false
+
+
 ####### OLD STUFF ###########
 
 
