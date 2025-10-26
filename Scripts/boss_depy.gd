@@ -13,7 +13,10 @@ const double_dash = "parameters/esteimaxin/dash/conditions/double_dash"
 const special_dash = "parameters/esteimaxin/dash/conditions/special_dash"
 const jump_return = "parameters/esteimaxin/conditions/jump_return"
 const dash_return = "parameters/esteimaxin/conditions/dash_return"
+const dash_wall = "parameters/esteimaxin/wall/conditions/dash_wall"
+const turn_dash_wall = "parameters/esteimaxin/wall/conditions/turn_dash_wall"
 var vector_direction: Vector2
+var wall_vector_dir: Vector2
 var player: PlayerControl
 var scratch_prob:float
 var HP:int
@@ -57,13 +60,18 @@ func _ready():
 func _physics_process(delta: float):
 	gravity(delta)
 	$hurtbox.hp_check()
+	if Input.is_action_just_pressed("test"):
+		state_machine.travel("win")
+		self.position = get_parent().get_node("test_pos").position
+		await get_tree().create_timer(2).timeout
+
 	move_and_slide()
 	#print(animation_tree.get("parameters/esteimaxin/playback").get_current_node())
 
 
 func next_attack()->void:
 	#var path = randf()
-	var path = 0.2
+	var path = 0.7
 	if  0 <= path and path <= 0.33:
 		SM_condition(jump_attack)
 	elif 0.33 < path and path <= 0.66:
@@ -136,6 +144,11 @@ func dash()->void:
 			velocity.x = direction * DASH_SPEED * 2
 		"return":
 			velocity.x = direction * DASH_SPEED * 2
+		"wall":
+			velocity.x = 2 * DASH_SPEED * abs(1-(wall_vector_dir.x/640)) * direction
+		"turn_wall":
+			velocity.x = 2 * DASH_SPEED * (wall_vector_dir.x/640) * -1
+
 		_:
 			print("le pele a algo en dash")
 			pass
@@ -157,9 +170,9 @@ func repeat_scratch()->void:
 		scratch_prob += randf()
 		state_machine.travel("scratch")
 
+
 func prep_return()->void:
 	var path  = randf()
-	print(path)
 	if path > 0.5:
 		SM_condition(jump_return)
 	else:
@@ -170,16 +183,20 @@ func wall(secuence:int)->void:
 	match secuence:
 		0:
 			velocity.y =  JUMP_VELOCITY
+			velocity.x = -1 * direction * 200
 		1:
 			wall1 = true
 		2:
 			wall1 = false
-			velocity.x = DASH_SPEED * vector_direction.x
-			$RayCast2D.target_position = (player.global_position - global_position)
+			wall_vector_dir = (player.global_position - global_position)
+			velocity.x = 2 * DASH_SPEED * wall_vector_dir.x / 640
 		3:
-			velocity.x = 0
-		4:
-			velocity.x = DASH_SPEED * direction
+			if abs(wall_vector_dir.x) < 300:
+				SM_condition(dash_wall)
+				dash_type = "wall"
+			else:
+				SM_condition(turn_dash_wall)
+				dash_type = "turn_wall"
 
 
 func vel_x_change(num:int)->void:
@@ -209,9 +226,6 @@ func teleport_to_location(position_x: float, position_y: float)->void:
 
 func sprite_redirection() -> void:
 	vector_direction = (player.global_position - global_position)
-	var temp = (vector_direction.x*vector_direction.x) + (vector_direction.y*vector_direction.y)
-	var normx = vector_direction.x / temp
-	var normy = vector_direction.y / temp 
 	direction = round(vector_direction.normalized().x)
 	if animation_tree[two_jump_2] or animation_tree[double_dash]:
 		if last_direction == direction:

@@ -778,5 +778,8 @@ shape = SubResource("RectangleShape2D_omy4t")
 [node name="player_start_pos" type="Node2D" parent="." groups=["player_start_pos"]]
 position = Vector2(430, 244)
 
+[node name="test_pos" type="Node2D" parent="."]
+position = Vector2(622, 241)
+
 [node name="Calcetin" parent="." instance=ExtResource("6_fy65o")]
 position = Vector2(59, 220)

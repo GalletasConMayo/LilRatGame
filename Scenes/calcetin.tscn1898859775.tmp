@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://c8i227klbxv7i"]
+[gd_scene load_steps=33 format=3 uid="uid://c8i227klbxv7i"]
 
 [ext_resource type="Script" uid="uid://cn78uquf02l1h" path="res://Scripts/boss_depy.gd" id="1_82fvs"]
 [ext_resource type="Shader" uid="uid://dttnikoh5xe3t" path="res://Shaders/player.gdshader" id="2_qitym"]
@@ -90,38 +90,26 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("terraincollision:scale")
+tracks/6/path = NodePath("hurtbox/prep:monitoring")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
+"update": 1,
+"values": [true]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("terraincollision:position")
+tracks/7/path = NodePath("animations/Sprites:frame_coords")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-8.03, 11)]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("animations/Sprites:flip_h")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [Vector2i(1, 4)]
 }
 
 [sub_resource type="Animation" id="Animation_iqv2t"]
@@ -1479,12 +1467,9 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.966667),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.966667),
+"transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"sprite_redirection"
-}, {
 "args": [],
 "method": &"next_attack"
 }]
@@ -1849,7 +1834,7 @@ tracks/12/keys = {
 
 [sub_resource type="Animation" id="Animation_4jsss"]
 resource_name = "wall"
-length = 1.4
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1857,10 +1842,10 @@ tracks/0/path = NodePath("animations/Sprites:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.2, 1.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.5, 1, 1.2, 1.4, 1.6, 1.66667, 1.73333, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 5), Vector2i(1, 5), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3)]
+"values": [Vector2i(0, 5), Vector2i(1, 5), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(1, 4), Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -1869,8 +1854,8 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.5, 1, 1.4, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "values": [{
 "args": [0],
 "method": &"wall"
@@ -1883,118 +1868,15 @@ tracks/1/keys = {
 }, {
 "args": [3],
 "method": &"wall"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("terraincollision:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1e+06, 1),
-"update": 0,
-"values": [Vector2(0.255, 1.745), Vector2(1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("terraincollision:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1e+06, 1e+06, 1),
-"update": 0,
-"values": [Vector2(-8.03, -24.875), Vector2(-8.03, -25.235), Vector2(-8.03, 11)]
-}
-
-[sub_resource type="Animation" id="Animation_sif6t"]
-resource_name = "dash_wall"
-length = 1.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprites:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6, 0.73333, 0.86667, 1.03333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [Vector2i(4, 3), Vector2i(1, 4), Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [0],
-"method": &"vel_x_change"
 }, {
-"args": [],
-"method": &"dash"
+"args": [4],
+"method": &"wall"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_8rb1j"]
-resource_name = "turn_dash_wall"
-length = 1.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("animations/Sprites:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.266667, 0.7, 0.83333, 0.96667, 1.13333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [Vector2i(0, 7), Vector2i(1, 7), Vector2i(2, 7), Vector2i(4, 3), Vector2i(1, 4), Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.133333, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1),
-"values": [{
-"args": [100],
-"method": &"vel_x_change"
-}, {
-"args": [0],
-"method": &"vel_x_change"
-}, {
-"args": [],
-"method": &"dash"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("animations/Sprites:flip_h")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1e+06),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cajya"]
 _data = {
 &"RESET": SubResource("Animation_j3ou3"),
-&"dash_wall": SubResource("Animation_sif6t"),
 &"double_dash": SubResource("Animation_iqv2t"),
 &"one_jump": SubResource("Animation_uhqow"),
 &"prepD": SubResource("Animation_tjrnd"),
@@ -2006,7 +1888,6 @@ _data = {
 &"special_dash": SubResource("Animation_8dta7"),
 &"special_jump": SubResource("Animation_xm6kg"),
 &"turn": SubResource("Animation_fohcs"),
-&"turn_dash_wall": SubResource("Animation_8rb1j"),
 &"two_jump_1": SubResource("Animation_kqet0"),
 &"two_jump_2": SubResource("Animation_srdyq"),
 &"wall": SubResource("Animation_4jsss")
@@ -2015,6 +1896,7 @@ _data = {
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_yoyb1"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_rxc26"]
+graph_offset = Vector2(-104.347, 29.2612)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_yoyb1")
 nodes/TimeScale/position = Vector2(416.274, 30.5557)
 nodes/esteimaxin/node = ExtResource("3_ub8k0")
@@ -2061,7 +1943,7 @@ material = SubResource("ShaderMaterial_ejdae")
 texture = ExtResource("3_8dta7")
 hframes = 5
 vframes = 8
-frame = 19
+frame = 21
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="animations"]
 root_node = NodePath("../..")
@@ -2087,19 +1969,18 @@ parameters/esteimaxin/jump/conditions/special_jump = false
 parameters/esteimaxin/jump/conditions/two_jump_1 = false
 parameters/esteimaxin/jump/conditions/two_jump_2 = false
 parameters/esteimaxin/rip/blend_position = 0
-parameters/esteimaxin/wall/conditions/dash_wall = false
-parameters/esteimaxin/wall/conditions/turn_dash_wall = false
 
 [node name="hitbox" type="Node2D" parent="."]
 position = Vector2(14, 35)
 script = ExtResource("6_fohcs")
 
 [node name="dash" type="Area2D" parent="hitbox"]
-position = Vector2(-18.575, 13.275)
-rotation = 0.244346
-scale = Vector2(0.715, 1)
+visible = false
+scale = Vector2(1e-05, 1e-05)
 collision_layer = 1024
 collision_mask = 768
+monitoring = false
+monitorable = false
 
 [node name="Dash" type="CollisionShape2D" parent="hitbox/dash"]
 position = Vector2(-1.07491, -14.8193)
@@ -2141,9 +2022,12 @@ debug_color = Color(0.886275, 0, 0.0156863, 0.196078)
 script = ExtResource("5_fnp5w")
 
 [node name="dash" type="Area2D" parent="hurtbox" groups=["enemy"]]
+visible = false
 position = Vector2(-14.11, 7.325)
 collision_layer = 1024
 collision_mask = 768
+monitoring = false
+monitorable = false
 
 [node name="Dash" type="CollisionShape2D" parent="hurtbox/dash"]
 position = Vector2(3.32959, 22.1133)
@@ -2168,7 +2052,6 @@ position = Vector2(-13.04, 7.325)
 scale = Vector2(0.925, 1)
 collision_layer = 1024
 collision_mask = 768
-monitoring = false
 monitorable = false
 
 [node name="Prep" type="CollisionShape2D" parent="hurtbox/prep"]
@@ -2177,7 +2060,8 @@ rotation = 1.57079
 shape = SubResource("CapsuleShape2D_pirvu")
 
 [node name="terraincollision" type="CollisionShape2D" parent="."]
-position = Vector2(-8.03, 11)
+visible = false
+position = Vector2(-8, 12)
 shape = SubResource("RectangleShape2D_gfqsr")
 
 [connection signal="area_entered" from="hitbox/dash" to="hitbox" method="_on_area_entered"]
