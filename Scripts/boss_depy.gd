@@ -71,7 +71,7 @@ func _physics_process(delta: float):
 
 func next_attack()->void:
 	#var path = randf()
-	var path = 0.7
+	var path = 0.4
 	if  0 <= path and path <= 0.33:
 		SM_condition(jump_attack)
 	elif 0.33 < path and path <= 0.66:
@@ -82,8 +82,8 @@ func next_attack()->void:
 
 
 func prep_jump()->void:
-	#var path = randf()
-	var path = 0.9
+	var path = randf()
+	#var path = 0.9
 	if  0 < path and path <= 0.25:
 		SM_condition(one_jump)
 		jump_type = "single"
@@ -119,8 +119,8 @@ func jump()->void:
 
 
 func prep_dash()->void:
-	#var path = randf()
-	var path = 0.9
+	var path = randf()
+	#var path = 0.9
 	if  0 <= path and path <= 0.33:
 		SM_condition(single_dash)
 		dash_type = "single"
