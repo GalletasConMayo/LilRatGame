@@ -56,7 +56,10 @@ var attack_2: bool = false
 var wip_up:bool = false
 var wip_down:bool = false
 var jump_release:bool = false
-
+var can_grapple:bool = false
+var grapple:bool = false
+var grapple_up:bool = false
+var grapple_down:bool = false
 var rat : AnimatedSprite2D
 var weapon : AnimatedSprite2D
 var ribbon : AnimatedSprite2D
@@ -128,7 +131,7 @@ func teleport_to_location(position_x: float, position_y: float)->void:
 	self.position.x = position_x
 	self.position.y = position_y
 
-func move_x(vel_x: float, time: float)->void:
+func move_x(vel_x: float)->void:
 	self.velocity.x = vel_x
 
 func reset()->void:
@@ -175,7 +178,16 @@ func player_SM()->void:
 	
 	if is_on_wall():
 		current_state = "cwall"
-	
+
+	if grapple:
+		current_state = "grapple"
+
+	if grapple_up:
+		current_state = "grapple_up"
+
+	if grapple_down:
+		current_state = "grapple_down"
+
 	last_state = current_state
 	global_variables.state_signal.emit(current_state)
 
@@ -314,6 +326,21 @@ func player_attack()->void:
 			wip_down = true
 			
 		$timers/attacks/Lock.start()
+
+
+func player_grapple()->void:
+	if can_grapple:
+		if Input.is_action_just_pressed("grapple"): 
+			can_grapple = false
+			grapple = true
+			
+		if Input.is_action_just_pressed("grapple") and Input.is_action_pressed("up"):
+			can_grapple = false
+			grapple_up = true
+			
+		if Input.is_action_just_pressed("grapple") and Input.is_action_pressed("down") and !is_on_floor():
+			can_grapple = false
+			grapple_down = true
 
 
 func player_idle()->void:

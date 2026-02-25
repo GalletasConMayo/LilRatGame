@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://i3xtaouavmbn"
-path="res://.godot/imported/pulga-Sheet.png-72d60fbd250a043f19329a44cad58fd7.ctex"
+uid="uid://dn2yldw8o0npn"
+path="res://.godot/imported/Pulguita.png-b1fe48c2e771089dbac540871c8cc9d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Enemies/pulga-Sheet.png"
-dest_files=["res://.godot/imported/pulga-Sheet.png-72d60fbd250a043f19329a44cad58fd7.ctex"]
+source_file="res://Images/Enemies/Pulguita.png"
+dest_files=["res://.godot/imported/Pulguita.png-b1fe48c2e771089dbac540871c8cc9d7.ctex"]
 
 [params]
 

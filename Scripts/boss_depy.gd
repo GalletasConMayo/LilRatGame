@@ -5,8 +5,9 @@ const jump_attack = "parameters/esteimaxin/conditions/jump_attack"
 const dash_attack = "parameters/esteimaxin/conditions/dash_attack"
 const wall_attack = "parameters/esteimaxin/conditions/wall_attack"
 const one_jump = "parameters/esteimaxin/jump/conditions/one_jump"
-const two_jump_1 = "parameters/esteimaxin/jump/conditions/two_jump_1"
-const two_jump_2 = "parameters/esteimaxin/jump/conditions/two_jump_2"
+const two_jump = "parameters/esteimaxin/jump/conditions/two_jump"
+const two_jump_1 = "parameters/esteimaxin/jump/double_jump/conditions/two_jump_2"
+const two_jump_2 = "parameters/esteimaxin/jump/double_jump/conditions/two_jump_1"
 const special_jump = "parameters/esteimaxin/jump/conditions/special_jump"
 const single_dash = "parameters/esteimaxin/dash/conditions/single_dash"
 const double_dash = "parameters/esteimaxin/dash/conditions/double_dash"
@@ -30,12 +31,12 @@ var jump_type:String
 var dash_type:String
 var wall1:bool
 var special:bool
+var second_jump:bool
 @export var jumping:bool = false
 
 @onready var animations = $animations/AnimationPlayer
 @onready var animation_tree = $animations/AnimationTree
 @onready var state_machine = animation_tree["parameters/esteimaxin/playback"]
-
 const RUN_SPEED  : int = 640 - 180
 const DASH_SPEED : int = 640
 const FALL_SPEED : int = 400
@@ -59,7 +60,7 @@ func _ready():
 
 func _physics_process(delta: float):
 	gravity(delta)
-	$hurtbox.hp_check()
+	$collision.hp_check()
 	if Input.is_action_just_pressed("test"):
 		state_machine.travel("win")
 		self.position = get_parent().get_node("test_pos").position
@@ -71,7 +72,7 @@ func _physics_process(delta: float):
 
 func next_attack()->void:
 	#var path = randf()
-	var path = 0.4
+	var path = 0.3
 	if  0 <= path and path <= 0.33:
 		SM_condition(jump_attack)
 	elif 0.33 < path and path <= 0.66:
@@ -82,19 +83,25 @@ func next_attack()->void:
 
 
 func prep_jump()->void:
-	var path = randf()
-	#var path = 0.9
-	if  0 < path and path <= 0.25:
+	#var path = randf()
+	var path = 0.6
+	if  0 < path and path <= 0.33:
 		SM_condition(one_jump)
 		jump_type = "single"
-	elif 0.25 < path and path <= 0.5:
-		SM_condition(two_jump_1)
-		jump_type = "double"
-	elif 0.5 < path and path <= 0.75:
-		SM_condition(two_jump_2)
-		jump_type = "double"
-		last_direction = direction
-	elif 0.75 < path and path <= 1:
+	elif 0.33 < path and path <= 0.66:
+		if second_jump:
+			second_jump = false
+			match jump_type:
+				"double_1":
+					SM_condition(two_jump_1)
+				"double_2":
+					SM_condition(two_jump_2)
+				_:
+					print("a algo le pele")
+		else:
+			SM_condition(two_jump)
+			jump_type = "double"
+	elif 0.66 < path and path <= 1:
 		SM_condition(special_jump)
 		jump_type = "special"
 		scratch_secuence = 0
@@ -104,12 +111,19 @@ func jump()->void:
 	JUMP_HEIGHT = 320 - (5*16) - 95
 	JUMP_TTRISE = 0.5
 	JUMP_TTFALL = 0.5
+	var second_jump = ["double_1", "double_2"]
 	velocity.y = JUMP_VELOCITY
 	jumping = true
 	match jump_type:
 		"single":
 			velocity.x = (RUN_SPEED * direction)-10
 		"double":
+			velocity.x = ((RUN_SPEED * direction)-20) / 2
+			jump_type = second_jump.pick_random()
+			second_jump = true
+		"double_1":
+			velocity.x = -((RUN_SPEED * direction)-20) / 2
+		"double_2":
 			velocity.x = ((RUN_SPEED * direction)-20) / 2
 		"special":
 			velocity.x = ((RUN_SPEED * direction)-20) / 2
@@ -232,12 +246,12 @@ func sprite_redirection() -> void:
 			direction *= -1
 
 	if direction < 0:
-		$hurtbox.scale.x = -1
+		$collision.scale.x = -1
 		$hitbox.scale.x = -1
 		$animations.scale.x = -1
 		$terraincollision.scale.x = -1
 	elif direction >= 0:
-		$hurtbox.scale.x = 1
+		$collision.scale.x = 1
 		$hitbox.scale.x = 1
 		$animations.scale.x = 1
 		$terraincollision.scale.x = 1

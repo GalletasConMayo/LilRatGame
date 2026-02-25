@@ -782,4 +782,4 @@ position = Vector2(430, 244)
 position = Vector2(622, 241)
 
 [node name="Calcetin" parent="." instance=ExtResource("6_fy65o")]
-position = Vector2(59, 220)
+position = Vector2(125, 233)

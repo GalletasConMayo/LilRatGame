@@ -39,7 +39,7 @@ func take_damage(damage: int, direction:float):
 	$"../timers/ControlAfterDamage".start()
 	#screen shake
 	IFrames()
-	player.move_x(500 * direction, 0)
+	player.move_x(500 * direction)
 	player.velocity.y = -120
 	flash_white()
 
